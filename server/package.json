@@ -7,8 +7,15 @@
     "declarations": true
   },
   "dependencies": {
+    "bcrypt": "^3.0.7",
     "egg": "^2.15.1",
-    "egg-scripts": "^2.11.0"
+    "egg-cors": "^2.2.3",
+    "egg-jwt": "^3.1.7",
+    "egg-mysql": "^3.0.0",
+    "egg-scripts": "^2.11.0",
+    "egg-sequelize": "^5.2.1",
+    "mysql": "^2.17.1",
+    "mysql2": "^2.1.0"
   },
   "devDependencies": {
     "autod": "^3.0.1",
