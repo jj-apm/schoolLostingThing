@@ -31,6 +31,31 @@ module.exports = appInfo => {
         secret: "1431105276@qq.com" //自定义 token 的加密条件字符串
     };
 
+    //暂时关闭crsf验证
+    config.security = {
+        csrf: {
+            enable: false,
+            ignoreJSON: true
+        },
+        domainWhiteList: ['http://127.0.0.1:7001', 'http://127.0.0.1:7002']
+    };
+
+    //跨域配置
+    config.cors = {
+        origin: 'http://127.0.0.1:7001',
+        allowMethods: 'GET,HEAD,PUT,POST,DELETE,PATCH',
+        credentials: true
+    };
+    //中间件配置
+    config.middleware = ['token'];
+    config.token = {
+        enable: true,
+        match: ['/admin/userInfo', '/user/userInfo'], // 只匹配指定路由，反之如果只忽略指定路由，可以用ignore
+        // ignore: ['/user/login', '/user/registor', '/user/reset', '/verify', '/category'] //不要与match一起使用，避免冲突
+    }
+
+
+
 
     // add your user config here
     const userConfig = {

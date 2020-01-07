@@ -1,9 +1,9 @@
 'use strict';
 const Controller = require('egg').Controller;
-class AdminController extends Controller {
+class UserController extends Controller {
     async register() {
         const { ctx } = this
-        let result = await this.service.admin.register()
+        let result = await this.service.user.register()
         let { code, msg, res } = result
         if (code === 0) {
             ctx.body = {
@@ -19,7 +19,7 @@ class AdminController extends Controller {
         }
     }
     async login() {
-            let result = await this.service.admin.login()
+            let result = await this.service.user.login()
             const { ctx } = this
             let { code, msg } = result
             if (code === 0) {
@@ -27,11 +27,10 @@ class AdminController extends Controller {
                     data: result.data
                 }, this.app.config.jwt.secret, { expiresIn: '0.5h' });
                 ctx.body = {
-                        code,
-                        msg: result.data.aname + msg,
-                        token: 'Bearer ' + token
-                    }
-                    // })
+                    code,
+                    msg: result.data.username + msg,
+                    token: 'Bearer ' + token
+                }
             } else {
                 ctx.body = {
                     code,
@@ -47,10 +46,10 @@ class AdminController extends Controller {
             message: '获取用户信息成功!',
             data: {
                 'id': ctx.payload.data.id,
-                'aname': ctx.payload.data.aname,
-                'aphone': ctx.payload.data.aphone
+                'username': ctx.payload.data.username,
+                'userphone': ctx.payload.data.userphone
             }
         }
     }
 }
-module.exports = AdminController
+module.exports = UserController
