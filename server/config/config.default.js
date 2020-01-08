@@ -30,6 +30,18 @@ module.exports = appInfo => {
     config.jwt = {
         secret: "1431105276@qq.com" //自定义 token 的加密条件字符串
     };
+    config.mysql = {
+        client: {
+            host: '127.0.0.1',
+            port: '3306',
+            user: 'root',
+            password: 'jjj@669688',
+            database: 'lost_thing',
+        },
+        app: true,
+        agent: false,
+    };
+
 
     //暂时关闭crsf验证
     config.security = {

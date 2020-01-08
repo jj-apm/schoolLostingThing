@@ -57,7 +57,6 @@ class AdminService extends Service {
                     msg: '登录成功',
                     data: result
                 }
-
             } else {
                 return {
                     code: 2,

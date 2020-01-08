@@ -51,5 +51,14 @@ class UserController extends Controller {
             }
         }
     }
+    async resetPassword() {
+        let result = await this.service.user.resetPassword()
+        let { msg, code } = result
+        return this.ctx.body = {
+            code,
+            msg
+        }
+
+    }
 }
 module.exports = UserController

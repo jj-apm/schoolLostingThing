@@ -1,5 +1,6 @@
 'use strict';
 const Service = require('egg').Service;
+const bcrypt = require('bcrypt')
 class UserService extends Service {
     async register() {
         let { username, userpassword, stu_num, userphone } = this.ctx.request.body
@@ -14,8 +15,8 @@ class UserService extends Service {
                 msg: '用户名已被注册'
             }
         } else {
-
-            return await this.app.model.User.create({ username, userpassword, stu_num, userphone }).then(res => {
+            const hash = bcrypt.hashSync(userpassword, 10);
+            return await this.app.model.User.create({ username, userpassword: hash, stu_num, userphone }).then(res => {
                 if (res) {
                     return {
                         code: 0,
@@ -48,7 +49,8 @@ class UserService extends Service {
                 msg: '该学号不存在'
             }
         } else {
-            if (userpassword == result.userpassword) {
+            let isMatch = bcrypt.compareSync(userpassword, result.userpassword)
+            if (isMatch) {
                 return {
                     code: 0,
                     msg: '登录成功',
@@ -61,6 +63,32 @@ class UserService extends Service {
                 }
             }
         }
+    }
+    async resetPassword() {
+        let { stu_num, userpassword } = this.ctx.request.body
+        let result = await this.app.model.User.findOne({
+            where: {
+                stu_num
+            }
+        })
+        if (result) {
+            const hash = bcrypt.hashSync(userpassword, 10);
+            let result_reset = await this.app.mysql.update('users', { userpassword: hash }, { where: { stu_num } });
+            console.log(result_reset);
+
+            if (result_reset.changedRows === 1) {
+                return {
+                    code: 0,
+                    msg: '密码重置成功'
+                }
+            } else {
+                return {
+                    code: 1,
+                    msg: '重置密码失败!'
+                }
+            }
+        }
+
     }
 
 }
