@@ -1,25 +1,29 @@
 'user strict'
 
 module.exports = app => {
-    const { STRING, INTEGER } = app.Sequelize;
+    const { STRING, INTEGER, DATE, NOW, TEXT } = app.Sequelize;
 
-    const Admin = app.model.define("admins", {
+    const Clue = app.model.define("clue", {
             id: {
                 type: INTEGER,
                 primaryKey: true,
                 autoIncrement: true,
                 allowNull: false,
             },
-            aname: {
-                type: STRING(255),
+            cid: {
+                type: INTEGER,
                 allowNull: false
             },
-            apassword: {
-                type: STRING(255),
+            content: {
+                type: TEXT,
                 allowNull: false
             },
-            aphone: {
-                type: STRING(255),
+            date: {
+                type: DATE,
+                defaultValue: NOW
+            },
+            cuser_id: {
+                type: INTEGER,
                 allowNull: false,
             }
         }, {
@@ -28,11 +32,13 @@ module.exports = app => {
             freezeTableName: true // 禁止修改表名，默认情况下，sequelize将自动将所有传递的模型名称（define的第一个参数）转换为复数
                 // 但是为了安全着想，复数的转换可能会发生变化，所以禁止该行为
         })
-        // Admin.associate = function() {
-        //     // 与User存在一对多关系，所以是hasOne()
-        //     app.model.Admin.hasMany(app.model.User, { foreignKey: 'auser_id', targetKey: 'id' });
-        //     // 与Argument存在一对多关系，所以使用belongsTo()
-        //     app.model.Admin.hasMany(app.model.Argument, { foreignKey: 'aid', targetKey: 'id' });
-        // }
-    return Admin;
+        // Clue.associate = function() {
+        //     // 与User存在多对一关系，所以是hasOne()
+        //     app.model.Clue.belongsTo(app.model.User, { foreignKey: 'cuser_id', targetKey: 'id' });
+        //     // 与Kind存在多对一关系，所以是hasOne()
+        //     app.model.Clue.belongsTo(app.model.Lost, { foreignKey: 'cid', targetKey: 'id' });
+
+    // }
+
+    return Clue;
 };

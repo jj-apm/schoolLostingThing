@@ -3,24 +3,16 @@
 module.exports = app => {
     const { STRING, INTEGER } = app.Sequelize;
 
-    const Admin = app.model.define("admins", {
+    const Kind = app.model.define("kind", {
             id: {
                 type: INTEGER,
                 primaryKey: true,
                 autoIncrement: true,
                 allowNull: false,
             },
-            aname: {
+            name: {
                 type: STRING(255),
                 allowNull: false
-            },
-            apassword: {
-                type: STRING(255),
-                allowNull: false
-            },
-            aphone: {
-                type: STRING(255),
-                allowNull: false,
             }
         }, {
             underscored: true, //使用下划线，自动添加的字段会在数据段中使用“蛇型命名”规则
@@ -28,11 +20,11 @@ module.exports = app => {
             freezeTableName: true // 禁止修改表名，默认情况下，sequelize将自动将所有传递的模型名称（define的第一个参数）转换为复数
                 // 但是为了安全着想，复数的转换可能会发生变化，所以禁止该行为
         })
-        // Admin.associate = function() {
+        // Kind.associate = function() {
         //     // 与User存在一对多关系，所以是hasOne()
-        //     app.model.Admin.hasMany(app.model.User, { foreignKey: 'auser_id', targetKey: 'id' });
+        //     app.model.Kind.hasMany(app.model.Lost, { foreignKey: 'lkind_id', targetKey: 'id' });
         //     // 与Argument存在一对多关系，所以使用belongsTo()
-        //     app.model.Admin.hasMany(app.model.Argument, { foreignKey: 'aid', targetKey: 'id' });
+        //     app.model.Kind.hasMany(app.model.Found, { foreignKey: 'fkind_id', targetKey: 'id' });
         // }
-    return Admin;
+    return Kind;
 };
