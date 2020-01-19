@@ -1,7 +1,7 @@
 <template>
     <div class="home">
         <div class="container">
-          <h1>这是失物招领系统界面</h1>
+          <h1>这是管理员界面</h1>
         </div>
     </div>
 </template>

@@ -3,33 +3,24 @@
 module.exports = app => {
     const { STRING, INTEGER, BOOLEAN } = app.Sequelize;
 
-    const User = app.model.define("users", {
+    const Claim = app.model.define("claim", {
         id: {
             type: INTEGER,
             primaryKey: true,
             autoIncrement: true,
             allowNull: false,
         },
-        username: {
-            type: STRING(255),
-            allowNull: false
-        },
-        password: {
+        name: {
             type: STRING(255),
             allowNull: false
         },
         phone: {
-            type: STRING(255),
-            allowNull: false,
-        },
-        stu_num: {
-            type: STRING(255),
-            allowNull: false,
-        },
-        status: {
             type: INTEGER,
-            allowNull: false,
-            defaultValue: 1
+            allowNull: false
+        },
+        found_id: {
+            type: INTEGER,
+            allowNull: false
         },
         is_delete: {
             type: BOOLEAN,
@@ -42,9 +33,8 @@ module.exports = app => {
             // 但是为了安全着想，复数的转换可能会发生变化，所以禁止该行为
 
     })
-    User.associate = function() {
-        app.model.User.hasMany(app.model.Lost, { foreignKey: 'user_id', targetKey: 'id' });
-
+    Claim.associate = function() {
+        app.model.Claim.belongsTo(app.model.Found, { foreignKey: 'found_id', targetKey: 'id' });
     }
-    return User;
+    return Claim;
 };
