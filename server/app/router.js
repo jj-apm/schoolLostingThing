@@ -33,6 +33,9 @@ module.exports = app => {
     router.get('/claim/:id', controller.claim.findById);
     router.get('/claim/', controller.claim.find);
     router.delete('/claim/:id', controller.claim.delete);
+    router.post('/upload', controller.upload.uploadImg);
+    router.post('/upload/delete', controller.upload.deleteImg)
+    router.get('/verify/getVerCode', controller.verify.getVerCode)
 
 
 };

@@ -1,27 +1,99 @@
 <template>
-    <div class="home">
-        <div class="container">
-          <h1>这是管理员界面</h1>
-        </div>
-    </div>
+<div class="index">
+  <HeadNav></HeadNav>
+   <el-container style="height: 100vh; border: 1px solid #eee">
+  <el-aside width="200px" style="background-color: rgb(238, 241, 246)">
+    <el-menu router :default-openeds="['1', '3']" style="height:100%">
+      <el-menu-item index='0'>
+        <i class="iconfont"></i>
+        <span class="slot">首页</span>
+      </el-menu-item>
+      <el-submenu index="1">
+        <template slot="title"><i class="el-icon-message"></i>用户管理</template>
+        <el-menu-item-group>
+          <el-menu-item index="/users/list">用户列表</el-menu-item>
+        </el-menu-item-group>
+      </el-submenu>
+      <el-submenu index="2">
+        <template slot="title"><i class="el-icon-menu"></i>失物管理</template>
+         <el-menu-item-group>
+          <el-menu-item index="/lost/add">新建失物</el-menu-item>
+          <el-menu-item index="/lost/list">失物列表</el-menu-item>
+        </el-menu-item-group>
+      </el-submenu>
+      <el-submenu index="3">
+        <template slot="title"><i class="el-icon-setting"></i>招领管理</template>
+         <el-menu-item-group>
+          <el-menu-item index="/found/add">新建招领</el-menu-item>
+          <el-menu-item index="/found/list">招领列表</el-menu-item>
+        </el-menu-item-group>
+      </el-submenu>
+      <el-submenu index="4">
+        <template slot="title"><i class="el-icon-setting"></i>留言管理</template>
+         <el-menu-item-group>
+          <el-menu-item index="/clue/add">新建留言</el-menu-item>
+          <el-menu-item index="/clue/list">留言列表</el-menu-item>
+        </el-menu-item-group>
+      </el-submenu>
+      <el-submenu index="5">
+        <template slot="title"><i class="el-icon-setting"></i>认领管理</template>
+         <el-menu-item-group>
+          <el-menu-item index="claim/list">认领列表</el-menu-item>
+        </el-menu-item-group>
+      </el-submenu>
+      <el-submenu index="6">
+        <template slot="title"><i class="el-icon-setting"></i>分类管理</template>
+         <el-menu-item-group>
+           <el-menu-item index="/kind/add">新建分类</el-menu-item>
+          <el-menu-item index="/kind/list">分类列表</el-menu-item>
+        </el-menu-item-group>
+      </el-submenu>
+    </el-menu>
+  </el-aside>
+  
+  <el-container>   
+    <el-main>
+      <router-view></router-view>
+    </el-main>
+  </el-container>
+</el-container>
+</div>
 </template>
 
 <style>
-*{
-  margin: 0;
-  padding: 0;
-}
-.home {
+  .el-header {
+    background-color: #B3C0D1;
+    color: #333;
+    line-height: 60px;
+  }
+  .update{
+    width: 100%
+  }
+  .el-aside {
+    color: #333;
+  }
+  .index{
   width: 100%;
-  height: 100vh;
-  background: url(../assets/bg.jpg) no-repeat;
-  background-size: 100% 100%;
+  height: 100%;
+  /* overflow: auto; */
 }
-.container a {
-  display: inline-block;
-  right: 10px;
-  top: 20px;
-
-}
-
 </style>
+
+<script>
+import HeadNav from './HeadNav'
+  export default {
+    data() {
+      const item = {
+        date: '2016-05-02',
+        name: '王小虎',
+        address: '上海市普陀区金沙江路 1518 弄'
+      };
+      return {
+        tableData: Array(20).fill(item)
+      }
+    },
+    components: {
+      HeadNav
+    }
+  };
+</script>

@@ -35,7 +35,7 @@ class UserController extends Controller {
         }
     }
     async login() {
-        let { stu_num, password } = this.ctx.request.body
+        let { stu_num, password, verify_code } = this.ctx.request.body
         let { ctx } = this
         // ctx.set('Content-Type', 'application/json');
         let result = await this.app.model.User.findOne({
@@ -50,9 +50,14 @@ class UserController extends Controller {
             let isMatch = bcrypt.compareSync(password, result.password)
             if (isMatch) {
                 const token = this.app.jwt.sign({ result }, this.app.config.jwt.secret, { expiresIn: '10h' });
-                ctx.body = {
-                    msg: '登录成功',
-                    token: 'Bearer ' + token
+                if (verify_code.toLowerCase() != ctx.session.verify_code.toLowerCase()) {
+                    ctx.body = '验证码错误'
+                    ctx.status = 400
+                } else {
+                    ctx.body = {
+                        msg: '登录成功',
+                        token: 'Bearer ' + token
+                    }
                 }
             } else {
                 ctx.body = '密码错误'

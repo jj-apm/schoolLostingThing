@@ -3,12 +3,17 @@
         <section class="form_container">    
             <div class="manage_tip">
                 <span class="title">校园失物招领管理系统</span>
-                <el-form :model="loginUser" :rules="rules" ref="loginForm" label-width="60px" class="loginForm">
+                <el-form :model="loginUser" :rules="rules" ref="loginForm" label-width="80px" class="loginForm">
                      <el-form-item label="学号" prop="stu_num">
                         <el-input v-model="loginUser.stu_num" placeholder="请输入学号"></el-input>
                     </el-form-item>
                     <el-form-item label="密码" prop="password">
                         <el-input type='password' v-model="loginUser.password" placeholder="请输入密码"></el-input>
+                    </el-form-item>
+                    <el-form-item label="验证码" prop="verify_code">
+                        <el-input v-model="loginUser.verify_code" type="text" placeholder="请输入验证码"></el-input>
+                       <div class="valiate-area" id="valiate" ref="validate" @click="getValiateImg">
+                       </div>
                     </el-form-item>
                     <el-form-item>
                         <el-button type='primary' class="submit_btn" @click="submitForm('loginForm')">登录</el-button>
@@ -27,11 +32,15 @@ import jwt_decode from 'jwt-decode'
 
 export default {
     name:'login',
+    mounted () {
+        this.getValiateImg()
+    },
     data(){
         return{
             loginUser:{
                 stu_num:'',
                 password:'',
+                valiateWord:''
             },
             rules:{
                 stu_num:[
@@ -39,6 +48,9 @@ export default {
                 ],
                 password:[
                     {required:true,message:'密码不能为空',trigger:'blur'},
+                ],
+                verify_code:[
+                    {required:true,message:'验证码不能为空',trigger:'blur'},
                 ],
             }
         }
@@ -64,11 +76,16 @@ export default {
                             if(decode.result.status==0){
                                 this.$router.push('/admin')
                             }else{
-                                this.$router.push('/')
+                                this.$router.push('/index')
                             }
                             
                         })
                 }    
+            })
+        },
+        getValiateImg(){
+            this.$http.get('/api/verify/getVerCode').then(res=>{
+            this.$refs.validate.innerHTML=res.data;
             })
         },
         isEmpty(value){
@@ -93,12 +110,12 @@ export default {
 }
 .form_container {
   width: 370px;
-  height: 210px;
+  height: 250px;
   position: absolute;
-  top: 20%;
-  left: 34%;
+  top: 15%;
+  left: 32%;
   padding: 25px;
-  border-radius: 5px;
+  /* border-radius: 5px; */
   text-align: center;
 }
 .form_container .manage_tip .title {
@@ -117,7 +134,14 @@ export default {
 
 .submit_btn {
   width: 100%;
+  margin-left: -50px
 }
+.valiate-area{
+    margin-top: 10px;
+    width: 100px;
+    height: 40px;
+}
+
 .tiparea {
   text-align: right;
   font-size: 12px;

@@ -14,6 +14,10 @@ module.exports = app => {
             type: STRING(255),
             allowNull: false
         },
+        fphoto: {
+            type: STRING(255),
+            allowNull: true
+        },
         user_id: {
             type: INTEGER,
             allowNull: false

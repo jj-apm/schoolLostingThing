@@ -14,6 +14,10 @@ module.exports = app => {
             type: STRING(255),
             allowNull: false
         },
+        lphoto: {
+            type: STRING(255),
+            allowNull: true
+        },
         place: {
             type: STRING(255),
             allowNull: false
