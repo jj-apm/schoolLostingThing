@@ -10,6 +10,7 @@ class FoundController extends Controller {
         if (this.ctx.request.body.desc) foundField.desc = this.ctx.request.body.desc
         if (this.ctx.request.body.kind_id) foundField.kind_id = this.ctx.request.body.kind_id
         if (this.ctx.request.body.date) foundField.date = this.ctx.request.body.date
+        if (this.ctx.request.body.fphoto) foundField.fphoto = this.ctx.request.body.fphoto
         if (this.ctx.payload.result.id) foundField.user_id = this.ctx.payload.result.id
         try {
             const result = await this.ctx.model.Found.create(foundField)

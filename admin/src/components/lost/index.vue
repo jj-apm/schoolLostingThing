@@ -1,51 +1,54 @@
 <template>
   <div>
-    <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
-     <el-form-item label="活动名称" prop="name">
-       <el-input v-model="ruleForm.name"></el-input>
+    <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="80px" class="demo-ruleForm">
+     <el-form-item label="失物名称" prop="name">
+       <el-col :span="6">
+          <el-input v-model="ruleForm.name"></el-input>
+       </el-col> 
      </el-form-item>
-     <el-form-item label="活动区域" prop="region">
-       <el-select v-model="ruleForm.region" placeholder="请选择活动区域">
-         <el-option label="区域一" value="shanghai"></el-option>
-         <el-option label="区域二" value="beijing"></el-option>
+     <el-form-item label="失物分类" prop="kind_id">
+       <el-select v-model="ruleForm.kind_id" placeholder="请选择失物分类">
+         <el-option label="数码" value="1"></el-option>
+         <el-option label="文具用品" value="2"></el-option>
+         <el-option label="钱包" value="3"></el-option>
+         <el-option label="证件" value="4"></el-option>
+         <el-option label="卡类" value="5"></el-option>
+         <el-option label="钥匙" value="6"></el-option>
+         <el-option label="衣物" value="7"></el-option>
+         <el-option label="手机" value="8"></el-option>
+         <el-option label="首饰/配饰" value="9"></el-option>
+         <el-option label="书本" value="10"></el-option>
        </el-select>
      </el-form-item>
-     <el-form-item label="活动时间" required>
-       <el-col :span="11">
-         <el-form-item prop="date1">
-           <el-date-picker type="date" placeholder="选择日期" v-model="ruleForm.date1" style="width: 100%;"></el-date-picker>
-         </el-form-item>
-       </el-col>
-       <el-col class="line" :span="2">-</el-col>
-       <el-col :span="11">
-         <el-form-item prop="date2">
-           <el-time-picker placeholder="选择时间" v-model="ruleForm.date2" style="width: 100%;"></el-time-picker>
-         </el-form-item>
+     <el-form-item label="丢失地点" prop="place">
+       <el-col :span="6">
+          <el-input v-model="ruleForm.place"></el-input>
        </el-col>
      </el-form-item>
-     <el-form-item label="即时配送" prop="delivery">
-       <el-switch v-model="ruleForm.delivery"></el-switch>
+     <el-form-item label="丢失时间" prop="date">
+       <el-col :span="5">
+           <el-date-picker type="date" placeholder="选择日期" v-model="ruleForm.date" style="width: 100%;"></el-date-picker>
+       </el-col>
      </el-form-item>
-     <el-form-item label="活动性质" prop="type">
-       <el-checkbox-group v-model="ruleForm.type">
-         <el-checkbox label="美食/餐厅线上活动" name="type"></el-checkbox>
-         <el-checkbox label="地推活动" name="type"></el-checkbox>
-         <el-checkbox label="线下主题活动" name="type"></el-checkbox>
-         <el-checkbox label="单纯品牌曝光" name="type"></el-checkbox>
-       </el-checkbox-group>
+     <el-form-item label="失物描述" prop="desc">
+       <el-col :span="16">
+          <el-input type="textarea" v-model="ruleForm.desc" :rows="6"></el-input>
+       </el-col>
      </el-form-item>
-     <el-form-item label="特殊资源" prop="resource">
-       <el-radio-group v-model="ruleForm.resource">
-         <el-radio label="线上品牌商赞助"></el-radio>
-         <el-radio label="线下场地免费"></el-radio>
-       </el-radio-group>
-     </el-form-item>
-     <el-form-item label="活动形式" prop="desc">
-       <el-input type="textarea" v-model="ruleForm.desc"></el-input>
+     <el-form-item label="上传图片" prop="lphoto">
+        <el-upload
+         class="avatar-uploader"
+         action="/api/upload"
+         :show-file-list="false"
+         :on-success="handleAvatarSuccess"  
+         :before-upload="beforeAvatarUpload"
+         :on-remove="handleRemove">
+         <img v-if="ruleForm.lphoto" :src="ruleForm.lphoto" class="avatar">
+         <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+       </el-upload>
      </el-form-item>
      <el-form-item>
-       <el-button type="primary" @click="submitForm('ruleForm')">立即创建</el-button>
-       <el-button @click="resetForm('ruleForm')">重置</el-button>
+       <el-button type="primary" @click="submitForm('ruleForm')">提交发布信息</el-button>
      </el-form-item>
     </el-form>
   </div>
@@ -53,39 +56,33 @@
 <script>
 export default{
      data() {
-      return {
+      return { 
+        editorOption: {} ,
         ruleForm: {
           name: '',
-          region: '',
-          date1: '',
-          date2: '',
-          delivery: false,
-          type: [],
-          resource: '',
-          desc: ''
+          kind_id: '',
+          place:'',
+          date: '',
+          desc: '',
+          lphoto:''
         },
         rules: {
           name: [
-            { required: true, message: '请输入活动名称', trigger: 'blur' },
-            { min: 3, max: 5, message: '长度在 3 到 5 个字符', trigger: 'blur' }
+            {required: true, message: '请输入丢失物品名称', trigger: 'blur' },
+            { min: 1, max: 10, message: '长度在 1 到 10 个字符', trigger: 'blur' }
           ],
-          region: [
-            { required: true, message: '请选择活动区域', trigger: 'change' }
+          kind_id: [
+            { required: true, message: '请选择分类名称', trigger: 'change' }
           ],
-          date1: [
-            { type: 'date', required: true, message: '请选择日期', trigger: 'change' }
+          date: [
+            {required: true, type: 'date', required: true, message: '请选择日期', trigger: 'change' }
           ],
-          date2: [
-            { type: 'date', required: true, message: '请选择时间', trigger: 'change' }
-          ],
-          type: [
-            { type: 'array', required: true, message: '请至少选择一个活动性质', trigger: 'change' }
-          ],
-          resource: [
-            { required: true, message: '请选择活动资源', trigger: 'change' }
+          place:[
+            {required: true, message:'请输入丢失地点',trigger:'blur'},
+            { min: 3, max: 10, message: '长度在 3 到 10 个字符', trigger: 'blur' }
           ],
           desc: [
-            { required: true, message: '请填写活动形式', trigger: 'blur' }
+            { required: true, message: '请填写失物描述', trigger: 'blur' }
           ]
         }
       };
@@ -94,18 +91,71 @@ export default{
       submitForm(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
-            alert('submit!');
-          } else {
-            console.log('error submit!!');
-            return false;
+           this.$http.post('/api/lost/add',this.ruleForm).then(res=>{
+             this.$message({
+               message:'信息提交成功',
+               type:'success'
+             })   
+           })
+          }else{
+            this.$message({
+              message:'请输入所有信息',
+              type:'warning'
+            })
           }
         });
       },
-      resetForm(formName) {
-        this.$refs[formName].resetFields();
+       handleAvatarSuccess(res) {
+        if (res.code===0){
+             this.ruleForm.lphoto= res.url;
+           }else {
+             this.$message.error(res.message);
+           }
+      },
+      beforeAvatarUpload(file) {
+        const isLt2M = file.size / 1024 / 1024 < 2;
+        if (!isLt2M) {
+          this.$message.error('上传图片大小不能超过 2MB!');
+        }
+        return isLt2M;
+      },
+      handleRemove(file, fileList) {
+        if (!file.url){
+             const url=file.response.url;
+             this.$http.post('/api/upload/delete',url).then(res=>{
+               if (res.code===0){
+                 this.ruleForm.lphoto='';
+                 return;
+               }           
+               this.$message.error(res.message);
+             })
+           }
       }
-    }
+    },
 }
 </script>
-<style scoped>
+<style>
+.avatar-uploader .el-upload {
+    border: 1px dashed #d9d9d9;
+    border-radius: 6px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+  }
+  .avatar-uploader .el-upload:hover {
+    border-color: #409EFF;
+  }
+  .avatar-uploader-icon {
+    font-size: 28px;
+    color: #8c939d;
+    width: 178px;
+    height: 178px;
+    line-height: 178px !important;
+    text-align: center;
+  }
+  .avatar {
+    width: 178px;
+    height: 178px;
+    display: block;
+  }
 </style>

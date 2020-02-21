@@ -51,8 +51,13 @@ module.exports = appInfo => {
         },
         domainWhiteList: ['http://127.0.0.1:7001', 'http://127.0.0.1:7002']
     };
+    // 上传文件配置
+    config.multipart = {
+        mode: 'stream',
+        fileSize: '500kb',
+    };
 
-    //跨域配置
+    // 跨域配置
     // config.cors = {
     //     origin: 'http://127.0.0.1:8080',
     //     allowMethods: 'GET,HEAD,PUT,POST,DELETE,PATCH',

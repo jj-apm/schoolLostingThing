@@ -11,6 +11,7 @@ class LostController extends Controller {
         if (this.ctx.request.body.others) lostField.others = this.ctx.request.body.others
         if (this.ctx.request.body.kind_id) lostField.kind_id = this.ctx.request.body.kind_id
         if (this.ctx.request.body.date) lostField.date = this.ctx.request.body.date
+        if (this.ctx.request.body.lphoto) lostField.lphoto = this.ctx.request.body.lphoto
         if (this.ctx.payload.result.id) lostField.user_id = this.ctx.payload.result.id
         try {
             const result = await this.ctx.model.Lost.create(lostField)
