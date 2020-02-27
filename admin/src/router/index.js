@@ -5,6 +5,8 @@ import Register from '../views/Register.vue'
 import AdminHome from '../views/AdminHome.vue'
 import KindAdd from '../components/kind/KindAdd'
 import KindList from '../components/kind/KindList'
+import LostDetail from '../components/lostDetail'
+import FoundDetail from '../components/foundDetail'
 import Home from '../views/Home'
 import Index from '../components/Index'
 import Lost from '../components/Lost'
@@ -42,6 +44,14 @@ const routes = [{
             { path: '/kind/add', component: KindAdd },
             { path: '/kind/list', component: KindList }
         ]
+    },
+    {
+        path: '/lostDetail',
+        component: LostDetail
+    },
+    {
+        path: '/foundDetail',
+        component: FoundDetail
     }
 ]
 

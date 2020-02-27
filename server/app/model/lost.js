@@ -38,6 +38,10 @@ module.exports = app => {
             type: INTEGER,
             allowNull: false
         },
+        type: {
+            type: STRING,
+            defaultValue: '寻物'
+        },
         status: {
             type: INTEGER,
             allowNull: false,
@@ -71,6 +75,7 @@ module.exports = app => {
     Lost.associate = function() {
         app.model.Lost.belongsTo(app.model.Kind, { foreignKey: 'kind_id', targetKey: 'id' });
         app.model.Lost.hasMany(app.model.Clue, { foreignKey: 'lost_id', targetKey: 'id' });
+        app.model.Lost.belongsTo(app.model.User, { foreignKey: 'user_id', targetKey: 'id' })
     }
     return Lost;
 };

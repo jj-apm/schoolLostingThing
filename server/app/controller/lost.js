@@ -22,18 +22,38 @@ class LostController extends Controller {
 
     }
     async findById() {
-        let { id } = this.ctx.params
+        let { id } = this.ctx.query
         try {
             let result = await this.ctx.model.Lost.findOne({
                 where: {
                     id
-                }
+                },
+                include: [{
+                    model: this.ctx.model.User
+                }, {
+                    model: this.ctx.model.Kind
+                }]
             })
             if (!result) {
                 this.ctx.status = 400
                 this.ctx.body = "查找失败"
             } else {
-                this.ctx.body = result
+                let total = []
+                result.map((item, idx) => {
+                    let everyItem = {}
+                    everyItem.id = item.id
+                    everyItem.name = item.name
+                    everyItem.desc = item.desc
+                    everyItem.lphoto = item.lphoto
+                    everyItem.date = item.date
+                    everyItem.place = item.place
+                    everyItem.userName = item.user.username
+                    everyItem.kindName = item.kind.name
+                    everyItem.status = item.status
+                    everyItem.type = item.type
+                    total.push(everyItem)
+                })
+                this.ctx.body = total
             }
         } catch (e) {
             this.ctx.throw(e)
@@ -41,12 +61,33 @@ class LostController extends Controller {
     }
     async find() {
         try {
-            let result = await this.ctx.model.Lost.findAll()
+            let result = await this.ctx.model.Lost.findAll({
+                include: [{
+                    model: this.ctx.model.User
+                }, {
+                    model: this.ctx.model.Kind
+                }]
+            })
             if (!result) {
                 this.ctx.status = 400
                 this.ctx.body = "查找失败"
             } else {
-                this.ctx.body = result
+                let total = []
+                result.map((item, idx) => {
+                    let everyItem = {}
+                    everyItem.id = item.id
+                    everyItem.name = item.name
+                    everyItem.desc = item.desc
+                    everyItem.lphoto = item.lphoto
+                    everyItem.date = item.date
+                    everyItem.place = item.place
+                    everyItem.userName = item.user.username
+                    everyItem.kindName = item.kind.name
+                    everyItem.status = item.status
+                    everyItem.type = item.type
+                    total.push(everyItem)
+                })
+                this.ctx.body = total
             }
         } catch (e) {
             this.ctx.throw(e)

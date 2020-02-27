@@ -44,6 +44,7 @@ module.exports = app => {
     })
     User.associate = function() {
         app.model.User.hasMany(app.model.Lost, { foreignKey: 'user_id', targetKey: 'id' });
+        app.model.User.hasMany(app.model.Found, { foreignKey: 'user_id', targetKey: 'id' });
 
     }
     return User;
