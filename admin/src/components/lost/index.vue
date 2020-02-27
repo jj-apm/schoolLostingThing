@@ -54,6 +54,7 @@
   </div>
 </template>
 <script>
+import { log } from 'util';
 export default{
      data() {
       return { 
@@ -79,7 +80,7 @@ export default{
           ],
           place:[
             {required: true, message:'请输入丢失地点',trigger:'blur'},
-            { min: 3, max: 10, message: '长度在 3 到 10 个字符', trigger: 'blur' }
+            { min: 3, max: 15, message: '长度在 3 到 15 个字符', trigger: 'blur' }
           ],
           desc: [
             { required: true, message: '请填写失物描述', trigger: 'blur' }
@@ -93,9 +94,11 @@ export default{
           if (valid) {
            this.$http.post('/api/lost/add',this.ruleForm).then(res=>{
              this.$message({
-               message:'信息提交成功',
+               message:'信息提交成功',  
                type:'success'
              })   
+           }).catch(e=>{
+             console.log(e); 
            })
           }else{
             this.$message({
@@ -113,9 +116,9 @@ export default{
            }
       },
       beforeAvatarUpload(file) {
-        const isLt2M = file.size / 1024 / 1024 < 2;
+        const isLt2M = file.size / 1024 / 1024 < 5;
         if (!isLt2M) {
-          this.$message.error('上传图片大小不能超过 2MB!');
+          this.$message.error('上传图片大小不能超过 5MB!');
         }
         return isLt2M;
       },

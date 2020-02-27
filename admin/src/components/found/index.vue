@@ -79,7 +79,7 @@ export default{
           ],
           place:[
             {required: true, message:'请输入拾取地点',trigger:'blur'},
-            { min: 3, max: 10, message: '长度在 3 到 10 个字符', trigger: 'blur' }
+            { min: 3, max: 15, message: '长度在 3 到 15 个字符', trigger: 'blur' }
           ],
           desc: [
             { required: true, message: '请填写拾物描述', trigger: 'blur' }
@@ -113,9 +113,9 @@ export default{
            }
       },
       beforeAvatarUpload(file) {
-        const isLt2M = file.size / 1024 / 1024 < 2;
+        const isLt2M = file.size / 1024 / 1024 < 4;
         if (!isLt2M) {
-          this.$message.error('上传图片大小不能超过 2MB!');
+          this.$message.error('上传图片大小不能超过 4MB!');
         }
         return isLt2M;
       },

@@ -54,15 +54,15 @@ module.exports = appInfo => {
     // 上传文件配置
     config.multipart = {
         mode: 'stream',
-        fileSize: '500kb',
+        fileSize: '5mb',
     };
 
     // 跨域配置
-    // config.cors = {
-    //     origin: 'http://127.0.0.1:8080',
-    //     allowMethods: 'GET,HEAD,PUT,POST,DELETE,PATCH',
-    //     credentials: true
-    // };
+    config.cors = {
+        origin: 'http://127.0.0.1:8080',
+        allowMethods: 'GET,HEAD,PUT,POST,DELETE,PATCH',
+        credentials: true
+    };
     //中间件配置
     config.middleware = ['token'];
     config.token = {

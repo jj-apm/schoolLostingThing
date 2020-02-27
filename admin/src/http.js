@@ -22,7 +22,6 @@ axios.interceptors.request.use(config => {
         //设置统一请求头
         config.headers.Authorization = localStorage.eleToken
     }
-
     return config;
 }, error => { return Promise.reject(error) })
 
@@ -35,13 +34,15 @@ axios.interceptors.response.use(response => {
 }, error => {
     endLoading();
     Message.error(error.response.data);
+
     //获取错误状态码
     const { status } = error.response
+    console.log(status);
     if (status == 401) {
         Message.error('token失效，请重新登录')
             //清楚token
         localStorage.removeItem('eleToken')
-        router.push('/login ')
+        router.push('/login')
     }
 
     return Promise.reject(error)

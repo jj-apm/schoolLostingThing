@@ -21,10 +21,8 @@ module.exports = (options, app) => {
             }
         } catch (e) {
             if (e.name == "TokenExpiredError") {
-                ctx.body = {
-                    code: 8,
-                    message: "登录信息已过期，请重新登录！"
-                }
+                ctx.body = "登录信息已过期，请重新登录！"
+                ctx.status = 401
             } else {
                 ctx.body = {
                     code: 9,

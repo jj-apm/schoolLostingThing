@@ -36,6 +36,7 @@ class UserController extends Controller {
     }
     async login() {
         let { stu_num, password, verify_code } = this.ctx.request.body
+            // let { stu_num, password } = this.ctx.request.body
         let { ctx } = this
         // ctx.set('Content-Type', 'application/json');
         let result = await this.app.model.User.findOne({

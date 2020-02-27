@@ -8,7 +8,7 @@
          <p class="name">{{user.result.username}}</p>
         </div> 
        </el-header>
-       <el-menu  class="el-menu-demo" mode="horizontal" router>
+       <el-menu class="el-menu-demo" mode="horizontal" router>
          <el-menu-item index="/index">首页</el-menu-item>
          <el-menu-item index="/lost">寻物启事</el-menu-item>
          <el-menu-item index="/found">招领启事</el-menu-item>
@@ -18,8 +18,7 @@
        <el-main>
          <section class="sec1"><img src="../assets/post1.jpeg" alt=""></section>
         <router-view></router-view>
-        </el-main>
-        
+        </el-main>  
        <el-footer>Footer</el-footer>
       </el-container>
       </div>
@@ -49,8 +48,8 @@ export default{
     background-color: #B3C0D1;
     color: #333;
     text-align: center;
-    height: 40px !important;
-    line-height: 40px;
+    height: 30px !important;
+    line-height: 30px;
   }
 .el-main {
     background-color: #E9EEF3;
@@ -68,15 +67,15 @@ body > .el-container {
 .head{
     display: flex;
     width:100%;
-    height:40px;
+    height:30px;
     justify-content: space-between;
 }   
 .head .title, .head .name{
     vertical-align: middle;
-    font-size: 24px;
+    font-size: 16px;
     font-family: "Microsoft YaHei";
     letter-spacing: 1px;
-    line-height: 40px;
+    line-height: 30px;
 }
 .head .name{
     margin-right: 10px;
@@ -95,7 +94,9 @@ body > .el-container {
 .el-menu-item{
     font-size: 20px;
 }
-.el-menu--horizontal>.el-menu-item {
+.el-menu--horizontal>.el-menu-item { 
+    height: 50px;
+    line-height: 50px;
     margin: 0 30px 0 30px;
 }
 </style>
