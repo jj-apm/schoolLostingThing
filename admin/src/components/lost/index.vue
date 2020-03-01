@@ -45,7 +45,7 @@
          :on-remove="handleRemove">
          <img v-if="ruleForm.lphoto" :src="ruleForm.lphoto" class="avatar">
          <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-       </el-upload>
+       </el-upload> 
      </el-form-item>
      <el-form-item>
        <el-button type="primary" @click="submitForm('ruleForm')">提交发布信息</el-button>

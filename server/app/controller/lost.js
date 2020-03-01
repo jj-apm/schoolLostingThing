@@ -38,21 +38,17 @@ class LostController extends Controller {
                 this.ctx.status = 400
                 this.ctx.body = "查找失败"
             } else {
-                let total = []
-                result.map((item, idx) => {
-                    let everyItem = {}
-                    everyItem.id = item.id
-                    everyItem.name = item.name
-                    everyItem.desc = item.desc
-                    everyItem.lphoto = item.lphoto
-                    everyItem.date = item.date
-                    everyItem.place = item.place
-                    everyItem.userName = item.user.username
-                    everyItem.kindName = item.kind.name
-                    everyItem.status = item.status
-                    everyItem.type = item.type
-                    total.push(everyItem)
-                })
+                let total = {}
+                total.name = result.name
+                total.desc = result.desc
+                total.date = result.date
+                total.lphoto = result.lphoto
+                total.status = result.status
+                total.kindName = result.kind.name
+                total.userName = result.user.username
+                total.phone = result.user.phone
+                total.id = result.id
+                total.place = result.place
                 this.ctx.body = total
             }
         } catch (e) {

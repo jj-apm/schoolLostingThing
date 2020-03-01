@@ -15,7 +15,7 @@ module.exports = app => {
             allowNull: false
         },
         phone: {
-            type: INTEGER,
+            type: STRING(255),
             allowNull: false
         },
         found_id: {

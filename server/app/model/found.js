@@ -52,8 +52,12 @@ module.exports = app => {
                         return '未认领'
                         break;
                     case 2:
+                        return '认领中'
+                        break;
+                    case 3:
                         return '已认领'
                         break;
+
                 }
             }
         },

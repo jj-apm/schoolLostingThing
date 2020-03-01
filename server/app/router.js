@@ -14,12 +14,12 @@ module.exports = app => {
     router.post('/lost/:id', controller.lost.update);
     router.delete('/lost/:id', controller.lost.delete);
     router.get('/lost', controller.lost.find);
-    router.get('/lost/:id', controller.lost.findById);
+    router.get('/lostById', controller.lost.findById);
     router.post('/found/add', controller.found.add);
-    router.post('/found/:id', controller.found.update);
+    router.post('/found/update/:id', controller.found.update);
     router.delete('/found/:id', controller.found.delete);
     router.get('/found', controller.found.find);
-    router.get('/found/:id', controller.found.findById);
+    router.get('/foundById', controller.found.findById);
     router.post('/kind/add', controller.kind.add);
     router.post('/kind/:id', controller.kind.update);
     router.delete('/kind/:id', controller.kind.delete);

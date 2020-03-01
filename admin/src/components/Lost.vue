@@ -1,7 +1,7 @@
 <template>
 <div>
   <div class="page-cate-title">
-      <span class="title-text">最新失物招领启事</span>
+      <span class="title-text">失物启事列表</span>
     </div>
      <el-table
     :data="tableData"
@@ -23,7 +23,8 @@
       class-name="click"
       >
       <template slot-scope="scope">
-          <span style="color:#f56767" @click="handleClick(scope.$index, scope.row)">{{ scope.row.name }}</span>
+          <el-link @click="handleClick(scope.$index, scope.row)" >{{ scope.row.name }}</el-link>
+          <!-- <span style="color:#f56767" @click="handleClick(scope.$index, scope.row)">{{ scope.row.name }}</span> -->
           </template>
     </el-table-column>
     <el-table-column
@@ -46,7 +47,8 @@ import { log } from 'util'
  export default {
     data() {
       return {
-      tableData: []
+      tableData: [],
+      message:'123'
       }
     },
     methods:{

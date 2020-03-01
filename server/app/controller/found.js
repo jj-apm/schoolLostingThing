@@ -26,13 +26,29 @@ class FoundController extends Controller {
             let result = await this.ctx.model.Found.findOne({
                 where: {
                     id
-                }
+                },
+                include: [{
+                    model: this.ctx.model.User
+                }, {
+                    model: this.ctx.model.Kind
+                }]
             })
             if (!result) {
                 this.ctx.status = 400
                 this.ctx.body = "查找失败"
             } else {
-                this.ctx.body = result
+                let total = {}
+                total.name = result.name
+                total.desc = result.desc
+                total.date = result.date
+                total.lphoto = result.lphoto
+                total.status = result.status
+                total.kindName = result.kind.name
+                total.userName = result.user.username
+                total.phone = result.user.phone
+                total.id = result.id
+                total.place = result.place
+                this.ctx.body = total
             }
         } catch (e) {
             this.ctx.throw(e)
