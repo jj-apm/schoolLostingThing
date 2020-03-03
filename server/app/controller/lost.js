@@ -56,12 +56,16 @@ class LostController extends Controller {
         }
     }
     async find() {
-        try {
-            let result = await this.ctx.model.Lost.findAll({
-                include: [{
-                    model: this.ctx.model.User
-                }, {
-                    model: this.ctx.model.Kind
+        const {pageSize,currentPage}=this.ctx.query
+            try{
+                const offset=(currentPage-1)*pageSize;
+                const limit=parseInt(pageSize);
+                let total=await this.app.model.Lost.count();
+                let result=await this.app.model.Lost.findAll({
+                    include: [{
+                        model: this.ctx.model.User
+                    }, {
+                        model: this.ctx.model.Kind
                 }]
             })
             if (!result) {
