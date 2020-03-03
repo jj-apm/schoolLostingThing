@@ -18,7 +18,7 @@
     <el-table-column
       prop="name"
       label="信息标题"
-      width="100"
+      width="200"
       align="center"
       class-name="click"
       >
@@ -30,13 +30,13 @@
     <el-table-column
       prop="userName"
       label="联系人"
-      width="240"
+      width="190"
       align="center">
     </el-table-column>
     <el-table-column
       prop="date"
       label="发布时间"
-      width="240"
+      width="190"
       align="center">
     </el-table-column>
   </el-table>
@@ -68,7 +68,7 @@ import { log } from 'util'
 </script>
 <style>
 .el-table{
-   width: 662px !important;
+  width: 662px !important;
   margin-top:35px;
   margin-left:180px;
 }
@@ -108,5 +108,8 @@ import { log } from 'util'
     left:166px;
     margin-bottom: 15px;
     margin-top:20px;
+}
+.el-table td, .el-table th {
+  padding:7px 0
 }
 </style>

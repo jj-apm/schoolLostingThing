@@ -56,18 +56,21 @@ class LostController extends Controller {
         }
     }
     async find() {
-        const {pageSize,currentPage}=this.ctx.query
-            try{
-                const offset=(currentPage-1)*pageSize;
-                const limit=parseInt(pageSize);
-                let total=await this.app.model.Lost.count();
-                let result=await this.app.model.Lost.findAll({
-                    include: [{
-                        model: this.ctx.model.User
-                    }, {
-                        model: this.ctx.model.Kind
-                }]
-            })
+        const { pageSize, currentPage } = this.ctx.query
+        try {
+            const offset = (currentPage - 1) * pageSize;
+            const limit = parseInt(pageSize);
+            let count = await this.app.model.Lost.count();
+            let result = await this.app.model.Lost.findAll({
+                include: [{
+                    model: this.ctx.model.User
+                }, {
+                    model: this.ctx.model.Kind
+                }],
+                offset,
+                limit,
+                distinct: true //这一句可以去重，它返回的 count 不会把你的 include 的数量算进去
+            });
             if (!result) {
                 this.ctx.status = 400
                 this.ctx.body = "查找失败"
@@ -87,12 +90,13 @@ class LostController extends Controller {
                     everyItem.type = item.type
                     total.push(everyItem)
                 })
-                this.ctx.body = total
+                this.ctx.body = { total, count }
             }
         } catch (e) {
             this.ctx.throw(e)
         }
     }
+
     async delete() {
         let { id } = this.ctx.params
         try {
@@ -128,6 +132,111 @@ class LostController extends Controller {
             }
         } catch (e) {
             this.ctx.throw(e)
+        }
+    }
+
+    async searchKeywords() {
+        let { value, pageSize, currentPage } = this.ctx.request.body;
+        pageSize = parseInt(pageSize);
+        currentPage = (currentPage - 1) * pageSize;
+        let result = [];
+        let count = 0;
+        if (typeof value == 'number') {
+            try {
+                count = await this.app.model.Lost.count({
+                    where: {
+                        kind_id: value
+                    },
+                    offset: currentPage,
+                    limit: pageSize,
+                });
+                result = await this.app.model.Lost.findAll({
+                    include: [{
+                        model: this.ctx.model.User
+                    }, {
+                        model: this.ctx.model.Kind
+                    }],
+                    where: {
+                        kind_id: value
+                    },
+                    offset: currentPage,
+                    limit: pageSize,
+                    distinct: true
+                });
+                if (!result) {
+                    this.ctx.status = 400
+                    this.ctx.body = "查找失败"
+                } else {
+                    let total = []
+                    result.map((item, idx) => {
+                        let everyItem = {}
+                        everyItem.id = item.id
+                        everyItem.name = item.name
+                        everyItem.desc = item.desc
+                        everyItem.lphoto = item.lphoto
+                        everyItem.date = item.date
+                        everyItem.place = item.place
+                        everyItem.userName = item.user.username
+                        everyItem.kindName = item.kind.name
+                        everyItem.status = item.status
+                        everyItem.type = item.type
+                        total.push(everyItem)
+                    })
+                    this.ctx.body = { total, count }
+                }
+            } catch (err) {
+                this.ctx.throw(err)
+            }
+        } else {
+            try {
+                count = await this.app.model.Lost.count({
+                    where: {
+                        name: {
+                            [this.app.Sequelize.Op.like]: `%${value}%`
+                        }
+                    },
+                    offset: currentPage,
+                    limit: pageSize,
+                });
+                result = await this.app.model.Lost.findAll({
+                    include: [{
+                        model: this.ctx.model.User
+                    }, {
+                        model: this.ctx.model.Kind
+                    }],
+                    where: {
+                        name: {
+                            [this.app.Sequelize.Op.like]: `%${value}%`
+                        }
+                    },
+                    offset: currentPage,
+                    limit: pageSize,
+                    distinct: true
+                });
+                if (!result) {
+                    this.ctx.status = 400
+                    this.ctx.body = "查找失败"
+                } else {
+                    let total = []
+                    result.map((item, idx) => {
+                        let everyItem = {}
+                        everyItem.id = item.id
+                        everyItem.name = item.name
+                        everyItem.desc = item.desc
+                        everyItem.lphoto = item.lphoto
+                        everyItem.date = item.date
+                        everyItem.place = item.place
+                        everyItem.userName = item.user.username
+                        everyItem.kindName = item.kind.name
+                        everyItem.status = item.status
+                        everyItem.type = item.type
+                        total.push(everyItem)
+                    })
+                    this.ctx.body = { total, count }
+                }
+            } catch (err) {
+                this.ctx.throw(err)
+            }
         }
     }
 }

@@ -2,22 +2,22 @@ import axios from 'axios'
 import { Message, Loading } from 'element-ui'
 import router from './router/index'
 
-let loading;
+// let loading;
 
-function startLoading() {
-    loading = Loading.service({
-        lock: true,
-        text: '拼命加载中...',
-        background: 'rgba(0,0,0,0.7)'
-    })
-}
+// function startLoading() {
+//     loading = Loading.service({
+//         lock: true,
+//         text: '拼命加载中...',
+//         background: 'rgba(0,0,0,0.7)'
+//     })
+// }
 
-function endLoading() {
-    loading.close()
-}
+// function endLoading() {
+//     loading.close()
+// }
 //请求拦截
 axios.interceptors.request.use(config => {
-    startLoading();
+    // startLoading();
     if (localStorage.eleToken) {
         //设置统一请求头
         config.headers.Authorization = localStorage.eleToken
@@ -29,10 +29,10 @@ axios.interceptors.request.use(config => {
 
 //响应拦截
 axios.interceptors.response.use(response => {
-    endLoading();
+    // endLoading();
     return response;
 }, error => {
-    endLoading();
+    // endLoading();
     Message.error(error.response.data);
 
     //获取错误状态码

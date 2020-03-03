@@ -27,9 +27,6 @@ export default{
             detailData:''
         }
     },
-    created () {
-        this.getDetail()
-    },
     methods: {
         getDetail(){
             this.id=this.$route.query.id
@@ -43,6 +40,9 @@ export default{
         phoneFormat(data){
             return data.slice(0,7)
         }
+    },
+    created () {
+        this.getDetail()
     }
 }
 </script>

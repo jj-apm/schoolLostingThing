@@ -15,6 +15,8 @@ module.exports = app => {
     router.delete('/lost/:id', controller.lost.delete);
     router.get('/lost', controller.lost.find);
     router.get('/lostById', controller.lost.findById);
+    router.post('/searchKeywords', controller.lost.searchKeywords);
+
     router.post('/found/add', controller.found.add);
     router.post('/found/update/:id', controller.found.update);
     router.delete('/found/:id', controller.found.delete);

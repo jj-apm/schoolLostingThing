@@ -6,7 +6,7 @@
           <el-input v-model="ruleForm.name"></el-input>
        </el-col> 
      </el-form-item>
-     <el-form-item label="失物分类" prop="kind_id">
+      <el-form-item label="失物分类" prop="kind_id">
        <el-select v-model="ruleForm.kind_id" placeholder="请选择失物分类">
          <el-option label="数码" value="1"></el-option>
          <el-option label="文具用品" value="2"></el-option>

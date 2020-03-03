@@ -30,9 +30,9 @@ export default{
 <style scoped>
 .content{
   width: 960px;
-  margin-top:12px;
+  margin-top:15px;
   background-color: #fff;
   position: relative;
-  left: 144px;
+  left: 171px;
 }
 </style>
