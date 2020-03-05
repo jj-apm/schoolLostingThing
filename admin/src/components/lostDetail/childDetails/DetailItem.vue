@@ -4,17 +4,20 @@
           <a href="#" class="tv"><img src="../../../assets/tv.png"></a>
           <span>寻物启事</span>
       </div>
-      <div class="content">
+      <div class="content"> 
           <el-row class="first"><el-col :span="6" class="col1"><a href="#" class="laba"><img src="../../../assets/laba.png"></a></el-col>
           <el-col :span="8" :push="4"><span class="title">{{detailData.name}}</span></el-col></el-row>
           <el-row class="second"><el-col :span="4" :push="1" style="width:68px"><span class="kindName">物品种类:</span></el-col><el-col :span="4" :push="1" class="col5"><span class="kindName">{{detailData.kindName}}</span></el-col>
           <el-col :span="4" :push="13" class="col3"><h2 class="red">{{detailData.status}}...</h2></el-col></el-row>
           <el-row><el-col :span="4" :push="1" class="col4"><span>详细描述:</span></el-col><el-col :span="16" :push="1" class="col5">
               <div class="desc"><span>{{detailData.desc}}</span></div></el-col></el-row>
+          <el-row class="row5" v-if="detailData.lphoto"><el-col :span="4" :push="1" style="width:68px" class="imgSet"><span>失物图片:</span></el-col><el-col :span="8" class="col5" :push="1"><img :src="detailData.lphoto"></el-col></el-row>
           <el-row class="row5"><el-col :span="4" :push="1" style="width:68px"><span>丢失地点:</span></el-col><el-col :span="8" class="col5" :push="1">{{detailData.place}}</el-col></el-row>
           <el-row class="row5"><el-col :span="4" :push="1" style="width:68px"><span>丢失时间:</span></el-col><el-col :span="8" class="col5" :push="1">{{detailData.date}}</el-col></el-row>
           <el-row class="row5"><el-col :span="4" :push="1" style="width:68px"><span>联系人:</span></el-col><el-col :span="8" class="col5" :push="1">{{detailData.userName}}</el-col></el-row>
           <el-row class="row5"><el-col :span="4" :push="1" style="width:68px"><span>手机号码:</span></el-col><el-col :span="8" class="col5" :push="1">{{(detailData.phone||'')|phoneFormat}}****</el-col></el-row>
+          <el-row class="row5"><span class="clue">发表留言:</span></el-row>
+          <el-row><div><el-input type="textarea" style="width:500px"></el-input></div></el-row>
       </div>
   </div>
 </template>
@@ -48,8 +51,8 @@ export default{
 </script>
 <style scoped>
 .main{
-    width: 710px;
-    height: 600px;
+    width: 712px;
+    max-height: 687px;
     border: 1px solid #5155f7;
     margin:10px 0 0 160px;
 }
@@ -96,6 +99,9 @@ export default{
     height: 45px;
 
 }
+.imgSet{
+    margin-top: 50px;
+}
 .content .second{
     height: 40px;
 }
@@ -131,6 +137,10 @@ export default{
     height: 250px;
     line-height: 250px;
 }
+.col5 img{
+    width: 200px;
+    height: 120px
+}
 .desc{
     width:474px;
     height: 320px;
@@ -146,5 +156,9 @@ export default{
 }
 .row5{
     margin-top:10px;
+}
+.clue{
+    font-family:'微软雅黑';
+    font-weight: bold
 }
 </style>

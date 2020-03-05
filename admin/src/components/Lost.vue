@@ -56,6 +56,7 @@
       label="类型"
       width="80"
       align="center">
+      <span>寻物</span>
     </el-table-column>
     <el-table-column
       prop="name"
@@ -119,7 +120,7 @@ import { log } from 'util'
     },
     methods:{
       getLostData(){
-        this.$http.get('/api/lost',{params:{currentPage:this.currentPage,pageSize:this.pageSize}}).then(res=>{
+        this.$http.get('/api/lost',{params:{userId:'',currentPage:this.currentPage,pageSize:this.pageSize}}).then(res=>{
             this.tableData=res.data.total
             this.total=res.data.count;
             console.log(res.data);

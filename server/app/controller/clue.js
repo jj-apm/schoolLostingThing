@@ -5,7 +5,7 @@ const Controller = require('egg').Controller;
 class ClueController extends Controller {
     async add() {
         const clueField = {}
-        if (this.ctx.payload.result.username) clueField.username = this.ctx.payload.result.username
+        if (this.ctx.payload.result.id) clueField.user_id = this.ctx.payload.result.id
         if (this.ctx.request.body.info) clueField.info = this.ctx.request.body.info
         if (this.ctx.request.body.lost_id) clueField.lost_id = this.ctx.request.body.lost_id
         try {

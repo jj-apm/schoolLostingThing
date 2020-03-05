@@ -12,7 +12,7 @@
          <el-menu-item index="/index">首页</el-menu-item>
          <el-menu-item index="/lost">寻物启事</el-menu-item>
          <el-menu-item index="/found">招领启事</el-menu-item>
-         <el-menu-item index="/claim">认领启事</el-menu-item>
+         <el-menu-item index="/history">发布历史</el-menu-item>
          <el-menu-item index="/publish">发布信息</el-menu-item>
        </el-menu>
        <el-main>

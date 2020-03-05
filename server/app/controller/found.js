@@ -41,7 +41,7 @@ class FoundController extends Controller {
                 total.name = result.name
                 total.desc = result.desc
                 total.date = result.date
-                total.lphoto = result.lphoto
+                total.fphoto = result.fphoto
                 total.status = result.status
                 total.kindName = result.kind.name
                 total.userName = result.user.username
@@ -79,7 +79,6 @@ class FoundController extends Controller {
                     everyItem.userName = item.user.username
                     everyItem.kindName = item.kind.name
                     everyItem.status = item.status
-                    everyItem.type = item.type
                     total.push(everyItem)
                 })
                 this.ctx.body = total

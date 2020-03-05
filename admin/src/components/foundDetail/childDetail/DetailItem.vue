@@ -2,7 +2,7 @@
   <div class="main">
       <div class="jj-logo">
           <a href="#" class="tv"><img src="../../../assets/tv.png"></a>
-          <span>寻物启事</span>
+          <span>招领启事</span>
       </div>
       <div class="content">
           <el-row class="first"><el-col :span="6" class="col1"><a href="#" class="laba"><img src="../../../assets/laba.png"></a></el-col>
@@ -11,6 +11,7 @@
           <el-col :span="4" :push="13" class="col3"><h2 class="red">{{detailData.status}}...</h2></el-col></el-row>
           <el-row><el-col :span="4" :push="1" class="col4"><span>详细描述:</span></el-col><el-col :span="16" :push="1" class="col5">
               <div class="desc"><span>{{detailData.desc}}</span></div></el-col></el-row>
+          <el-row class="row5" v-if="detailData.fphoto"><el-col :span="4" :push="1" style="width:68px" class="imgSet"><span>拾物图片:</span></el-col><el-col :span="8" class="col5" :push="1"><img :src="detailData.fphoto"></el-col></el-row>
           <el-row class="row5"><el-col :span="4" :push="1" style="width:68px"><span>丢失地点:</span></el-col><el-col :span="8" class="col5" :push="1">{{detailData.place}}</el-col></el-row>
           <el-row class="row5"><el-col :span="4" :push="1" style="width:68px"><span>丢失时间:</span></el-col><el-col :span="8" class="col5" :push="1">{{detailData.date}}</el-col></el-row>
           <el-row class="row5"><el-col :span="4" :push="1" style="width:68px"><span>联系人:</span></el-col><el-col :span="8" class="col5" :push="1">{{detailData.userName}}</el-col></el-row>
@@ -75,13 +76,15 @@ export default{
                     this.getDetail()
                 })        
             })
-           this.$message({
-             duration:8000,
-             dangerouslyUseHTMLString: true,
-             message:`<p>拾物人姓名：${this.detailData.userName}</p>
-                      <p>拾物人电话:${this.detailData.phone}</p>`
-           });
-        }
+            this.$alert(`<p>拾物人姓名：${this.detailData.userName}</p>
+                      <p>拾物人电话:${this.detailData.phone}</p>`, '', {
+              confirmButtonText: '确定',
+              dangerouslyUseHTMLString: true,
+              callback: action => {
+                console.log(11);
+             }
+        })
+         }
     },
     filters: {
         phoneFormat(data){
@@ -96,7 +99,7 @@ export default{
 <style scoped>
 .main{
     width: 710px;
-    height: 700px;
+    max-height: 758px;
     border: 1px solid #5155f7;
     margin:10px 0 0 160px;
 }
@@ -170,6 +173,9 @@ export default{
     line-height: 30px;
     margin-top: 12px;
 }
+.imgSet{
+    margin-top: 50px;
+}
 .col4{
     width: 68px;
     height: 250px;
@@ -177,6 +183,10 @@ export default{
 .col4 > span{
     height: 250px;
     line-height: 250px;
+}
+.col5 img{
+    width: 200px;
+    height: 120px
 }
 .desc{
     width:474px;

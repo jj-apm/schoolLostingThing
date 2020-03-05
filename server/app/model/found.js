@@ -38,10 +38,6 @@ module.exports = app => {
             type: INTEGER,
             allowNull: false
         },
-        type: {
-            type: STRING,
-            defaultValue: '招领'
-        },
         status: {
             type: INTEGER,
             allowNull: false,
@@ -52,9 +48,6 @@ module.exports = app => {
                         return '未认领'
                         break;
                     case 2:
-                        return '认领中'
-                        break;
-                    case 3:
                         return '已认领'
                         break;
 

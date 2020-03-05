@@ -38,10 +38,6 @@ module.exports = app => {
             type: INTEGER,
             allowNull: false
         },
-        type: {
-            type: STRING,
-            defaultValue: '寻物'
-        },
         status: {
             type: INTEGER,
             allowNull: false,

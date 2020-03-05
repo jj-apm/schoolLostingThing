@@ -14,6 +14,7 @@
       label="类型"
       width="80"
       align="center">
+      <span>招领</span>
     </el-table-column>
     <el-table-column
       prop="name"

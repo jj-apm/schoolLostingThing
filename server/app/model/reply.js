@@ -3,18 +3,14 @@
 module.exports = app => {
     const { STRING, INTEGER, TEXT, DATE, NOW } = app.Sequelize;
 
-    const Clue = app.model.define("clue", {
+    const Reply = app.model.define("reply", {
         id: {
             type: INTEGER,
             primaryKey: true,
             autoIncrement: true,
             allowNull: false,
         },
-        user_name: {
-            type: STRING,
-            allowNull: false
-        },
-        info: {
+        replyInfo: {
             type: TEXT,
             allowNull: false
         },
@@ -23,11 +19,7 @@ module.exports = app => {
             allowNull: false,
             defaultValue: NOW
         },
-        lost_id: {
-            type: INTEGER,
-            allowNull: false
-        },
-        user_id: {
+        comment_id: {
             type: INTEGER,
             allowNull: false
         }
@@ -38,10 +30,8 @@ module.exports = app => {
             // 但是为了安全着想，复数的转换可能会发生变化，所以禁止该行为
 
     })
-    Clue.associate = function() {
-        app.model.Clue.belongsTo(app.model.Lost, { foreignKey: 'lost_id', targetKey: 'id' });
-        app.model.Clue.belongsTo(app.model.User, { foreignKey: 'user_id', targetKey: 'id' })
-        app.model.Clue.hasMany(app.model.Reply, { foreignKey: 'comment_id', targetKey: 'id' })
+    Reply.associate = function() {
+        app.model.Reply.belongsTo(app.model.Clue, { foreignKey: 'comment_id', targetKey: 'id' });
     }
-    return Clue;
+    return Reply;
 };

@@ -11,7 +11,7 @@ import Home from '../views/Home'
 import Index from '../components/Index'
 import Lost from '../components/Lost'
 import Found from '../components/Found'
-import Claim from '../components/Claim'
+import History from '../components/History'
 import Publish from '../components/Publish'
 
 Vue.use(VueRouter)
@@ -26,7 +26,7 @@ const routes = [{
             { path: '/lost', component: Lost },
             { path: '/found', component: Found },
             { path: '/publish', component: Publish },
-            { path: '/claim', component: Claim }
+            { path: '/history', component: History }
         ]
     },
     {

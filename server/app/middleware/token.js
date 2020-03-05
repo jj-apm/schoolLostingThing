@@ -24,10 +24,8 @@ module.exports = (options, app) => {
                 ctx.body = "登录信息已过期，请重新登录！"
                 ctx.status = 401
             } else {
-                ctx.body = {
-                    code: 9,
-                    message: e
-                }
+                ctx.status = 400
+                ctx.message = e
             }
         }
     }

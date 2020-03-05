@@ -2,17 +2,11 @@
     <div class="home">
         <div class="container">
         <el-container>
-         <el-header>
-        <div class="head">
-         <p class="title">欢迎来到校园失物招领网</p>
-         <p class="name">{{user.result.username}}</p>
-        </div> 
-       </el-header>
+        <HeaderNav></HeaderNav>
        <el-menu class="el-menu-demo" mode="horizontal" router>
          <el-menu-item index="/index">首页</el-menu-item>
          <el-menu-item index="/lost">寻物启事</el-menu-item>
          <el-menu-item index="/found">招领启事</el-menu-item>
-         <el-menu-item index="/claim">认领启事</el-menu-item>
          <el-menu-item index="/publish">发布信息</el-menu-item>
        </el-menu>
        <el-main>
@@ -26,13 +20,13 @@
 </template>
 
 <script>
-export default{
-    computed: {
-        user(){
-            return this.$store.getters.user
-        }
+import HeaderNav from '../components/HeaderNav'
+export default{  
+    components: {
+      HeaderNav
     }
 }
+
 </script>
 
 <style scoped>
@@ -44,7 +38,7 @@ export default{
   width: 100%;
   height: 100vh;
 }
-.el-header, .el-footer {
+ .el-footer {
     background-color: #B3C0D1;
     color: #333;
     text-align: center;
@@ -64,23 +58,6 @@ export default{
 body > .el-container {
     margin-bottom: 40px;
   }
-.head{
-    display: flex;
-    width:100%;
-    height:30px;
-    justify-content: space-between;
-}   
-.head .title, .head .name{
-    vertical-align: middle;
-    font-size: 16px;
-    font-family: "Microsoft YaHei";
-    letter-spacing: 1px;
-    line-height: 30px;
-}
-.head .name{
-    margin-right: 10px;
-    font-size: 18px;
-}
 .sec1{
     width: 100%;
     height:163px;
