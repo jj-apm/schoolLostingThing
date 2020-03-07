@@ -17,17 +17,48 @@
           <el-row class="row5"><el-col :span="4" :push="1" style="width:68px"><span>联系人:</span></el-col><el-col :span="8" class="col5" :push="1">{{detailData.userName}}</el-col></el-row>
           <el-row class="row5"><el-col :span="4" :push="1" style="width:68px"><span>手机号码:</span></el-col><el-col :span="8" class="col5" :push="1">{{(detailData.phone||'')|phoneFormat}}****</el-col></el-row>
           <el-row class="row5"><span class="clue">发表留言:</span></el-row>
-          <el-row><div><el-input type="textarea" style="width:500px"></el-input></div></el-row>
+          <el-row><div><el-input placeholder='请发表留言:' @click.native="dialogShow"></el-input></div></el-row>
+          <el-row class="row5">
+            <div class="main">
+              <div class="onlyComment" v-for="(item,idx) in reverseComment" :key="idx">
+                  <p>{{item.username}}:&nbsp;&nbsp;{{item.info}}</p>
+                  <p>{{item.date}}</p>
+              </div>
+              <div></div>
+            </div>
+          </el-row>
+          <el-dialog
+           title="请评论"
+           :visible.sync="dialogVisible"
+           width="30%"
+           >
+           <el-form :model="clue">
+               <el-form-item>
+                    <el-input type="textarea" placeholder='请发表留言:' :rows="7" v-model="clue.info"></el-input>
+               </el-form-item>
+           </el-form>
+          <span slot="footer" class="dialog-footer">
+          <el-button type="primary" @click="submitComment">确 定</el-button>
+          </span>
+          </el-dialog>
       </div>
   </div>
 </template>
 <script>
 import { log } from 'util'
+import VEmojiPicker from 'v-emoji-picker';
+// import packEmoji from "v-emoji-picker/dist/v-emoji-picker.common";;//引入表情包控件
 export default{
     data(){
         return{
             id:'',
-            detailData:''
+            detailData:'',
+            dialogVisible: false,
+            clue:{
+                info:'',
+                lost_id:0
+            },
+            commentList:[]
         }
     },
     methods: {
@@ -35,17 +66,57 @@ export default{
             this.id=this.$route.query.id
             this.$http.get('/api/lostById',{params:{id:this.id}}).then(res=>{
                 // console.log(res.data); 
-                this.detailData=res.data         
+                this.detailData=res.data
+
             })
-        }
+        },
+        dialogShow(){
+            this.dialogVisible=true
+        },
+        submitComment(){
+            this.clue.lost_id=this.$route.query.id
+            this.$http.post('/api/clue/add',this.clue).then(res=>{
+                this.$http.get('api/clue',{params:{lost_id:this.clue.lost_id}}).then(res=>{
+                    this.commentList=res.data
+                     for(var item of this.commentList){
+                       let d=new Date(item.date)
+                       item.date=d.getFullYear() + '-' + (d.getMonth() + 1 < 10 ? '0'+ (d.getMonth() + 1):d.getMonth() + 1) + '-' + (d.getDate() <10?'0'+d.getDate():d.getDate()) + ' ' + (d.getHours()<10?'0'+d.getHours():d.getHours()) + ':' + (d.getMinutes()<10?'0'+d.getMinutes():d.getMinutes()) + ':' + (d.getSeconds()<10?'0'+d.getSeconds():d.getSeconds());
+                          }
+                })
+                // console.log(res.data); 
+            })
+            this.dialogVisible=false
+        },
+        getComments(){
+            this.clue.lost_id=this.$route.query.id
+             this.$http.get('api/clue',{params:{lost_id:this.clue.lost_id}}).then(res=>{
+                    this.commentList=res.data
+                     for(var item of this.commentList){
+                       let d=new Date(item.date)
+                       item.date=d.getFullYear() + '-' + (d.getMonth() + 1 < 10 ? '0'+ (d.getMonth() + 1):d.getMonth() + 1) + '-' + (d.getDate() <10?'0'+d.getDate():d.getDate()) + ' ' + (d.getHours()<10?'0'+d.getHours():d.getHours()) + ':' + (d.getMinutes()<10?'0'+d.getMinutes():d.getMinutes()) + ':' + (d.getSeconds()<10?'0'+d.getSeconds():d.getSeconds());
+                          }
+                })
+        },
+       selectEmoji(emoji) {
+        console.log(emoji)
+       }
     },
     filters: {
         phoneFormat(data){
             return data.slice(0,7)
         }
     },
+    computed: {
+        reverseComment(){
+            return this.commentList.reverse()
+        }
+    },
     created () {
         this.getDetail()
+        this.getComments()
+    },
+    components: {
+        VEmojiPicker
     }
 }
 </script>
@@ -160,5 +231,11 @@ export default{
 .clue{
     font-family:'微软雅黑';
     font-weight: bold
+}
+.el-dialog__body{
+    padding:15px 20px !important
+}
+.main{
+    border: 1px solid yellow;
 }
 </style>

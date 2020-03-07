@@ -10,7 +10,7 @@ module.exports = app => {
             autoIncrement: true,
             allowNull: false,
         },
-        replyInfo: {
+        info: {
             type: TEXT,
             allowNull: false
         },
@@ -22,6 +22,18 @@ module.exports = app => {
         comment_id: {
             type: INTEGER,
             allowNull: false
+        },
+        user_id: {
+            type: INTEGER,
+            allowNull: true
+        },
+        replyuser_id: {
+            type: INTEGER,
+            allowNull: true
+        },
+        username: {
+            type: STRING,
+            allowNull: false
         }
     }, {
         underscored: true, //使用下划线，自动添加的字段会在数据段中使用“蛇型命名”规则
@@ -31,7 +43,8 @@ module.exports = app => {
 
     })
     Reply.associate = function() {
-        app.model.Reply.belongsTo(app.model.Clue, { foreignKey: 'comment_id', targetKey: 'id' });
+        app.model.Reply.belongsTo(app.model.User, { foreignKey: 'user_id', targetKey: 'id' })
+        app.model.Reply.belongsTo(app.model.Clue, { foreignKey: 'comment_id', targetKey: 'id' })
     }
     return Reply;
 };

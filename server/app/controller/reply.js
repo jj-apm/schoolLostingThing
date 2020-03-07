@@ -2,17 +2,17 @@
 
 const Controller = require('egg').Controller;
 
-class ClueController extends Controller {
+class ReplyController extends Controller {
     async add() {
-        const clueField = {}
-        if (this.ctx.payload.result.id) clueField.user_id = this.ctx.payload.result.id
-        if (this.ctx.request.body.info) clueField.info = this.ctx.request.body.info
-        if (this.ctx.request.body.lost_id) clueField.lost_id = this.ctx.request.body.lost_id
-        if (this.ctx.request.body.found_id) clueField.found_id = this.ctx.request.body.found_id
-        if (this.ctx.request.body.date) clueField.date = this.ctx.request.body.date
+        const replyField = {}
+        if (this.ctx.payload.result.id) replyField.user_id = this.ctx.payload.result.id
+        if (this.ctx.request.body.info) replyField.info = this.ctx.request.body.info
+        if (this.ctx.request.body.comment_id) replyField.comment_id = this.ctx.request.body.comment_id
+        if (this.ctx.request.body.replyuser_id) replyField.replyuser_id = this.ctx.request.body.replyuser_id
+        if (this.ctx.request.body.date) replyField.date = this.ctx.request.body.date
         if (this.ctx.payload.result.username) clueField.username = this.ctx.payload.result.username
         try {
-            const result = await this.ctx.model.Clue.create(clueField)
+            const result = await this.ctx.model.Reply.create(replyField)
             this.ctx.body = result
         } catch (e) {
             this.ctx.throw(e)
@@ -22,7 +22,7 @@ class ClueController extends Controller {
     async findById() {
         let { id } = this.ctx.params
         try {
-            let result = await this.ctx.model.Clue.findOne({
+            let result = await this.ctx.model.Reply.findOne({
                 where: {
                     id
                 }
@@ -38,13 +38,8 @@ class ClueController extends Controller {
         }
     }
     async find() {
-        let { lost_id } = this.ctx.query
         try {
-            let result = await this.ctx.model.Clue.findAll({
-                where: {
-                    lost_id
-                }
-            })
+            let result = await this.ctx.model.Reply.findAll()
             if (!result) {
                 this.ctx.status = 400
                 this.ctx.body = "查找失败"
@@ -58,7 +53,7 @@ class ClueController extends Controller {
     async delete() {
         let { id } = this.ctx.params
         try {
-            let result = await this.ctx.model.Clue.destroy({
+            let result = await this.ctx.model.Reply.destroy({
                 where: {
                     id
                 }
@@ -75,4 +70,4 @@ class ClueController extends Controller {
     }
 }
 
-module.exports = ClueController;
+module.exports = ReplyController;

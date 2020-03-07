@@ -33,11 +33,13 @@
                 v-model="searchData.endTime"
                 type="date"
                 placeholder="选择结束时间"
-                @click.native="searchDate"
               >
               </el-date-picker>
           </el-form-item>
-          <el-form-item label="关键字:">
+          <el-form-item class="btnDate">
+            <el-button type="primary" icon="el-icon-search" @click="searchDate" size="small">筛选</el-button>
+          </el-form-item>
+          <el-form-item label="关键字:" class="keyword">
             <el-input v-model="searchData.value" placeholder="请输入关键字"></el-input>
           </el-form-item>
           <el-form-item>
@@ -89,8 +91,8 @@
             @size-change="handleSizeChange"
             @current-change="handleCurrentChange"
             :current-page="currentPage"
-            :page-sizes="[3, 10, 100]"
-            :page-size="3"
+            :page-sizes="[10, 20, 100]"
+            :page-size="10"
             layout="total,sizes, prev, pager, next, jumper"
             :total="total">
     </el-pagination>  
@@ -107,7 +109,7 @@ import { log } from 'util'
       return {
       tableData: [],
       currentPage:1,
-      pageSize:'3',
+      pageSize:'10',
       total:10,
       paginationSign:0,
       searchData:{
@@ -123,9 +125,20 @@ import { log } from 'util'
         this.$http.get('/api/lost',{params:{userId:'',currentPage:this.currentPage,pageSize:this.pageSize}}).then(res=>{
             this.tableData=res.data.total
             this.total=res.data.count;
-            console.log(res.data);
+            // console.log(this.tableData);
+            
+            // console.log(res.data);
             // console.log(res.data.sum);               
         })
+      },
+      searchDate(){
+            const sTime = this.searchData.startTime.getTime();
+            const eTime = this.searchData.endTime.getTime();
+            this.tableData = this.tableData.filter(item=>{
+                let date = new Date(item.date)
+                let time = item.date.getTime()
+                return time >= sTime && time <= eTime
+            })
       },
       searchKeywords(){
         this.paginationSign=1
@@ -256,7 +269,14 @@ import { log } from 'util'
   margin-left: 20px;
 }
 .demo-form-inline .el-form-item:nth-child(2){
-  margin-left: 30px;
+  margin-left: 17px;
 }
-
+.btnDate{
+  position: relative;
+  right: -858px;
+  top:-62px
+}
+.keyword{
+  margin-left: -83px;;
+}
 </style>

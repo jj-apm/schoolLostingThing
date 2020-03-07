@@ -55,7 +55,12 @@ import { log } from 'util'
     methods:{
       getLostData(){
         this.$http.get('/api/found').then(res=>{
-            this.tableData=res.data           
+            res.data.filter((item,idx)=>{
+              if(item.status==1){
+                this.tableData=res.data
+              }
+            })
+                       
         })
       },
       handleClick(index,row){

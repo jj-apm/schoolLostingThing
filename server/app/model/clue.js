@@ -10,10 +10,6 @@ module.exports = app => {
             autoIncrement: true,
             allowNull: false,
         },
-        user_name: {
-            type: STRING,
-            allowNull: false
-        },
         info: {
             type: TEXT,
             allowNull: false
@@ -23,12 +19,20 @@ module.exports = app => {
             allowNull: false,
             defaultValue: NOW
         },
-        lost_id: {
+        user_id: {
             type: INTEGER,
             allowNull: false
         },
-        user_id: {
+        lost_id: {
             type: INTEGER,
+            allowNull: true
+        },
+        found_id: {
+            type: INTEGER,
+            allowNull: true
+        },
+        username: {
+            type: STRING,
             allowNull: false
         }
     }, {
@@ -40,6 +44,7 @@ module.exports = app => {
     })
     Clue.associate = function() {
         app.model.Clue.belongsTo(app.model.Lost, { foreignKey: 'lost_id', targetKey: 'id' });
+        app.model.Clue.belongsTo(app.model.Found, { foreignKey: 'found_id', targetKey: 'id' });
         app.model.Clue.belongsTo(app.model.User, { foreignKey: 'user_id', targetKey: 'id' })
         app.model.Clue.hasMany(app.model.Reply, { foreignKey: 'comment_id', targetKey: 'id' })
     }
