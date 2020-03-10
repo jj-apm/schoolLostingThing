@@ -4,7 +4,6 @@
      <div class="page-cate-title">
       <span class="title-text">失物启事列表</span>
     </div>
-    <div class="layout">
       <div class="search">
           <el-form :inline="true" :model="searchData" class="demo-form-inline">
            <el-form-item label="失物类别:" >
@@ -98,7 +97,6 @@
     </el-pagination>  
     </el-col>
     </el-row>     
-    </div>
   </div>
 </div> 
 </template>

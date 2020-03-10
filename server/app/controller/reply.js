@@ -10,7 +10,8 @@ class ReplyController extends Controller {
         if (this.ctx.request.body.comment_id) replyField.comment_id = this.ctx.request.body.comment_id
         if (this.ctx.request.body.replyuser_id) replyField.replyuser_id = this.ctx.request.body.replyuser_id
         if (this.ctx.request.body.date) replyField.date = this.ctx.request.body.date
-        if (this.ctx.payload.result.username) clueField.username = this.ctx.payload.result.username
+        if (this.ctx.payload.result.username) replyField.username = this.ctx.payload.result.username
+        if (this.ctx.request.body.replyuser_name) replyField.replyuser_name = this.ctx.request.body.replyuser_name
         try {
             const result = await this.ctx.model.Reply.create(replyField)
             this.ctx.body = result
@@ -20,12 +21,15 @@ class ReplyController extends Controller {
 
     }
     async findById() {
-        let { id } = this.ctx.params
+        let { comment_id } = this.ctx.query
         try {
-            let result = await this.ctx.model.Reply.findOne({
+            let result = await this.ctx.model.Reply.findAll({
                 where: {
-                    id
-                }
+                    comment_id
+                },
+                include: [
+                    { model: this.ctx.model.Clue }
+                ]
             })
             if (!result) {
                 this.ctx.status = 400
@@ -39,7 +43,11 @@ class ReplyController extends Controller {
     }
     async find() {
         try {
-            let result = await this.ctx.model.Reply.findAll()
+            let result = await this.ctx.model.Reply.findAll({
+                include: [
+                    { model: this.ctx.model.Clue }
+                ]
+            })
             if (!result) {
                 this.ctx.status = 400
                 this.ctx.body = "查找失败"

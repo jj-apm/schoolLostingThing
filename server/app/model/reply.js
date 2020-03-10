@@ -29,9 +29,13 @@ module.exports = app => {
         },
         replyuser_id: {
             type: INTEGER,
-            allowNull: true
+            allowNull: false
         },
         username: {
+            type: STRING,
+            allowNull: false
+        },
+        replyuser_name: {
             type: STRING,
             allowNull: false
         }

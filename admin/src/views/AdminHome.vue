@@ -17,21 +17,18 @@
       <el-submenu index="2">
         <template slot="title"><i class="el-icon-menu"></i>失物管理</template>
          <el-menu-item-group>
-          <el-menu-item index="/lost/add">新建失物</el-menu-item>
           <el-menu-item index="/lost/list">失物列表</el-menu-item>
         </el-menu-item-group>
       </el-submenu>
       <el-submenu index="3">
         <template slot="title"><i class="el-icon-setting"></i>招领管理</template>
          <el-menu-item-group>
-          <el-menu-item index="/found/add">新建招领</el-menu-item>
           <el-menu-item index="/found/list">招领列表</el-menu-item>
         </el-menu-item-group>
       </el-submenu>
       <el-submenu index="4">
         <template slot="title"><i class="el-icon-setting"></i>留言管理</template>
          <el-menu-item-group>
-          <el-menu-item index="/clue/add">新建留言</el-menu-item>
           <el-menu-item index="/clue/list">留言列表</el-menu-item>
         </el-menu-item-group>
       </el-submenu>
@@ -39,13 +36,6 @@
         <template slot="title"><i class="el-icon-setting"></i>认领管理</template>
          <el-menu-item-group>
           <el-menu-item index="claim/list">认领列表</el-menu-item>
-        </el-menu-item-group>
-      </el-submenu>
-      <el-submenu index="6">
-        <template slot="title"><i class="el-icon-setting"></i>分类管理</template>
-         <el-menu-item-group>
-           <el-menu-item index="/kind/add">新建分类</el-menu-item>
-          <el-menu-item index="/kind/list">分类列表</el-menu-item>
         </el-menu-item-group>
       </el-submenu>
     </el-menu>

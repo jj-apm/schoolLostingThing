@@ -12,6 +12,7 @@
         "core-js": "^3.4.4",
         "element-ui": "^2.4.5",
         "error-stack-parser": "^2.0.6",
+        "jquery": "^3.4.1",
         "jwt-decode": "^2.2.0",
         "v-emoji-picker": "^2.1.5",
         "vue": "^2.6.10",
@@ -34,7 +35,8 @@
     "eslintConfig": {
         "root": true,
         "env": {
-            "node": true
+            "node": true,
+            "jquery": true
         },
         "extends": [
             "plugin:vue/essential",

@@ -38,21 +38,55 @@ class ClueController extends Controller {
         }
     }
     async find() {
-        let { lost_id } = this.ctx.query
-        try {
-            let result = await this.ctx.model.Clue.findAll({
-                where: {
-                    lost_id
+        let { lost_id, found_id } = this.ctx.query
+        if (lost_id) {
+            try {
+                let result = await this.ctx.model.Clue.findAll({
+                    where: {
+                        lost_id
+                    },
+                    order: [
+                        ['date', 'DESC'],
+                        [this.ctx.model.Reply, 'date', 'DESC']
+                    ],
+                    include: [{
+                        model: this.ctx.model.Reply
+                    }],
+                    distinct: true
+                })
+                if (!result) {
+                    this.ctx.status = 400
+                    this.ctx.body = "查找失败"
+                } else {
+                    this.ctx.body = result
                 }
-            })
-            if (!result) {
-                this.ctx.status = 400
-                this.ctx.body = "查找失败"
-            } else {
-                this.ctx.body = result
+            } catch (e) {
+                this.ctx.throw(e)
             }
-        } catch (e) {
-            this.ctx.throw(e)
+        } else {
+            try {
+                let result = await this.ctx.model.Clue.findAll({
+                    where: {
+                        found_id
+                    },
+                    order: [
+                        ['date', 'DESC'],
+                        [this.ctx.model.Reply, 'date', 'DESC']
+                    ],
+                    include: [{
+                        model: this.ctx.model.Reply
+                    }],
+                    distinct: true
+                })
+                if (!result) {
+                    this.ctx.status = 400
+                    this.ctx.body = "查找失败"
+                } else {
+                    this.ctx.body = result
+                }
+            } catch (e) {
+                this.ctx.throw(e)
+            }
         }
     }
     async delete() {

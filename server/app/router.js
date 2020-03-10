@@ -19,9 +19,9 @@ module.exports = app => {
 
     router.post('/found/add', controller.found.add);
     router.post('/found/update/:id', controller.found.update);
-    router.delete('/found/:id', controller.found.delete);
     router.get('/found', controller.found.find);
     router.get('/foundById', controller.found.findById);
+    router.post('/foundSearch', controller.found.foundSearch)
     router.post('/kind/add', controller.kind.add);
     router.post('/kind/:id', controller.kind.update);
     router.delete('/kind/:id', controller.kind.delete);
@@ -31,6 +31,10 @@ module.exports = app => {
     router.get('/clue', controller.clue.find);
     router.get('/clue/:id', controller.clue.findById);
     router.delete('/clue/:id', controller.clue.delete);
+    router.post('/reply/add', controller.reply.add)
+    router.get('/reply', controller.reply.find)
+    router.get('/reply/replyById', controller.reply.findById)
+
     router.post('/claim/add', controller.claim.add);
     router.get('/claim/:id', controller.claim.findById);
     router.get('/claim', controller.claim.find);

@@ -11,7 +11,7 @@ module.exports = app => {
             allowNull: false,
         },
         info: {
-            type: TEXT,
+            type: STRING,
             allowNull: false
         },
         date: {
