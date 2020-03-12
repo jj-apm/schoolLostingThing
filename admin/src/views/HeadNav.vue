@@ -18,6 +18,8 @@
                             </span>
                             <el-dropdown-menu slot="dropdown">
                                 <el-dropdown-item command="info">个人信息</el-dropdown-item>
+                                <el-dropdown-item command="history">我的历史</el-dropdown-item>
+                                <el-dropdown-item command="status">修改状态</el-dropdown-item>
                                 <el-dropdown-item command="logout">退出</el-dropdown-item>
                             </el-dropdown-menu>
                         </el-dropdown>
@@ -42,6 +44,12 @@ export default {
                 case "info":
                     this.showIndoList();
                     break;
+                case "history":
+                    this.showHistory();
+                    break;
+                case "status":
+                    this.showStatus();
+                    break;
                 case "logout":
                     this.logout();
                     break;    
@@ -49,6 +57,9 @@ export default {
         },
         showIndoList(){
           this.$router.push('/infoshow')
+        },
+        showHistory(){
+          this.$router.push('/history')
         },
         logout(){
             //清除token

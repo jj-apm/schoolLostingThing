@@ -2,30 +2,28 @@
 
 const Controller = require('egg').Controller;
 
-class ReplyController extends Controller {
+class NoticeController extends Controller {
     async add() {
-        const replyField = {}
-        if (this.ctx.payload.result.id) replyField.user_id = this.ctx.payload.result.id
-        if (this.ctx.request.body.info) replyField.info = this.ctx.request.body.info
-        if (this.ctx.request.body.comment_id) replyField.comment_id = this.ctx.request.body.comment_id
-        if (this.ctx.request.body.replyuser_id) replyField.replyuser_id = this.ctx.request.body.replyuser_id
-        if (this.ctx.request.body.date) replyField.date = this.ctx.request.body.date
-        if (this.ctx.payload.result.username) replyField.username = this.ctx.payload.result.username
-        if (this.ctx.request.body.replyuser_name) replyField.replyuser_name = this.ctx.request.body.replyuser_name
+        const noticeField = {}
+        if (this.ctx.request.body.info) noticeField.info = this.ctx.request.body.info
+        if (this.ctx.request.body.from_id) noticeField.from_id = this.ctx.request.body.from_id
+        if (this.ctx.request.body.to_id) noticeField.to_id = this.ctx.request.body.to_id
+        if (this.ctx.request.body.username) noticeField.username = this.ctx.request.body.username
+        if (this.ctx.request.body.comment_id) noticeField.comment_id = this.ctx.request.body.comment_id
         try {
-            const result = await this.ctx.model.Reply.create(replyField)
+            const result = await this.ctx.model.Notice.create(noticeField)
             this.ctx.body = result
         } catch (e) {
             this.ctx.throw(e)
         }
 
     }
-    async findReply() {
+    async findById() {
         let { user_id } = this.ctx.query
         try {
-            let result = await this.ctx.model.Reply.findAll({
+            let result = await this.ctx.model.Notice.findAll({
                 where: {
-                    replyuser_id: user_id
+                    to_id: user_id
                 }
             })
             if (!result) {
@@ -40,7 +38,7 @@ class ReplyController extends Controller {
     }
     async find() {
         try {
-            let result = await this.ctx.model.Reply.findAll({
+            let result = await this.ctx.model.Notice.findAll({
                 include: [
                     { model: this.ctx.model.Clue }
                 ]
@@ -58,7 +56,7 @@ class ReplyController extends Controller {
     async delete() {
         let { id } = this.ctx.params
         try {
-            let result = await this.ctx.model.Reply.destroy({
+            let result = await this.ctx.model.Notice.destroy({
                 where: {
                     id
                 }
@@ -75,4 +73,4 @@ class ReplyController extends Controller {
     }
 }
 
-module.exports = ReplyController;
+module.exports = NoticeController;

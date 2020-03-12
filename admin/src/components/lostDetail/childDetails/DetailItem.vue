@@ -113,14 +113,14 @@ export default{
         submitComment(){
             if(this.commentType==0){
                  this.clue.lost_id=this.$route.query.id
-                 this.$http.post('/api/clue/add',this.clue).then(res=>{
-                     this.getComments()          
+                 this.$http.post('/api/clue/add',this.clue).then(res=>{              
+                     this.getComments()         
                  })
                  this.dialogVisible=false   
                  }else{
-                      this.$http.post('/api/reply/add',this.replyField).then(res=>{
-                          this.getComments()
-                      })
+                      this.$http.post('/api/reply/add',this.replyField).then(res=>{    
+                               this.getComments()
+                          })
                       this.dialogVisible=false
                  }
         },
@@ -304,6 +304,9 @@ export default{
 }
 .onlyComment{
     border-bottom: 1px solid #d6d2d2;
+}
+.reply{
+      border-bottom: 1px solid #d6d2d2;
 }
 .row5 .new{
     border-bottom: 1px solid #d6d2d2;

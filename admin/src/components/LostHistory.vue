@@ -40,18 +40,14 @@
       label="发布时间"  
       width="150"
       align="center">
-    </el-table-column>
-    <el-table-column label="操作" prop="operation" fixed="right" align="center" width="150">
-      <template slot-scope="scope">
-        <el-button
-        type='warning'
-        icon='edit'
-        size="small"
-        @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
-      </template>
-    </el-table-column>         
+    </el-table-column>   
+    <el-table-column
+      prop="id"
+      label="编号"
+      width="150"
+      align="center">     
+    </el-table-column> 
   </el-table>
-  <Dialog :tableData="tableData"></Dialog>
   </div>
 </template>
 <script>
@@ -65,6 +61,9 @@ export default{
         }
     },
     methods: {
+        handleClick(index,row){
+          this.$router.push({path:'/lostDetail',query:{id:row.id}}) 
+        },
         getHistoryData(){
             let {id}=this.$store.getters.user.result
             this.$http.get('/api/lost',{params:{userId:id,pageSize:'',currentPage:''}})

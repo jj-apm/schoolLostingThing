@@ -66,7 +66,10 @@ class FoundController extends Controller {
                     }],
                     where: {
                         user_id: userId
-                    }
+                    },
+                    order: [
+                        ['date', 'DESC']
+                    ]
                 });
                 if (!result) {
                     this.ctx.status = 400
@@ -88,6 +91,9 @@ class FoundController extends Controller {
                     }, {
                         model: this.ctx.model.Kind
                     }],
+                    order: [
+                        ['date', 'DESC']
+                    ],
                     offset,
                     limit,
                     distinct: true //这一句可以去重，它返回的 count 不会把你的 include 的数量算进去

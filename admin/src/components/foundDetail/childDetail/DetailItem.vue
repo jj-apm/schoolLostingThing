@@ -197,7 +197,7 @@ export default{
 <style scoped>
 .main{
     width: 710px;
-    max-height: 687px;
+    max-height: 750px;
     border: 1px solid #5155f7;
     margin:10px 0 0 160px;
 }
@@ -369,6 +369,9 @@ export default{
     background-color:#cbcbcf;
     width: 600px;
     min-height: 30px;
+}
+.reply{
+      border-bottom: 1px solid #d6d2d2;
 }
 .reply p:nth-child(3),.comment p:nth-child(2){
     overflow: hidden;

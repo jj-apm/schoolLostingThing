@@ -67,7 +67,10 @@ class LostController extends Controller {
                     }],
                     where: {
                         user_id: userId
-                    }
+                    },
+                    order: [
+                        ['date', 'DESC']
+                    ]
                 });
                 if (!result) {
                     this.ctx.status = 400
@@ -89,6 +92,9 @@ class LostController extends Controller {
                     }, {
                         model: this.ctx.model.Kind
                     }],
+                    order: [
+                        ['date', 'DESC']
+                    ],
                     offset,
                     limit,
                     distinct: true //这一句可以去重，它返回的 count 不会把你的 include 的数量算进去
@@ -131,6 +137,31 @@ class LostController extends Controller {
             if (!result) {
                 this.ctx.status = 400
                 this.ctx.body = "删除失败"
+            } else {
+                this.ctx.body = result
+            }
+        } catch (e) {
+            this.ctx.throw(e)
+        }
+    }
+
+    async noticeList() {
+        let { user_id } = this.ctx.query
+        try {
+            let result = await this.ctx.model.Lost.findAll({
+                where: {
+                    user_id
+                },
+                include: [{
+                    model: this.ctx.model.Clue,
+                    include: [
+                        { model: this.ctx.model.Notice }
+                    ]
+                }]
+            })
+            if (!result) {
+                this.ctx.status = 400
+                this.ctx.body = "未找到"
             } else {
                 this.ctx.body = result
             }

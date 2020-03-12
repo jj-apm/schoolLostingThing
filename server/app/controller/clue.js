@@ -89,6 +89,57 @@ class ClueController extends Controller {
             }
         }
     }
+
+    async getNotice() {
+        let { user_id } = this.ctx.query
+        try {
+            let result = await this.ctx.model.Lost.findAll({
+                where: {
+                    user_id
+                },
+                order: [
+                    [this.ctx.model.Clue, 'date', 'DESC']
+                ],
+                include: [{
+                    model: this.ctx.model.Clue,
+                    where: {
+                        user_id: {
+                            [this.app.Sequelize.Op.ne]: user_id
+                        },
+                        type: 0
+                    }
+                }],
+            })
+            if (!result) {
+                this.ctx.status = 400
+                this.ctx.body = "查找失败"
+            } else {
+                this.ctx.body = result
+            }
+        } catch (e) {
+            this.ctx.throw(e)
+        }
+    }
+
+    async editNoticeStatus() {
+        let { id } = this.ctx.params
+        let { type } = this.ctx.request.body
+        try {
+            let result = await this.ctx.model.Clue.update({ type }, {
+                where: {
+                    id
+                }
+            })
+            if (!result) {
+                this.ctx.status = 400
+                this.ctx.body = "查找失败"
+            } else {
+                this.ctx.body = result
+            }
+        } catch (e) {
+            this.ctx.throw(e)
+        }
+    }
     async delete() {
         let { id } = this.ctx.params
         try {

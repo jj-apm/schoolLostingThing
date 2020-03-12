@@ -2,12 +2,7 @@
     <div class="home">
         <div class="container">
         <el-container>
-         <el-header>
-        <div class="head">
-         <p class="title">欢迎来到校园失物招领网</p>
-         <p class="name">{{user.result.username}}</p>
-        </div> 
-       </el-header>
+        <HeaderNav></HeaderNav>
        <el-menu class="el-menu-demo" mode="horizontal" router>
          <el-menu-item index="/index">首页</el-menu-item>
          <el-menu-item index="/lost">寻物启事</el-menu-item>
@@ -25,6 +20,7 @@
 
 <script>
 import DetailItem from './childDetails/DetailItem'
+import HeaderNav from '../HeaderNav'
 export default{
     computed: {
         user(){
@@ -32,7 +28,8 @@ export default{
         }
     },
     components: {
-      DetailItem
+      DetailItem,
+      HeaderNav
     }
 }
 </script>
