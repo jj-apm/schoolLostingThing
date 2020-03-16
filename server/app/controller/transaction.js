@@ -2,19 +2,16 @@
 
 const Controller = require('egg').Controller;
 
-class LostController extends Controller {
+class TransactionController extends Controller {
     async add() {
-        const lostField = {}
-        if (this.ctx.request.body.name) lostField.name = this.ctx.request.body.name
-        if (this.ctx.request.body.place) lostField.place = this.ctx.request.body.place
-        if (this.ctx.request.body.desc) lostField.desc = this.ctx.request.body.desc
-        if (this.ctx.request.body.others) lostField.others = this.ctx.request.body.others
-        if (this.ctx.request.body.kind_id) lostField.kind_id = this.ctx.request.body.kind_id
-        if (this.ctx.request.body.date) lostField.date = this.ctx.request.body.date
-        if (this.ctx.request.body.lphoto) lostField.lphoto = this.ctx.request.body.lphoto
-        if (this.ctx.payload.result.id) lostField.user_id = this.ctx.payload.result.id
+        const transactionField = {}
+        if (this.ctx.request.body.name) transactionField.name = this.ctx.request.body.name
+        if (this.ctx.request.body.desc) transactionField.desc = this.ctx.request.body.desc
+        if (this.ctx.request.body.tkind_id) transactionField.tkind_id = this.ctx.request.body.tkind_id
+        if (this.ctx.request.body.tphoto) transactionField.tphoto = this.ctx.request.body.tphoto
+        if (this.ctx.payload.result.id) transactionField.user_id = this.ctx.payload.result.id
         try {
-            const result = await this.ctx.model.Lost.create(lostField)
+            const result = await this.ctx.model.Transaction.create(transactionField)
             this.ctx.body = result
         } catch (e) {
             this.ctx.throw(e)
@@ -24,7 +21,7 @@ class LostController extends Controller {
     async findById() {
         let { id } = this.ctx.query
         try {
-            let result = await this.ctx.model.Lost.findOne({
+            let result = await this.ctx.model.Transaction.findOne({
                 where: {
                     id
                 },
@@ -59,7 +56,7 @@ class LostController extends Controller {
         const { pageSize, currentPage, userId } = this.ctx.query
         if (userId) {
             try {
-                let result = await this.app.model.Lost.findAll({
+                let result = await this.app.model.Transaction.findAll({
                     include: [{
                         model: this.ctx.model.User
                     }, {
@@ -85,8 +82,8 @@ class LostController extends Controller {
             try {
                 const offset = (currentPage - 1) * pageSize;
                 const limit = parseInt(pageSize);
-                let count = await this.app.model.Lost.count();
-                let result = await this.app.model.Lost.findAll({
+                let count = await this.app.model.Transaction.count();
+                let result = await this.app.model.Transaction.findAll({
                     include: [{
                         model: this.ctx.model.User
                     }, {
@@ -129,7 +126,7 @@ class LostController extends Controller {
     async delete() {
         let { id } = this.ctx.params
         try {
-            let result = await this.ctx.model.Lost.destroy({
+            let result = await this.ctx.model.Transaction.destroy({
                 where: {
                     id
                 }
@@ -146,7 +143,7 @@ class LostController extends Controller {
     }
     async findNewest() {
         try {
-            let result = await this.ctx.model.Lost.findAll({
+            let result = await this.ctx.model.Transaction.findAll({
                 limit: 10,
                 order: [
                     ['createdAt', 'DESC']
@@ -169,7 +166,7 @@ class LostController extends Controller {
     async noticeList() {
         let { user_id } = this.ctx.query
         try {
-            let result = await this.ctx.model.Lost.findAll({
+            let result = await this.ctx.model.Transaction.findAll({
                 where: {
                     user_id
                 },
@@ -194,7 +191,7 @@ class LostController extends Controller {
         let { id } = this.ctx.params
         let { status } = this.ctx.request.body
         try {
-            let result = await this.ctx.model.Lost.update({ status }, {
+            let result = await this.ctx.model.Transaction.update({ status }, {
                 where: {
                     id
                 }
@@ -218,14 +215,14 @@ class LostController extends Controller {
         let count = 0;
         if (typeof value == 'number') {
             try {
-                count = await this.app.model.Lost.count({
+                count = await this.app.model.Transaction.count({
                     where: {
                         kind_id: value
                     },
                     offset: currentPage,
                     limit: pageSize,
                 });
-                result = await this.app.model.Lost.findAll({
+                result = await this.app.model.Transaction.findAll({
                     include: [{
                         model: this.ctx.model.User
                     }, {
@@ -263,7 +260,7 @@ class LostController extends Controller {
             }
         } else {
             try {
-                count = await this.app.model.Lost.count({
+                count = await this.app.model.Transaction.count({
                     where: {
                         name: {
                             [this.app.Sequelize.Op.like]: `%${value}%`
@@ -272,7 +269,7 @@ class LostController extends Controller {
                     offset: currentPage,
                     limit: pageSize,
                 });
-                result = await this.app.model.Lost.findAll({
+                result = await this.app.model.Transaction.findAll({
                     include: [{
                         model: this.ctx.model.User
                     }, {
@@ -314,7 +311,7 @@ class LostController extends Controller {
     }
     async findList() {
         try {
-            let result = await this.app.model.Lost.findAll({
+            let result = await this.app.model.Transaction.findAll({
                 include: [{
                     model: this.ctx.model.User
                 }, {
@@ -351,4 +348,4 @@ class LostController extends Controller {
     }
 }
 
-module.exports = LostController;
+module.exports = TransactionController;

@@ -8,11 +8,12 @@
          <el-menu-item index="/lost">寻物启事</el-menu-item>
          <el-menu-item index="/found">招领启事</el-menu-item>
          <el-menu-item index="/publish">发布信息</el-menu-item>
+         <el-menu-item index="/transaction">跳蚤市场</el-menu-item>
        </el-menu>
        <el-main>
          <section class="sec1"><img src="../assets/post1.jpeg" alt=""></section>
         <router-view></router-view>
-        </el-main>  
+        </el-main>    
        <el-footer>Footer</el-footer>
       </el-container>
       </div>
@@ -47,13 +48,10 @@ export default{
   }
 .el-main {
     background-color: #E9EEF3;
-    /* width:960px; */
     color: #333;
-    /* text-align: center; */
-    height: 900px;
+    height:auto;
     padding: 12px;
-    /* text-align: center; */
-    /* line-height: 160px; */
+    overflow: hidden;
   }
 body > .el-container {
     margin-bottom: 40px;

@@ -105,5 +105,23 @@ class UserController extends Controller {
             data: ctx.payload,
         };
     }
+
+    async userList() {
+        try {
+            let result = await this.ctx.model.User.findAll({
+                where: {
+                    status: 1
+                }
+            })
+            if (!result) {
+                this.ctx.status = 400
+                this.ctx.body = "删除失败"
+            } else {
+                this.ctx.body = result
+            }
+        } catch (e) {
+            this.ctx.throw(e)
+        }
+    }
 }
 module.exports = UserController

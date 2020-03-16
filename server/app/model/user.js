@@ -46,6 +46,7 @@ module.exports = app => {
         app.model.User.hasMany(app.model.Lost, { foreignKey: 'user_id', targetKey: 'id' });
         app.model.User.hasMany(app.model.Found, { foreignKey: 'user_id', targetKey: 'id' });
         app.model.User.hasMany(app.model.Clue, { foreignKey: 'user_id', targetKey: 'id' });
+        app.model.User.hasMany(app.model.Transaction, { foreignKey: 'user_id', targetKey: 'id' });
 
     }
     return User;

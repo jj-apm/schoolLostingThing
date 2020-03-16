@@ -8,6 +8,9 @@
         <el-tab-pane label="招领启事" name="second">
           <FoundTable></FoundTable>
           </el-tab-pane>
+        <el-tab-pane label="二手交易" name="third">
+          <Transaction></Transaction>
+          </el-tab-pane>
       </el-tabs>
     </div>
   </div>
@@ -15,6 +18,7 @@
 <script>
 import LostTable from './lost/index'
 import FoundTable from './found/index'
+import Transaction from './transaction/index'
 export default{
   data () {
     return {
@@ -23,7 +27,8 @@ export default{
   },
   components: {
     LostTable,
-    FoundTable
+    FoundTable,
+    Transaction
   }
 }
 </script>
@@ -33,6 +38,6 @@ export default{
   margin-top:15px;
   background-color: #fff;
   position: relative;
-  left: 171px;
+  left: 181px;
 }
 </style>

@@ -55,13 +55,9 @@ export default{
   }
 .el-main {
     background-color: #E9EEF3;
-    /* width:960px; */
     color: #333;
-    /* text-align: center; */
-    height: 900px;
+    height: auto;
     padding: 12px;
-    /* text-align: center; */
-    /* line-height: 160px; */
   }
 body > .el-container {
     margin-bottom: 40px;

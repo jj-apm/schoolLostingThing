@@ -96,7 +96,8 @@ export default{
              this.$message({
                message:'信息提交成功',  
                type:'success'
-             })   
+             })
+             this.$router.push('/index')   
            }).catch(e=>{
              console.log(e); 
            })

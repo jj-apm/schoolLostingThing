@@ -104,7 +104,8 @@ export default{
                  status:''
              },
              dia1Visible:false,
-             noticeList:[]
+             noticeList:[],
+             time:''
         }
     },
     methods: {
@@ -212,12 +213,12 @@ export default{
       }
     },
     created () {
-        var time=setInterval(()=>{
+        // this.time=setInterval(()=>{
             this.getNotice()
-        },6000)
+        // },6000)
     },
     destroyed () {
-        clearInterval(time)
+        clearInterval(this.time)
     }
 }
 </script>

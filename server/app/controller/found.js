@@ -20,6 +20,28 @@ class FoundController extends Controller {
         }
 
     }
+
+    async findNewest() {
+        try {
+            let result = await this.ctx.model.Found.findAll({
+                limit: 10,
+                order: [
+                    ['createdAt', 'DESC']
+                ],
+                where: {
+                    status: '1'
+                }
+            })
+            if (!result) {
+                this.ctx.status = 400
+                this.ctx.body = "删除失败"
+            } else {
+                this.ctx.body = result
+            }
+        } catch (e) {
+            this.ctx.throw(e)
+        }
+    }
     async findById() {
         let { id } = this.ctx.query
         try {
@@ -68,7 +90,7 @@ class FoundController extends Controller {
                         user_id: userId
                     },
                     order: [
-                        ['date', 'DESC']
+                        ['createdAt', 'DESC']
                     ]
                 });
                 if (!result) {
@@ -92,7 +114,7 @@ class FoundController extends Controller {
                         model: this.ctx.model.Kind
                     }],
                     order: [
-                        ['date', 'DESC']
+                        ['createdAt', 'DESC']
                     ],
                     offset,
                     limit,
@@ -242,6 +264,43 @@ class FoundController extends Controller {
             } catch (err) {
                 this.ctx.throw(err)
             }
+        }
+    }
+    async findList() {
+        try {
+            let result = await this.app.model.Found.findAll({
+                include: [{
+                    model: this.ctx.model.User
+                }, {
+                    model: this.ctx.model.Kind
+                }],
+                order: [
+                    ['createdAt', 'DESC']
+                ]
+            });
+            if (!result) {
+                this.ctx.status = 400
+                this.ctx.body = "查找失败"
+            } else {
+                let total = []
+                result.map((item, idx) => {
+                    let everyItem = {}
+                    everyItem.id = item.id
+                    everyItem.name = item.name
+                    everyItem.desc = item.desc
+                    everyItem.lphoto = item.lphoto
+                    everyItem.date = item.date
+                    everyItem.place = item.place
+                    everyItem.userName = item.user.username
+                    everyItem.kindName = item.kind.name
+                    everyItem.status = item.status
+                    everyItem.creatTime = item.createdAt
+                    total.push(everyItem)
+                })
+                this.ctx.body = { total }
+            }
+        } catch (e) {
+            this.ctx.throw(e)
         }
     }
 }

@@ -3,10 +3,13 @@ import VueRouter from 'vue-router'
 import Login from '../views/Login.vue'
 import Register from '../views/Register.vue'
 import AdminHome from '../views/AdminHome.vue'
-import KindAdd from '../components/kind/KindAdd'
 import KindList from '../components/kind/KindList'
+import UserList from '../components/user/UserList'
+import LostList from '../components/LostList'
+import FoundList from '../components/FoundList'
 import LostDetail from '../components/lostDetail'
 import FoundDetail from '../components/foundDetail'
+import Transaction from '../views/Transaction.vue'
 import Home from '../views/Home'
 import Index from '../components/Index'
 import Lost from '../components/Lost'
@@ -28,7 +31,8 @@ const routes = [{
             { path: '/found', component: Found },
             { path: '/publish', component: Publish },
             { path: '/lostHistory', component: LostHistory },
-            { path: '/foundHistory', component: FoundHistory }
+            { path: '/foundHistory', component: FoundHistory },
+            { path: '/transaction', component: Transaction },
         ]
     },
     {
@@ -43,8 +47,10 @@ const routes = [{
         path: '/admin',
         component: AdminHome,
         children: [
-            { path: '/kind/add', component: KindAdd },
-            { path: '/kind/list', component: KindList }
+            { path: '/kind/list', component: KindList },
+            { path: '/users/list', component: UserList },
+            { path: '/lost/list', component: LostList },
+            { path: '/found/list', component: FoundList },
         ]
     },
     {

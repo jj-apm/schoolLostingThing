@@ -9,7 +9,6 @@ const path = require('path');
 const sendToWormhole = require('stream-wormhole');
 //这里使用了egg-multipart
 const md5 = require('md5'); //这里由于文件名的限制用md5加密 暂时放弃bcrypt加密
-
 class UploadService extends Service {
     async uploadImg() {
         //egg-multipart 已经帮我们处理文件二进制对象

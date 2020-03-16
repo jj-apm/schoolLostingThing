@@ -116,14 +116,14 @@ export default{
             })
         },
          claim(){
+            this.dia1Visible=false
             let {username,phone}=this.$store.getters.user.result
             this.claimFields.name=username
             this.claimFields.phone=phone
             this.claimFields.found_id=this.detailData.id
             this.$http.post('/api/claim/add',this.claimFields).then((res)=>{
-                this.$http.post(`/api/found/update/${this.detailData.id}`,this.st)
+                this.$http.post(`/api/found/editStatus/${this.detailData.id}`,this.st)
                 .then(res=>{
-                    this.dia1Visible=false
                     this.getDetail()
                 })        
             })
@@ -132,7 +132,7 @@ export default{
               confirmButtonText: '确定',
               dangerouslyUseHTMLString: true,
               callback: action => {
-                console.log(11);
+                console.log(11);    
              }
         })
          },

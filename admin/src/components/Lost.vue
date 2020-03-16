@@ -122,11 +122,7 @@ import { log } from 'util'
       getLostData(){
         this.$http.get('/api/lost',{params:{userId:'',currentPage:this.currentPage,pageSize:this.pageSize}}).then(res=>{
             this.tableData=res.data.total
-            this.total=res.data.count;
-            // console.log(this.tableData);
-            
-            // console.log(res.data);
-            // console.log(res.data.sum);               
+            this.total=res.data.count;           
         })
       },
       searchDate(){

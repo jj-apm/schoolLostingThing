@@ -32,9 +32,13 @@ class KindController extends Controller {
             this.ctx.throw(e)
         }
     }
-    async find() {
+    async findList() {
         try {
-            let result = await this.ctx.model.Kind.findAll()
+            let result = await this.ctx.model.Kind.findAll({
+                include: [{
+                    model: this.ctx.model.Lost
+                }],
+            })
             if (!result) {
                 this.ctx.status = 400
                 this.ctx.body = "查找失败"
