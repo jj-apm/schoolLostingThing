@@ -7,8 +7,9 @@ class TransactionController extends Controller {
         const transactionField = {}
         if (this.ctx.request.body.name) transactionField.name = this.ctx.request.body.name
         if (this.ctx.request.body.desc) transactionField.desc = this.ctx.request.body.desc
-        if (this.ctx.request.body.tkind_id) transactionField.tkind_id = this.ctx.request.body.tkind_id
+        if (this.ctx.request.body.kind_id) transactionField.kind_id = this.ctx.request.body.kind_id
         if (this.ctx.request.body.tphoto) transactionField.tphoto = this.ctx.request.body.tphoto
+        if (this.ctx.request.body.price) transactionField.price = this.ctx.request.body.price
         if (this.ctx.payload.result.id) transactionField.user_id = this.ctx.payload.result.id
         try {
             const result = await this.ctx.model.Transaction.create(transactionField)
@@ -60,7 +61,7 @@ class TransactionController extends Controller {
                     include: [{
                         model: this.ctx.model.User
                     }, {
-                        model: this.ctx.model.Kind
+                        model: this.ctx.model.Transkind
                     }],
                     where: {
                         user_id: userId
@@ -87,7 +88,7 @@ class TransactionController extends Controller {
                     include: [{
                         model: this.ctx.model.User
                     }, {
-                        model: this.ctx.model.Kind
+                        model: this.ctx.model.Transkind
                     }],
                     order: [
                         ['createdAt', 'DESC']
@@ -106,11 +107,11 @@ class TransactionController extends Controller {
                         everyItem.id = item.id
                         everyItem.name = item.name
                         everyItem.desc = item.desc
-                        everyItem.lphoto = item.lphoto
+                        everyItem.lphoto = item.tphoto
                         everyItem.date = item.date
-                        everyItem.place = item.place
+                        everyItem.price = item.price
                         everyItem.userName = item.user.username
-                        everyItem.kindName = item.kind.name
+                        everyItem.kindName = item.transkind.name
                         everyItem.status = item.status
                         total.push(everyItem)
                     })

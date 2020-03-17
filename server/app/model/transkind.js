@@ -3,7 +3,7 @@
 module.exports = app => {
     const { STRING, INTEGER, BOOLEAN } = app.Sequelize;
 
-    const TKind = app.model.define("tKind", {
+    const Transkind = app.model.define("transkind", {
         id: {
             type: INTEGER,
             primaryKey: true,
@@ -21,8 +21,8 @@ module.exports = app => {
             // 但是为了安全着想，复数的转换可能会发生变化，所以禁止该行为
 
     })
-    TKind.associate = function() {
-        app.model.TKind.hasOne(app.model.Transaction, { foreignKey: 'tkind_id' });
+    Transkind.associate = function() {
+        app.model.Transkind.hasOne(app.model.Transaction, { foreignKey: 'kind_id' });
     }
-    return TKind;
+    return Transkind;
 };

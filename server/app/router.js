@@ -21,6 +21,7 @@ module.exports = app => {
     router.get('/lost/lostList', controller.lost.findList);
 
     router.post('/transaction/add', controller.transaction.add);
+    router.get('/transaction', controller.transaction.find);
     router.post('/found/add', controller.found.add);
     router.get('/found/newest', controller.found.findNewest);
     router.post('/found/editStatus/:id', controller.found.update);
@@ -29,6 +30,7 @@ module.exports = app => {
     router.post('/foundSearch', controller.found.foundSearch)
     router.get('/found/foundList', controller.found.findList);
     router.post('/kind/add', controller.kind.add);
+    router.post('/transkind/add', controller.tkind.add);
     router.post('/kind/:id', controller.kind.update);
     router.delete('/kind/:id', controller.kind.delete);
     router.get('/kind', controller.kind.findList);

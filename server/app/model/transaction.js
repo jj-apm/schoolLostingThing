@@ -19,19 +19,22 @@ module.exports = app => {
             allowNull: false
         },
         desc: {
-            type: TEXT,
+            type: STRING(255),
             allowNull: false,
         },
-        date: {
-            type: DATEONLY,
-            allowNull: false,
-            defaultValue: NOW
+        price: {
+            type: INTEGER,
+            allowNull: false
         },
         user_id: {
             type: INTEGER,
             allowNull: false
         },
-        tkind_id: {
+        date: {
+            type: DATEONLY,
+            defaultValue: NOW
+        },
+        kind_id: {
             type: INTEGER,
             allowNull: false
         },
@@ -58,7 +61,7 @@ module.exports = app => {
 
     })
     Transaction.associate = function() {
-        app.model.Transaction.belongsTo(app.model.TKind, { foreignKey: 'tkind_id', targetKey: 'id' });
+        app.model.Transaction.belongsTo(app.model.Transkind, { foreignKey: 'kind_id', targetKey: 'id' });
         app.model.Transaction.belongsTo(app.model.User, { foreignKey: 'user_id', targetKey: 'id' })
     }
     return Transaction;

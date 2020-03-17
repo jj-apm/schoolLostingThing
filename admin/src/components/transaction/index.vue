@@ -6,8 +6,8 @@
           <el-input v-model="ruleForm.name"></el-input>
        </el-col> 
      </el-form-item>
-      <el-form-item label="物品分类" prop="tkind_id">
-       <el-select v-model="ruleForm.tkind_id" placeholder="请选择物品分类">
+      <el-form-item label="物品分类" prop="kind_id">
+       <el-select v-model="ruleForm.kind_id" placeholder="请选择物品分类">
          <el-option label="手机" value="1"></el-option>
          <el-option label="电子零件" value="2"></el-option>
          <el-option label="动漫" value="3"></el-option>
@@ -27,19 +27,23 @@
           <el-input type="textarea" v-model="ruleForm.desc" :rows="6"></el-input>
        </el-col>
      </el-form-item>
+     <el-form-item label="价格" prop="price">
+       <el-col :span="3">
+         <el-input type="text" v-model="ruleForm.price"></el-input>
+       </el-col>
+     </el-form-item>
      <el-form-item label="上传图片" prop="tphoto">
-        <el-upload
-         class="upload-demo"
-         action="/api/uploadMore"
-         :show-file-list="true" 
-         :http-request="uploadFile"
-         :multiple="true"
+         <el-upload
+          class="upload-demo"
+          action="/api/uploadMore"
           list-type="picture"
-          ref="upload"
+          :multiple="true"
           :auto-upload="false"
-          >
-           <el-button size="small" type="primary">点击上传</el-button>
-       </el-upload>
+          :http-request="uploadFile"
+          ref="upload" 
+         >
+          <el-button size="small" type="primary">点击上传</el-button>
+       </el-upload> 
         <!-- <el-button @click="subPicForm">提交上传</el-button> -->
      </el-form-item>
      <el-form-item>
@@ -53,64 +57,36 @@ import { log } from 'util';
 export default{
      data() {
       return { 
-           formData:"",
-        editorOption: {} ,
+        formData:'',
         ruleForm: {
           name: '',
-          tkind_id: '',
+          kind_id: '',
           desc: '',
-          tphoto:''
+          tphoto:'',
+          price:''
         },
         fileData:[],
         rules: {
           name: [
             {required: true, message: '请输入物品名称', trigger: 'blur' },
-            { min: 1, max: 10, message: '长度在 1 到 10 个字符', trigger: 'blur' }
+            { min: 3, max: 20, message: '长度在 3 到 20 个字符', trigger: 'blur' }
           ],
-          tkind_id: [
+          kind_id: [
             { required: true, message: '请选择分类名称', trigger: 'change' }
           ],
           desc: [
             { required: true, message: '请填写物品描述', trigger: 'blur' }
+          ],
+           price: [
+            { required: true, message: '请输入物品价格', trigger: 'blur' }
           ]
         }
-      };
+      }
     },
     methods: {
-         uploadFile(item,fileList){
+         uploadFile(item){
              this.fileData.push(item)
             },
-            //  subPicForm(){
-            //     this.$refs.upload.submit();
-                // this.formDate.append('WS_CODE', "12133");
-                  // console.log(this.fileData.length);
-                  // for(var i=0;i<this.fileData.length;i++){
-                  //   this.formDate.append('file', this.fileData[i].file);
-                  // }
-                  // console.log(this.formDate.get('file[]'));
-                  // console.log(this.fileData);
-                  
-                  //  this.formData = new FormData()
-                  // for(var i=0;i<this.fileData.length;i++){
-                  //   this.formData.append('file', this.fileData[i].file);
-                  // }
-                  // this.fileData=[]
-                  // console.log(this.formData.get('file'));
-                  
-                  
-            //     let config = {
-            //         headers: {
-            //             'Content-Type': 'multipart/form-data'
-            //         }
-            //     }
-            //     console.log(this.formDate); 
-                
-            //     this.$http.post("/api/uploadMore", this.formData,config).then( res => {
-            //         console.log(res)
-            //     }).catch( res => {
-            //         console.log(res)
-            //     })
-            //  },
       submitForm(formName) {
          this.$refs.upload.submit();
           this.formData = new FormData()
@@ -124,30 +100,52 @@ export default{
                 }
             }
            this.$http.post("/api/uploadMore", this.formData,config).then( res => {
-                  console.log(res.data.url)
-                  this.ruleForm.tphoto=res.data.url[0]
-              }).catch( err => {
-                  console.log(err)
-              })
-        this.$refs[formName].validate((valid) => {
-          if (valid) {
-           this.$http.post('/api/transaction/add',this.ruleForm).then(res=>{
-             this.$message({
-               message:'信息提交成功',  
-               type:'success'
-             })
-             this.$router.push('/index')   
-           }).catch(e=>{
-             console.log(e); 
-           })
-          }else{
-            this.$message({
-              message:'请输入所有信息',
-              type:'warning'
-            })
-          }
-        })                      
-    } 
+                  console.log(res);
+                  this.ruleForm.tphoto=res.data.url.toString() 
+                   this.$refs[formName].validate((valid) => {
+                     if (valid) {
+                       console.log(this.ruleForm.tphoto);
+                      this.$http.post('/api/transaction/add',this.ruleForm).then(res=>{
+                        this.$message({
+                          message:'信息提交成功',  
+                          type:'success'
+                        })
+                        // this.$rout er.push('/index')   
+                      }).catch(e=>{
+                        console.log(e); 
+                      })
+                     }else{
+                       this.$message({
+                         message:'请输入所有信息',
+                         type:'warning'
+                       })
+                     }
+                   })            
+                      })         
+        //  this.$refs.upload.submit();
+        //   this.formData = new FormData()
+        //   for(var i=0;i<this.fileData.length;i++){
+        //       this.formData.append('file', this.fileData[i].file);
+        //           }
+        //     this.fileData=[]
+        //    let config = {
+        //         headers: {
+        //             'Content-Type': 'multipart/form-data'
+        //         }
+        //     }
+        //    this.$http.post("/api/uploadMore", this.formData,config).then( res => {
+        //           // console.log(typeof((res.data.url).toString()))
+        //           // let result=JSON.stringify(res.data.url)
+        //           console.log(res);
+                  
+                  // this.ruleForm.tphoto="http://127.0.0.1:7001/public/uploads/毛概书.jpg"
+                  // console.log(typeof(this.ruleForm.tphoto));
+                  
+              // }).catch( err => {
+              //     console.log(err)
+              // })
+              // this.ruleForm.tphoto="http://127.0.0.1:7001/public/uploads/毛概书.jpg"
+    }
 }
 }
 </script>
