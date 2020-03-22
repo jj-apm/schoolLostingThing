@@ -8,9 +8,10 @@ module.exports = app => {
     router.get('/', controller.home.index);
     router.post('/user/register', controller.user.register);
     router.post('/user/login', controller.user.login);
-    router.get('/user/userInfo', controller.user.getUserInfo);
-    router.post('/user/resetPassword', controller.user.resetPassword);
+    router.get('/user/userInfo/:id', controller.user.personalInfo);
+    router.post('/user/resetPassword/:id', controller.user.resetPassword);
     router.get('/userList', controller.user.userList);
+    router.post('/user/score/:id', controller.user.updateScore);
     router.post('/lost/add', controller.lost.add);
     router.post('/lost/editStatus/:id', controller.lost.update);
     router.delete('/lost/:id', controller.lost.delete);
@@ -20,6 +21,11 @@ module.exports = app => {
     router.get('/lost/newest', controller.lost.findNewest);
     router.get('/lost/lostList', controller.lost.findList);
 
+    router.post('/change/add', controller.change.add);
+    router.get('/change', controller.change.find);
+    router.post('/goods/add', controller.goods.add);
+    router.get('/goods', controller.goods.find);
+    router.post('/goods/count/:id', controller.goods.editCount);
     router.post('/transaction/add', controller.transaction.add);
     router.get('/transaction', controller.transaction.find);
     router.post('/found/add', controller.found.add);

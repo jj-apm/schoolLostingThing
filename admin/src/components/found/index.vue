@@ -54,9 +54,11 @@
   </div>
 </template>
 <script>
+import { log } from 'util';
 export default{
      data() {
       return { 
+        score:'',
         editorOption: {} ,
         ruleForm: {
           name: '',
@@ -88,16 +90,26 @@ export default{
       };
     },
     methods: {
+       getUserInfo(){
+            this.$http.get(`/api/user/userInfo/${this.$store.getters.user.result.id}`).then(res=>{
+                // console.log(res.data);
+                this.score=res.data.score
+            })
+        },
       submitForm(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
            this.$http.post('/api/found/add',this.ruleForm).then(res=>{
              this.$message({
                message:'信息提交成功',
-               type:'success'
-             })  
-              this.$router.push('/index')    
+               type:'success',
+               duration:2000
+             })        
            })
+            this.$http.post(`api/user/score/${this.$store.getters.user.result.id}`,{score:this.score+10}).then(res=>{
+                console.log(res.data);
+                 }) 
+              this.$router.push('/index')     
           }else{
             this.$message({
               message:'请输入所有信息',
@@ -133,6 +145,9 @@ export default{
            }
       }
     },
+    created () {
+      this.getUserInfo()
+    }
 }
 </script>
 <style>

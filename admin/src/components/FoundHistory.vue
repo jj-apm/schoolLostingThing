@@ -68,7 +68,7 @@ export default{
             let {id}=this.$store.getters.user.result
             this.$http.get('/api/found',{params:{userId:id,pageSize:'',currentPage:''}})
               .then(res=>{
-                  // console.log(res.data);
+                  console.log(res.data);
                 this.result=res.data
                 this.result.map((item, idx) => {
                     let everyItem = {}
@@ -84,9 +84,12 @@ export default{
                     everyItem.type = item.type
                     this.tableData.push(everyItem)
                 })
-              })
-              console.log(this.tableData);
-              
+                for(var item of this.tableData){
+                  if(item.desc.length>20){
+                    item.desc=item.desc.slice(0,20)+'...'
+                  }
+                }
+              })           
         }
     },
     created () {

@@ -69,7 +69,7 @@ class LostController extends Controller {
                         user_id: userId
                     },
                     order: [
-                        ['createdAt', 'DESC']
+                        ['date', 'DESC']
                     ]
                 });
                 if (!result) {
@@ -93,7 +93,7 @@ class LostController extends Controller {
                         model: this.ctx.model.Kind
                     }],
                     order: [
-                        ['createdAt', 'DESC']
+                        ['date', 'DESC']
                     ],
                     offset,
                     limit,
@@ -117,6 +117,11 @@ class LostController extends Controller {
                         everyItem.status = item.status
                         total.push(everyItem)
                     })
+                    for (var item of total) {
+                        if (item.desc.length > 20) {
+                            item.desc = item.desc.slice(0, 20) + '...'
+                        }
+                    }
                     this.ctx.body = { total, count }
                 }
             } catch (e) {
@@ -149,7 +154,7 @@ class LostController extends Controller {
             let result = await this.ctx.model.Lost.findAll({
                 limit: 10,
                 order: [
-                    ['createdAt', 'DESC']
+                    ['date', 'DESC']
                 ],
                 where: {
                     status: 1
@@ -211,12 +216,64 @@ class LostController extends Controller {
     }
 
     async searchKeywords() {
-        let { value, pageSize, currentPage } = this.ctx.request.body;
+        let { value, pageSize, currentPage, startTime, endTime } = this.ctx.request.body;
         pageSize = parseInt(pageSize);
         currentPage = (currentPage - 1) * pageSize;
         let result = [];
         let count = 0;
-        if (typeof value == 'number') {
+        if (startTime && endTime) {
+            try {
+                count = await this.app.model.Lost.count({
+                    where: {
+                        date: {
+                            [this.app.Sequelize.Op.between]: [startTime, endTime]
+                        }
+                    },
+                    offset: currentPage,
+                    limit: pageSize,
+                });
+                result = await this.app.model.Lost.findAll({
+                    include: [{
+                        model: this.ctx.model.User
+                    }, {
+                        model: this.ctx.model.Kind
+                    }],
+                    where: {
+                        date: {
+                            [this.app.Sequelize.Op.between]: [startTime, endTime]
+                        }
+                    },
+                    order: [
+                        ['date', 'DESC']
+                    ],
+                    offset: currentPage,
+                    limit: pageSize,
+                    distinct: true
+                });
+                if (!result) {
+                    this.ctx.status = 400
+                    this.ctx.body = "查找失败"
+                } else {
+                    let total = []
+                    result.map((item, idx) => {
+                        let everyItem = {}
+                        everyItem.id = item.id
+                        everyItem.name = item.name
+                        everyItem.desc = item.desc
+                        everyItem.lphoto = item.lphoto
+                        everyItem.date = item.date
+                        everyItem.place = item.place
+                        everyItem.userName = item.user.username
+                        everyItem.kindName = item.kind.name
+                        everyItem.status = item.status
+                        total.push(everyItem)
+                    })
+                    this.ctx.body = { total, count }
+                }
+            } catch (err) {
+                this.ctx.throw(err)
+            }
+        } else if (typeof value == 'number') {
             try {
                 count = await this.app.model.Lost.count({
                     where: {
@@ -234,6 +291,9 @@ class LostController extends Controller {
                     where: {
                         kind_id: value
                     },
+                    order: [
+                        ['date', 'DESC']
+                    ],
                     offset: currentPage,
                     limit: pageSize,
                     distinct: true
@@ -283,6 +343,9 @@ class LostController extends Controller {
                             [this.app.Sequelize.Op.like]: `%${value}%`
                         }
                     },
+                    order: [
+                        ['date', 'DESC']
+                    ],
                     offset: currentPage,
                     limit: pageSize,
                     distinct: true
@@ -321,7 +384,7 @@ class LostController extends Controller {
                     model: this.ctx.model.Kind
                 }],
                 order: [
-                    ['createdAt', 'DESC']
+                    ['date', 'DESC']
                 ]
             });
             if (!result) {

@@ -70,6 +70,12 @@
           <!-- <span style="color:#f56767" @click="handleClick(scope.$index, scope.row)">{{ scope.row.name }}</span> -->
           </template>
     </el-table-column>
+     <el-table-column
+      prop="desc"
+      label="物品描述"
+      width="190"
+      align="center">
+    </el-table-column>
     <el-table-column
       prop="userName"
       label="联系人"
@@ -120,28 +126,24 @@ import { log } from 'util'
     methods:{
       getFoundData(){
           this.$http.get('/api/found',{params:{userId:'',currentPage:this.currentPage,pageSize:this.pageSize}}).then(res=>{
-              console.log(res.data);
-                       
             this.tableData=res.data.total.filter((item)=>{
               return item.status=='未认领'
-            })   
-            console.log(this.tableData);
-                  
+            })                   
             this.total=res.data.count;
           })
       }, 
       searchDate(){
-            const sTime = this.searchData.startTime.getTime();
-            const eTime = this.searchData.endTime.getTime();
-            this.tableData = this.tableData.filter(item=>{
-                let date = new Date(item.date)
-                let time = item.date.getTime()
-                return time >= sTime && time <= eTime
-            })
+          this.paginationSign=3
+          this.$http.post('/api/foundSearch',{value:'',pageSize:this.pageSize,currentPage:this.currentPage,startTime:this.searchData.startTime,endTime:this.searchData.endTime})
+          .then(res=>{
+            // console.log(res.data);
+            this.tableData=res.data.total
+            this.total=res.data.count;
+          })
       },
       searchKeywords(){
         this.paginationSign=1
-        this.$http.post('/api/foundSearch',{value:this.searchData.value,pageSize:this.pageSize,currentPage:this.currentPage})
+        this.$http.post('/api/foundSearch',{value:this.searchData.value,pageSize:this.pageSize,currentPage:this.currentPage,startTime:'',endTime:''})
           .then(res=>{
             this.tableData=res.data.total
             this.total=res.data.count
@@ -149,22 +151,13 @@ import { log } from 'util'
     },
       filterOption(){
         this.paginationSign=2
-        this.$http.post('/api/foundSearch',{value:parseInt(this.searchData.kind_id),pageSize:this.pageSize,currentPage:this.currentPage})
+        this.$http.post('/api/foundSearch',{value:parseInt(this.searchData.kind_id),pageSize:this.pageSize,currentPage:this.currentPage,startTime:'',endTime:''})
           .then(res=>{
             console.log(res.data);
             this.tableData=res.data.total
             this.total=res.data.count;
           })
         // console.log(typeof this.searchData.kind_id);
-      },
-      searchDate(){
-        const sTime = this.searchData.startTime.getTime()
-        const eTime = this.searchData.endTime.getTime()
-        this.tableData = this.tableData.filter(item=>{
-           let date = new Date(item.date)
-           let time = date.getTime()
-           return time >= sTime && time <= eTime
-        })
       },
       handleClick(index,row){
         this.$router.push({path:'/foundDetail',query:{id:row.id}}) 
@@ -176,8 +169,10 @@ import { log } from 'util'
          this.getFoundData()
       }else if(this.paginationSign==1){
         this.searchKeywords()
-      }else{
+      }else if(this.paginationSign==2){
         this.filterOption()
+      }else{
+        this.searchDate()
       }
      
     },
@@ -188,8 +183,10 @@ import { log } from 'util'
          this.getFoundData()
          }else if(this.paginationSign==1){
         this.searchKeywords()
-        }else{
-          this.filterOption()
+        }else if(this.paginationSign==2){
+        this.filterOption()
+      }else{
+        this.searchDate()
       }
       }
     },
@@ -200,7 +197,7 @@ import { log } from 'util'
 </script>
 <style>
 .el-table{
-  width: 662px !important;
+  width: 852px !important;
   margin-top:35px;
   margin-left:180px;
 }

@@ -33,7 +33,14 @@
       <el-submenu index="5">
         <template slot="title"><i class="el-icon-setting"></i>认领管理</template>
          <el-menu-item-group>
-          <el-menu-item index="claim/list">认领列表</el-menu-item>
+          <el-menu-item index="/claim/list">认领列表</el-menu-item>
+        </el-menu-item-group>
+      </el-submenu>
+      <el-submenu index="6">
+        <template slot="title"><i class="el-icon-setting"></i>积分兑换管理</template>
+         <el-menu-item-group>
+          <el-menu-item index="/change/add">添加商品</el-menu-item>
+          <el-menu-item index="/change/list">商品管理</el-menu-item>
         </el-menu-item-group>
       </el-submenu>
     </el-menu>

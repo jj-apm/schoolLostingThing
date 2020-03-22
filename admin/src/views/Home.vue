@@ -9,6 +9,7 @@
          <el-menu-item index="/found">招领启事</el-menu-item>
          <el-menu-item index="/publish">发布信息</el-menu-item>
          <el-menu-item index="/transaction">跳蚤市场</el-menu-item>
+         <el-menu-item index="/goods">积分商城</el-menu-item>
        </el-menu>
        <el-main>
          <section class="sec1"><img src="../assets/post1.jpeg" alt=""></section>

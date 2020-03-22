@@ -7,7 +7,7 @@
         <el-dropdown trigger="click" @command="setDialogInfo">
           <span class="el-dropdown-link"><i class="el-icon-caret-bottom el-icon--right"></i></span>
           <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item command="info">个人信息</el-dropdown-item>
+            <el-dropdown-item command="reset">修改密码</el-dropdown-item>
             <el-dropdown trigger="click" @command="historyInfo">
               <span class="el-dropdown-link">
                 发布历史<i class="el-icon-arrow-down el-icon--right"></i>
@@ -19,6 +19,7 @@
             </el-dropdown>
             <el-dropdown-item command="status">修改物品状态</el-dropdown-item>
             <el-dropdown-item command="notice"><p v-if="noticeList.length" style="width: 124px;margin: 0"><span>通知</span><i class="notice"><span>{{noticeList.length}}</span></i></p></el-dropdown-item>
+            <el-dropdown-item command="score">我的积分:&nbsp;&nbsp;<span class="score">{{score}}</span></el-dropdown-item>
             <el-dropdown-item command="logout">退出</el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
@@ -86,13 +87,52 @@
           <span>{{item.date|dateFilter}}</span> 
         </div>
 </el-dialog>
+<!-- 修改密码 -->
+<el-dialog
+     :visible.sync="dia2Visible"
+     width="30%">
+      <el-form ref="resetForm" :model="userList" label-width="80px" :rules="rules">
+         <el-form-item label="新密码" prop="newPassword">
+             <el-input type='password' v-model="userList.newPassword" placeholder="请输入密码"></el-input>
+         </el-form-item>
+         <el-form-item label="确认密码" prop="password2">
+             <el-input type='password' v-model="userList.password2" placeholder="请再次输入密码"></el-input>
+         </el-form-item>
+         <el-form-item>
+             <el-button type="primary" @click="submitReset('resetForm')">提交</el-button>
+         </el-form-item>
+      </el-form>
+</el-dialog>
 </div>
 </template>
 <script>
 import { log } from 'util'
 export default{
     data(){
+         var validatePass2 = (rule, value, callback) => {
+            if (value !== this.userList.newPassword) {
+            callback(new Error('两次输入密码不一致!'));
+            } else {
+            callback();
+            }
+        };
         return{
+            rules:{
+                 newPassword:[
+                    {required:true,message:'密码不能为空',trigger:'blur'},
+                    {min:4,max:10,message:'长度在4-10之间',trigger:'blur'}
+                ],
+                password2:[
+                    {required:true,message:'密码不能为空',trigger:'blur'},
+                    {min:4,max:10,message:'长度在4-10之间',trigger:'blur'},
+                    {validator:validatePass2,trigger:'blur'}
+                ],
+            },
+            userList:{
+                newPassword:'',
+                password2:''
+            },
+            dia2Visible:false,
             activeName:'first',
              dialogVisible: false,
              lostList:{
@@ -105,10 +145,31 @@ export default{
              },
              dia1Visible:false,
              noticeList:[],
-             time:''
+             time:'',
+             score:''
         }
     },
     methods: {
+          submitReset(formName){
+            this.$refs[formName].validate((valid) => {
+            if (valid) {
+                this.$http.post(`/api//user/resetPassword/${this.$store.getters.user.result.id}`,this.userList).then(res=>{
+                    this.$message({
+                        type:'success',
+                        message:'密码修改成功',
+                        duration:1500
+                    })
+                    this.$router.push('/login')             
+                })
+            }
+            })
+          },
+        getUserInfo(){
+            this.$http.get(`/api/user/userInfo/${this.$store.getters.user.result.id}`).then(res=>{
+                // console.log(res.data);
+                this.score=res.data.score
+            })
+        },
         editFound(){
           this.$http.post(`/api/found/editStatus/${this.foundList.id}`,this.foundList)
              .then(res=>{
@@ -135,8 +196,8 @@ export default{
         },
         setDialogInfo(cmdItem){
             switch(cmdItem){
-                case "info":
-                    this.showIndoList();
+                case "reset":
+                    this.resetPassword();
                     break; 
                  case "status":
                     this.status();
@@ -159,8 +220,8 @@ export default{
                      break;
             }
         },
-        showIndoList(){
-          this.$router.push('/infoshow')
+        resetPassword(){
+         this.dia2Visible=true
         },
         notice(){
                this.dia1Visible=true
@@ -176,6 +237,8 @@ export default{
         },
         lostHistory(){
             this.$router.push('/lostHistory')
+            console.log(this.$store.getters.user.result);
+            
         },
         foundHistory(){
             this.$router.push('/foundHistory')
@@ -213,13 +276,17 @@ export default{
       }
     },
     created () {
+        this.getUserInfo(),
         // this.time=setInterval(()=>{
             this.getNotice()
         // },6000)
     },
-    destroyed () {
-        clearInterval(this.time)
+    updated () {
+         this.getUserInfo()
     }
+    // destroyed () {
+    //     clearInterval(this.time)
+    // }
 }
 </script>
 <style>

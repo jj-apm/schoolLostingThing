@@ -67,30 +67,19 @@ class UserController extends Controller {
         }
     }
     async resetPassword() {
+        let { newPassword } = this.ctx.request.body
+        let { id } = this.ctx.params
         try {
-            let { username, newPassword } = this.ctx.request.body
-            let result = await this.app.model.User.findOne({
-                where: {
-                    username
-                }
-            })
-
-            if (result) {
-                const hash = bcrypt.hashSync(newPassword, 10);
-                let result_reset = await this.app.mysql.update('users', { password: hash }, { where: { username } });
-                console.log(result_reset);
-                if (result_reset.changedRows == 1) {
-                    this.ctx.body = {
-                        msg: '密码修改成功'
-                    }
-                } else {
-                    this.ctx.body = '密码修改失败!'
-                    this.ctx.status = 400
+            const hash = bcrypt.hashSync(newPassword, 10);
+            let result_reset = await this.app.mysql.update('users', { password: hash }, { where: { id } });
+            console.log(result_reset);
+            if (result_reset.changedRows == 1) {
+                this.ctx.body = {
+                    msg: '密码修改成功'
                 }
             } else {
-                return this.ctx.body = {
-                    msg: '该用户不存在'
-                }
+                this.ctx.body = '密码修改失败!'
+                this.ctx.status = 400
             }
         } catch (err) {
             this.ctx.body = { msg: err }
@@ -104,6 +93,20 @@ class UserController extends Controller {
             message: '获取用户信息成功!',
             data: ctx.payload,
         };
+    }
+    async updateScore() {
+        let { id } = this.ctx.params
+        let { score } = this.ctx.request.body
+        try {
+            let result = await this.ctx.model.User.update({ score }, {
+                where: {
+                    id
+                }
+            })
+            this.ctx.body = result
+        } catch (e) {
+            this.ctx.throw(e)
+        }
     }
 
     async userList() {
@@ -119,6 +122,19 @@ class UserController extends Controller {
             } else {
                 this.ctx.body = result
             }
+        } catch (e) {
+            this.ctx.throw(e)
+        }
+    }
+    async personalInfo() {
+        let { id } = this.ctx.params
+        try {
+            let result = await this.ctx.model.User.findOne({
+                where: {
+                    id
+                }
+            })
+            this.ctx.body = result
         } catch (e) {
             this.ctx.throw(e)
         }

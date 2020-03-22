@@ -9,7 +9,10 @@ import LostList from '../components/LostList'
 import FoundList from '../components/FoundList'
 import LostDetail from '../components/lostDetail'
 import FoundDetail from '../components/foundDetail'
+import ChangeAdd from '../components/change/ChangeAdd'
+import ChangeList from '../components/change/ChangeList'
 import Transaction from '../views/Transaction.vue'
+import Goods from '../views/Goods.vue'
 import Home from '../views/Home'
 import Index from '../components/Index'
 import Lost from '../components/Lost'
@@ -33,6 +36,7 @@ const routes = [{
             { path: '/lostHistory', component: LostHistory },
             { path: '/foundHistory', component: FoundHistory },
             { path: '/transaction', component: Transaction },
+            { path: '/goods', component: Goods }
         ]
     },
     {
@@ -51,6 +55,8 @@ const routes = [{
             { path: '/users/list', component: UserList },
             { path: '/lost/list', component: LostList },
             { path: '/found/list', component: FoundList },
+            { path: '/change/add', component: ChangeAdd },
+            { path: '/change/list', component: ChangeList },
         ]
     },
     {
