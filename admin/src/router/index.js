@@ -20,6 +20,8 @@ import Found from '../components/Found'
 import LostHistory from '../components/LostHistory'
 import FoundHistory from '../components/FoundHistory'
 import Publish from '../components/Publish'
+import EditThank from '../components/EditThank'
+import ClaimList from '../components/ClaimList'
 
 Vue.use(VueRouter)
 
@@ -57,6 +59,9 @@ const routes = [{
             { path: '/found/list', component: FoundList },
             { path: '/change/add', component: ChangeAdd },
             { path: '/change/list', component: ChangeList },
+            { path: '/thank/list', component: EditThank },
+            { path: '/claim/list', component: ClaimList },
+
         ]
     },
     {
@@ -74,12 +79,12 @@ const router = new VueRouter({
         mode: 'history'
     })
     //路由守卫
-router.beforeEach((to, from, next) => {
-    const isLogin = localStorage.eleToken ? true : false
-    if (to.path == '/login' || to.path == '/register') {
-        next();
-    } else {
-        isLogin ? next() : next('/login')
-    }
-})
+    // router.beforeEach((to, from, next) => {
+    //     const isLogin = localStorage.eleToken ? true : false
+    //     if (to.path == '/login' || to.path == '/register') {
+    //         next();
+    //     } else {
+    //         isLogin ? next() : next('/login')
+    //     }
+    // })
 export default router

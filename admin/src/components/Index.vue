@@ -17,18 +17,30 @@
           <span>{{item1.desc}}</span><br><span>{{item1.date}}</span>
       </div> 
     </div>
+    <div class="secContent">
+      <div class="left">
+        <span class="publish">公告栏</span><br>
+        <span>请大家遵守规范，不要随意发布假信息，请认真对待!多谢合作</span><br>
+        <span>2019-03-12</span>
+      </div>
+      <div class="right">
+        <span class="letter">感谢信</span>
+        <div class="thanks" v-for="(item,idx) in thankData" :key="idx">
+          <span>{{item.title}}</span><br>
+          <span>发布人:{{item.username}}</span><span>{{item.date}}</span><br>
+          <span>{{item.desc}}</span>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 <script>
 export default {
- created() {
-   this.getLost();
-   this.getFound();
- },
   data() {
     return {
       lostData:[],
-      foundData:[]
+      foundData:[],
+      thankData:[]
     };
   },
   methods: {
@@ -41,6 +53,7 @@ export default {
     //获取失物列表
     getLost(){
       this.$http.get('/api/lost/newest').then(res=>{
+        console.log(res.data); 
         this.lostData=res.data
          for (var item of this.lostData) {
              if (item.desc.length > 20) {
@@ -63,10 +76,20 @@ export default {
          }
          return this.foundData
         // console.log(res.data);
-        
+      })
+    },
+    getThank(){
+      this.$http.get('/api/thank/list2').then(res=>{
+        // console.log(res.data);
+        this.thankData=res.data
       })
     }
-  }
+  },
+   created() {
+      this.getLost();
+      this.getFound();
+      this.getThank()
+ },
 }
 </script>
 <style scoped>
@@ -135,5 +158,77 @@ export default {
 .lost_content span:nth-of-type(4){
   color:red;
   float:right;
+}
+.secContent{
+  width:960px;
+  height:600px;
+  border:1px solid #c4bbbb;
+  background-color: #fff;
+  margin-top:20px;
+  overflow: hidden;
+}
+.secContent .left{
+  float: left;
+  width: 450px;
+  height: 600px;
+}
+.secContent .right{
+  float:right;
+  width:450px;
+  height: 600px;
+}
+.right .letter,.left .publish{
+  font-size: 30px;
+  font-style: italic;
+  background: linear-gradient(to right, red, blue);
+  -webkit-background-clip: text;
+  color: transparent;
+  display: inline-block;
+  padding: 0 0 0 -20px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.left .publish{
+  margin-left:20px;
+}
+.right .letter::after,.left .publish::after{
+  content: '-';
+  border-bottom: 1px solid #c4bbbb;
+  display: inline-block;
+  width: 265px;
+  line-height: 5px;
+  margin-left: 10px;
+}
+.thanks{
+  border-bottom: 1px solid #c4bbbb;
+}
+.thanks span{
+  display: inline-block;
+  margin: 6px 0;
+  color: #333;
+}
+.thanks span:nth-of-type(2){
+  margin-right:20px;
+  color: #63cfa6;
+}
+.thanks span:not(:first-of-type){
+  font-size: 13px;
+}
+.thanks span:last-of-type{
+  margin-bottom: 20px;
+}
+.left{
+  overflow: hidden;
+}
+.left span:nth-of-type(2){
+  display: inline-block;
+  font-size: 15px;
+  color: #333;
+  text-indent: 30px;
+  margin-bottom: 10px;
+}
+.left span:nth-of-type(3){
+  float: right;
+  color: red;
 }
 </style>

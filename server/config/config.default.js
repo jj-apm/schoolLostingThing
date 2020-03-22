@@ -67,8 +67,8 @@ module.exports = appInfo => {
     config.middleware = ['token'];
     config.token = {
         enable: true,
-        match: ['/admin/userInfo', '/user/userInfo', '/lost/add', '/lost/:id', '/found/add', '/found/:id', '/clue/add', '/clue/:id', '/claim/add', '/claim/:id', '/reply/add', '/found/searchKeywords', '/transaction/add'], // 只匹配指定路由，反之如果只忽略指定路由，可以用ignore
-        // ignore: ['/user/login', '/user/registor', '/user/reset', '/verify', '/category'] //不要与match一起使用，避免冲突
+        match: ['/admin/userInfo', '/lost/add', '/claim/add', '/reply/add', '/found/searchKeywords', '/transaction/add', '/thank/add'], // 只匹配指定路由，反之如果只忽略指定路由，可以用ignore
+        // ignore: ['/user/login', '/user/register'] //不要与match一起使用，避免冲突
     }
 
 

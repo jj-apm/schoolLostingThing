@@ -59,7 +59,9 @@ export default {
     }
   },
   mounted () {
-    this.getUserInfo();
+    if(this.$store.getters.user.result){
+      this.getUserInfo();
+    }
     this.getGoodsList()
   }
 }

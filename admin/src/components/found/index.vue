@@ -146,7 +146,9 @@ export default{
       }
     },
     created () {
-      this.getUserInfo()
+      if(this.$store.getters.user.result){
+        this.getUserInfo()
+      }
     }
 }
 </script>

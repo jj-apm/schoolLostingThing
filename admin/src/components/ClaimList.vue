@@ -1,8 +1,8 @@
 <template>
     <div class="fillContainer">
          <el-table
-            v-if="changeListData.length > 0"
-            :data="changeListData"
+            v-if="claimListData.length > 0"
+            :data="claimListData"
             border
             >
             <el-table-column
@@ -12,14 +12,14 @@
                 width="70">
                 </el-table-column>
                 <el-table-column
-                prop='username'
+                prop='name'
                 label="姓名"
                 align='center'
                 width="150">
                 </el-table-column>
                 <el-table-column
-                prop='goods_id'
-                label="兑换物品编号"
+                prop='found_id'
+                label="拾物编号"
                 align='center'
                 width="180">
                 </el-table-column>
@@ -44,14 +44,14 @@
 export default{
     data(){
         return{
-            changeListData:[],
+            claimListData:[],
         }
     },
     methods:{
         getThankList(){
-            this.$http.get('/api/change').then(res=>{
+            this.$http.get('/api/claim').then(res=>{
                 // console.log(res.data);
-                this.changeListData=res.data
+                this.claimListData=res.data
             })
         }
     },

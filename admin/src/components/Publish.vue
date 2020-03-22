@@ -8,8 +8,8 @@
         <el-tab-pane label="招领启事" name="second">
           <FoundTable></FoundTable>
           </el-tab-pane>
-        <el-tab-pane label="二手交易" name="third">
-          <Transaction></Transaction>
+        <el-tab-pane label="写感谢信" name="third">
+          <Thank></Thank>
           </el-tab-pane>
       </el-tabs>
     </div>
@@ -18,7 +18,7 @@
 <script>
 import LostTable from './lost/index'
 import FoundTable from './found/index'
-import Transaction from './transaction/index'
+import Thank from './thank/Thank.vue'
 export default{
   data () {
     return {
@@ -28,7 +28,7 @@ export default{
   components: {
     LostTable,
     FoundTable,
-    Transaction
+    Thank
   }
 }
 </script>

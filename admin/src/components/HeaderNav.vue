@@ -3,7 +3,8 @@
 <el-header>
   <div class="head">
       <p class="title">欢迎来到校园失物招领网</p>
-           <p class="name">{{user.result.username}}
+      <template v-if="this.$store.getters.user.result">
+          <p class="name">{{user.result.username}}
         <el-dropdown trigger="click" @command="setDialogInfo">
           <span class="el-dropdown-link"><i class="el-icon-caret-bottom el-icon--right"></i></span>
           <el-dropdown-menu slot="dropdown">
@@ -24,7 +25,9 @@
           </el-dropdown-menu>
         </el-dropdown>
         <i v-if="noticeList.length" class="notice"><span>{{noticeList.length}}</span></i>
-      </p>
+      </p>   
+      </template>
+      <p class="login" v-else @click="login">登录</p>    
    </div> 
 </el-header>
 <el-dialog
@@ -117,6 +120,7 @@ export default{
             }
         };
         return{
+            // isLogin:false,
             rules:{
                  newPassword:[
                     {required:true,message:'密码不能为空',trigger:'blur'},
@@ -150,6 +154,9 @@ export default{
         }
     },
     methods: {
+        login(){
+            this.$router.push('/login')
+        },
           submitReset(formName){
             this.$refs[formName].validate((valid) => {
             if (valid) {
@@ -276,14 +283,13 @@ export default{
       }
     },
     created () {
-        this.getUserInfo(),
-        // this.time=setInterval(()=>{
-            this.getNotice()
+        if(this.$store.getters.user.result){
+            // this.time=setInterval(()=>{
+           this.getUserInfo()
         // },6000)
+             this.getNotice()
+        }
     },
-    updated () {
-         this.getUserInfo()
-    }
     // destroyed () {
     //     clearInterval(this.time)
     // }
@@ -303,18 +309,20 @@ export default{
     height:30px;
     justify-content:space-between;
 }   
-.head .title, .head .name{
+.head .title, .head .name,.login{
     vertical-align: middle;
     font-size: 16px;
-    font-family: "Microsoft YaHei";
     letter-spacing: 1px;
     height:30px;
     line-height: 30px;
     margin-top: 0px;
 }
-.head .name{
+.head .name, .login{
     margin-right: 10px;
-    font-size: 18px;
+    color:#000
+}
+.login{
+    cursor: pointer;
 }
 .notice{
    display: inline-block;

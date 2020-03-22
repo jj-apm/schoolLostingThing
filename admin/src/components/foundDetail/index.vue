@@ -2,17 +2,13 @@
     <div class="home">
         <div class="container">
         <el-container>
-         <el-header>
-        <div class="head">
-         <p class="title">欢迎来到校园失物招领网</p>
-         <p class="name">{{user.result.username}}</p>
-        </div> 
-       </el-header>
+        <HeaderNav></HeaderNav>
        <el-menu class="el-menu-demo" mode="horizontal" router>
          <el-menu-item index="/index">首页</el-menu-item>
          <el-menu-item index="/lost">寻物启事</el-menu-item>
          <el-menu-item index="/found">招领启事</el-menu-item>
          <el-menu-item index="/publish">发布信息</el-menu-item>
+         <el-menu-item index="/goods">积分商城</el-menu-item>
        </el-menu>
        <el-main>
          <DetailItem></DetailItem>  
@@ -25,6 +21,7 @@
 
 <script>
 import DetailItem from './childDetail/DetailItem'
+import HeaderNav from '../HeaderNav'
 export default{
     computed: {
         user(){
@@ -32,7 +29,8 @@ export default{
         }
     },
     components: {
-      DetailItem
+      DetailItem,
+      HeaderNav
     }
 }
 </script>
@@ -85,6 +83,6 @@ body > .el-container {
 .el-menu--horizontal>.el-menu-item { 
     height: 50px;
     line-height: 50px;
-    margin: 0 30px 0 30px;
+    margin: 0 50px 0 50px;
 }
 </style>

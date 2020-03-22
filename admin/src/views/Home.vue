@@ -8,7 +8,6 @@
          <el-menu-item index="/lost">寻物启事</el-menu-item>
          <el-menu-item index="/found">招领启事</el-menu-item>
          <el-menu-item index="/publish">发布信息</el-menu-item>
-         <el-menu-item index="/transaction">跳蚤市场</el-menu-item>
          <el-menu-item index="/goods">积分商城</el-menu-item>
        </el-menu>
        <el-main>
@@ -73,6 +72,6 @@ body > .el-container {
 .el-menu--horizontal>.el-menu-item { 
     height: 50px;
     line-height: 50px;
-    margin: 0 30px 0 30px;
+    margin: 0 50px 0 50px;
 }
 </style>

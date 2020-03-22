@@ -1,8 +1,8 @@
 <template>
     <div class="fillContainer">
          <el-table
-            v-if="changeListData.length > 0"
-            :data="changeListData"
+            v-if="thankListData.length > 0"
+            :data="thankListData"
             border
             >
             <el-table-column
@@ -18,8 +18,20 @@
                 width="150">
                 </el-table-column>
                 <el-table-column
-                prop='goods_id'
-                label="兑换物品编号"
+                prop='title'
+                label="标题"
+                align='center'
+                width="150">
+                </el-table-column>
+                <el-table-column
+                prop='desc'
+                label="感谢内容"
+                align='center'
+                width="180">
+                </el-table-column>
+                 <el-table-column
+                prop='status'
+                label="状态"
                 align='center'
                 width="180">
                 </el-table-column>
@@ -29,7 +41,7 @@
                         type='warning'
                         icon='edit'
                         size="small"
-                        @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
+                        @click="handleEdit(scope.$index, scope.row)">审核</el-button>
                         <el-button
                         size="small"
                         icon='delete'
@@ -44,15 +56,27 @@
 export default{
     data(){
         return{
-            changeListData:[],
+            thankListData:[],
+            
         }
     },
     methods:{
         getThankList(){
-            this.$http.get('/api/change').then(res=>{
+            this.$http.get('/api/thank/list').then(res=>{
                 // console.log(res.data);
-                this.changeListData=res.data
+                this.thankListData=res.data
             })
+        },
+        handleEdit(index,row){
+           this.$http.post(`/api/thank/status/${row.id}`,{status:1}).then(res=>{
+               this.$message({
+                   type:'success',
+                   message:'通过审核'
+               })  
+               this.getThankList()
+           })
+            // console.log(row);
+            
         }
     },
     created(){
@@ -62,7 +86,7 @@ export default{
 </script>
 <style scoped>
 .el-table{
-   width: 552px !important;
+   width: 882px !important;
    margin-top:0px !important;
    margin-left:0px !important;
 }
