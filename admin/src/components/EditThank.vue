@@ -12,7 +12,7 @@
                 width="70">
                 </el-table-column>
                 <el-table-column
-                prop='username'
+                prop='user.username'
                 label="姓名"
                 align='center'
                 width="150">
@@ -63,7 +63,7 @@ export default{
     methods:{
         getThankList(){
             this.$http.get('/api/thank/list').then(res=>{
-                // console.log(res.data);
+                console.log(res.data);
                 this.thankListData=res.data
             })
         },

@@ -7,8 +7,8 @@
        </el-col> 
      </el-form-item>
      <el-form-item label="内容" prop="desc">
-       <el-col :span="6">
-          <el-input v-model="ruleForm.desc"></el-input>
+       <el-col :span="8">
+          <el-input type="textarea" v-model="ruleForm.desc" :rows="3"></el-input>
        </el-col>
      </el-form-item>
      <el-form-item>

@@ -5,7 +5,7 @@ module.exports = app => {
 
     const Reply = app.model.define("reply", {
         id: {
-            type: INTEGER,
+            type: INTEGER(3),
             primaryKey: true,
             autoIncrement: true,
             allowNull: false,
@@ -20,25 +20,17 @@ module.exports = app => {
             defaultValue: NOW
         },
         comment_id: {
-            type: INTEGER,
+            type: INTEGER(5),
             allowNull: false
         },
         user_id: {
-            type: INTEGER,
+            type: INTEGER(5),
             allowNull: true
         },
-        replyuser_id: {
-            type: INTEGER,
-            allowNull: false
-        },
         username: {
-            type: STRING,
+            type: STRING(20),
             allowNull: false
         },
-        replyuser_name: {
-            type: STRING,
-            allowNull: false
-        }
     }, {
         underscored: true, //使用下划线，自动添加的字段会在数据段中使用“蛇型命名”规则
         timestamps: true, // 自动维护时间戳 [ created_at、updated_at ]

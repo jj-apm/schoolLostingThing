@@ -5,25 +5,25 @@ module.exports = app => {
 
     const Found = app.model.define("found", {
         id: {
-            type: INTEGER,
+            type: INTEGER(3),
             primaryKey: true,
             autoIncrement: true,
             allowNull: false,
         },
         name: {
-            type: STRING(255),
+            type: STRING(20),
             allowNull: false
         },
         fphoto: {
-            type: STRING(255),
+            type: STRING(80),
             allowNull: true
         },
         user_id: {
-            type: INTEGER,
+            type: INTEGER(3),
             allowNull: false
         },
         place: {
-            type: STRING(255),
+            type: STRING(30),
             allowNull: false
         },
         desc: {
@@ -35,11 +35,11 @@ module.exports = app => {
             allowNull: false
         },
         kind_id: {
-            type: INTEGER,
+            type: INTEGER(5),
             allowNull: false
         },
         status: {
-            type: INTEGER,
+            type: INTEGER(5),
             allowNull: false,
             defaultValue: 1,
             get() {
@@ -48,9 +48,11 @@ module.exports = app => {
                         return '未认领'
                         break;
                     case 2:
+                        return '认领中'
+                        break;
+                    case 3:
                         return '已认领'
                         break;
-
                 }
             }
         },

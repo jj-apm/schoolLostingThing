@@ -12,7 +12,7 @@
                 width="70">
                 </el-table-column>
                 <el-table-column
-                prop='username'
+                prop='user.username'
                 label="姓名"
                 align='center'
                 width="150">

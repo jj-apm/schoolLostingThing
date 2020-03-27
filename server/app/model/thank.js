@@ -1,17 +1,17 @@
 'user strict'
 
 module.exports = app => {
-    const { STRING, INTEGER, DATEONLY, NOW } = app.Sequelize;
+    const { STRING, INTEGER, DATEONLY, NOW, BOOLEAN } = app.Sequelize;
 
     const Thank = app.model.define("thank", {
         id: {
-            type: INTEGER,
+            type: INTEGER(3),
             primaryKey: true,
             autoIncrement: true,
             allowNull: false,
         },
-        username: {
-            type: STRING(255),
+        user_id: {
+            type: INTEGER(5),
             allowNull: false
         },
         date: {
@@ -20,7 +20,7 @@ module.exports = app => {
             defaultValue: NOW
         },
         title: {
-            type: STRING(255),
+            type: STRING(50),
             allowNull: false
         },
         desc: {
@@ -28,7 +28,7 @@ module.exports = app => {
             allowNull: false
         },
         status: {
-            type: INTEGER,
+            type: INTEGER(5),
             allowNull: false,
             defaultValue: 0,
             get() {
@@ -48,5 +48,8 @@ module.exports = app => {
         freezeTableName: true // 禁止修改表名，默认情况下，sequelize将自动将所有传递的模型名称（define的第一个参数）转换为复数
             // 但是为了安全着想，复数的转换可能会发生变化，所以禁止该行为
     })
+    Thank.associate = function() {
+        app.model.Thank.belongsTo(app.model.User, { foreignKey: 'user_id', targetKey: 'id' })
+    }
     return Thank;
 };

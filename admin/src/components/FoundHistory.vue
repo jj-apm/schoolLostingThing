@@ -41,12 +41,18 @@
       width="150"
       align="center">
     </el-table-column>   
-    <el-table-column
+     <el-table-column
+      prop="status"
+      label="状态"
+      width="150"
+      align="center">     
+    </el-table-column>
+     <el-table-column
       prop="id"
       label="编号"
       width="150"
       align="center">     
-    </el-table-column> 
+    </el-table-column>
   </el-table>
   </div>
 </template>
@@ -99,7 +105,7 @@ export default{
 </script>
 <style scoped>
 .el-table{
-  width: 882px !important;
+  width: 932px !important;
   margin-top:35px;
   margin-left:180px;
 }

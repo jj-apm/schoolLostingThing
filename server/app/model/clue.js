@@ -5,13 +5,13 @@ module.exports = app => {
 
     const Clue = app.model.define("clue", {
         id: {
-            type: INTEGER,
+            type: INTEGER(3),
             primaryKey: true,
             autoIncrement: true,
             allowNull: false,
         },
         info: {
-            type: STRING,
+            type: STRING(200),
             allowNull: false
         },
         date: {
@@ -20,23 +20,23 @@ module.exports = app => {
             defaultValue: NOW
         },
         user_id: {
-            type: INTEGER,
+            type: INTEGER(5),
             allowNull: false
         },
         lost_id: {
-            type: INTEGER,
+            type: INTEGER(5),
             allowNull: true
         },
         found_id: {
-            type: INTEGER,
+            type: INTEGER(5),
             allowNull: true
         },
         username: {
-            type: STRING,
+            type: STRING(10),
             allowNull: false
         },
         type: {
-            type: INTEGER,
+            type: INTEGER(3),
             allowNull: false,
             defaultValue: 0
         }

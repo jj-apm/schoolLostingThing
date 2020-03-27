@@ -5,21 +5,21 @@ module.exports = app => {
 
     const Lost = app.model.define("lost", {
         id: {
-            type: INTEGER,
+            type: INTEGER(3),
             primaryKey: true,
             autoIncrement: true,
             allowNull: false,
         },
         name: {
-            type: STRING(255),
+            type: STRING(20),
             allowNull: false
         },
         lphoto: {
-            type: STRING(255),
+            type: STRING(80),
             allowNull: true
         },
         place: {
-            type: STRING(255),
+            type: STRING(30),
             allowNull: false
         },
         desc: {
@@ -31,15 +31,15 @@ module.exports = app => {
             allowNull: false
         },
         user_id: {
-            type: INTEGER,
+            type: INTEGER(5),
             allowNull: false
         },
         kind_id: {
-            type: INTEGER,
+            type: INTEGER(5),
             allowNull: false
         },
         status: {
-            type: INTEGER,
+            type: INTEGER(5),
             allowNull: false,
             defaultValue: 1,
             get() {

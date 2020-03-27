@@ -45,7 +45,6 @@
         <el-form-item label="失物状态" prop="status">
             <el-col :span="8">
               <el-select v-model="lostList.status">
-               <el-option label="发布中" value="1"></el-option>
                <el-option label="已找到" value="2"></el-option>
             </el-select>
             </el-col>
@@ -67,8 +66,7 @@
         <el-form-item label="拾物状态">
             <el-col :span="8">
               <el-select v-model="foundList.status">
-                <el-option label="未认领" value="1"></el-option>
-               <el-option label="已认领" value="2"></el-option>
+               <el-option label="已认领" value="3"></el-option>
               </el-select>
             </el-col>
         </el-form-item>
@@ -245,7 +243,6 @@ export default{
         lostHistory(){
             this.$router.push('/lostHistory')
             console.log(this.$store.getters.user.result);
-            
         },
         foundHistory(){
             this.$router.push('/foundHistory')
@@ -286,10 +283,13 @@ export default{
         if(this.$store.getters.user.result){
             // this.time=setInterval(()=>{
            this.getUserInfo()
-        // },6000)
+        // },50)
              this.getNotice()
         }
     },
+    updated () {
+        this.getUserInfo()
+    }
     // destroyed () {
     //     clearInterval(this.time)
     // }

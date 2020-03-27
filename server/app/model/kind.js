@@ -5,13 +5,13 @@ module.exports = app => {
 
     const Kind = app.model.define("kind", {
         id: {
-            type: INTEGER,
+            type: INTEGER(3),
             primaryKey: true,
             autoIncrement: true,
             allowNull: false,
         },
         name: {
-            type: STRING(255),
+            type: STRING(20),
             allowNull: false
         },
         is_delete: {

@@ -5,25 +5,25 @@ module.exports = app => {
 
     const Goods = app.model.define("goods", {
         id: {
-            type: INTEGER,
+            type: INTEGER(3),
             primaryKey: true,
             autoIncrement: true,
             allowNull: false,
         },
         goods_name: {
-            type: STRING(255),
+            type: STRING(20),
             allowNull: false
         },
         photo: {
-            type: STRING(255),
+            type: STRING(100),
             allowNull: false
         },
         score: {
-            type: INTEGER,
+            type: INTEGER(10),
             allowNull: false
         },
         count: {
-            type: INTEGER,
+            type: INTEGER(10),
             allowNull: false,
             defaultValue: 0
         }

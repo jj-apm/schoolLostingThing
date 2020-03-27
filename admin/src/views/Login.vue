@@ -64,12 +64,10 @@ export default {
                             // console.log(res);   
                             // 登录成功，拿到token
                             const { token} = res.data;
-                        
                             localStorage.setItem('eleToken',token)
                             //解析token
                             const decode = jwt_decode(token)
-                            console.log(decode);
-                            
+                            console.log(decode);  
                             //token存储到VueX中
                             this.$store.dispatch("setAuthenticated",!this.isEmpty(decode))
                             this.$store.dispatch("setUser",decode)

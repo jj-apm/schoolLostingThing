@@ -7,7 +7,7 @@ class ThankController extends Controller {
         const thankField = {}
         if (this.ctx.request.body.title) thankField.title = this.ctx.request.body.title
         if (this.ctx.request.body.desc) thankField.desc = this.ctx.request.body.desc
-        if (this.ctx.payload.result.username) thankField.username = this.ctx.payload.result.username
+        if (this.ctx.payload.result.id) thankField.user_id = this.ctx.payload.result.id
         try {
             let result = await this.ctx.model.Thank.create(thankField)
             this.ctx.body = result
@@ -20,7 +20,10 @@ class ThankController extends Controller {
             let result = await this.ctx.model.Thank.findAll({
                 where: {
                     status: 0
-                }
+                },
+                include: [
+                    { model: this.ctx.model.User }
+                ]
             })
             this.ctx.body = result
         } catch (e) {
@@ -32,7 +35,10 @@ class ThankController extends Controller {
             let result = await this.ctx.model.Thank.findAll({
                 where: {
                     status: 1
-                }
+                },
+                include: [
+                    { model: this.ctx.model.User }
+                ]
             })
             this.ctx.body = result
         } catch (e) {

@@ -5,17 +5,17 @@ module.exports = app => {
 
     const Change = app.model.define("change", {
         id: {
-            type: INTEGER,
+            type: INTEGER(5),
             primaryKey: true,
             autoIncrement: true,
             allowNull: false,
         },
-        username: {
-            type: STRING(255),
+        user_id: {
+            type: INTEGER(5),
             allowNull: false
         },
         goods_id: {
-            type: INTEGER,
+            type: INTEGER(5),
             allowNull: false
         },
     }, {
@@ -26,6 +26,7 @@ module.exports = app => {
     })
     Change.associate = function() {
         app.model.Change.belongsTo(app.model.Goods, { foreignKey: 'goods_id', targetKey: 'id' });
+        app.model.Change.belongsTo(app.model.User, { foreignKey: 'user_id', targetKey: 'id' });
     }
     return Change;
 };

@@ -26,7 +26,7 @@
               <p class="new">最新评论:</p>
             <div class="comentContent">
               <div class="onlyComment" v-for="(item1,idx) in commentList" :key="idx">
-                  <div v-if="item1.replies? true:false">
+                  <div v-if="item1.replies">
                       <div v-for="(item2,idx) in item1.replies" :key="idx" class="reply">
                           <p><span>{{item2.username}}:</span>&nbsp;&nbsp;<span>{{item2.info}}</span></p>
                          <p><span>@{{item1.username}}:</span>&nbsp;&nbsp;<span>{{item1.info}}</span></p>
@@ -94,7 +94,7 @@ export default{
         getDetail(){
             this.id=this.$route.query.id
             this.$http.get('/api/lostById',{params:{id:this.id}}).then(res=>{
-                // console.log(res.data); 
+                console.log(res.data); 
                 this.detailData=res.data
             })
         },

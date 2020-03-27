@@ -5,21 +5,21 @@ module.exports = app => {
 
     const Claim = app.model.define("claim", {
         id: {
-            type: INTEGER,
+            type: INTEGER(3),
             primaryKey: true,
             autoIncrement: true,
             allowNull: false,
         },
         name: {
-            type: STRING(255),
+            type: STRING(10),
             allowNull: false
         },
         phone: {
-            type: STRING(255),
+            type: STRING(30),
             allowNull: false
         },
         found_id: {
-            type: INTEGER,
+            type: INTEGER(5),
             allowNull: false
         },
         is_delete: {

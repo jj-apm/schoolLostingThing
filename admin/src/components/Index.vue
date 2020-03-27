@@ -27,7 +27,7 @@
         <span class="letter">感谢信</span>
         <div class="thanks" v-for="(item,idx) in thankData" :key="idx">
           <span>{{item.title}}</span><br>
-          <span>发布人:{{item.username}}</span><span>{{item.date}}</span><br>
+          <span>发布人:{{item.user.username}}</span><span>{{item.date}}</span><br>
           <span>{{item.desc}}</span>
         </div>
       </div>

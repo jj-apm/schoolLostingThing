@@ -66,15 +66,11 @@ module.exports = appInfo => {
     //中间件配置
     config.middleware = ['token'];
     config.token = {
-        enable: true,
-        match: ['/admin/userInfo', '/lost/add', '/claim/add', '/reply/add', '/found/searchKeywords', '/transaction/add', '/thank/add'], // 只匹配指定路由，反之如果只忽略指定路由，可以用ignore
-        // ignore: ['/user/login', '/user/register'] //不要与match一起使用，避免冲突
-    }
-
-
-
-
-    // add your user config here
+            enable: true,
+            // match: ['/admin/userInfo', '/lost/add', '/claim/add', '/reply/add', '/found/searchKeywords', '/transaction/add', '/thank/add', '/found/add', '/change/add'], // 只匹配指定路由，反之如果只忽略指定路由，可以用ignore
+            ignore: ['/user/login', '/user/register'] //不要与match一起使用，避免冲突
+        }
+        // add your user config here
     const userConfig = {
         // myAppName: 'egg',
     };

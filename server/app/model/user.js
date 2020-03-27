@@ -5,34 +5,34 @@ module.exports = app => {
 
     const User = app.model.define("users", {
         id: {
-            type: INTEGER,
+            type: INTEGER(5),
             primaryKey: true,
             autoIncrement: true,
             allowNull: false,
         },
         username: {
-            type: STRING(255),
+            type: STRING(20),
             allowNull: false
         },
         password: {
-            type: STRING(255),
+            type: STRING(80),
             allowNull: false
         },
         phone: {
-            type: STRING(255),
+            type: STRING(30),
             allowNull: false,
         },
         stu_num: {
-            type: STRING(255),
+            type: STRING(30),
             allowNull: false,
         },
         status: {
-            type: INTEGER,
+            type: BOOLEAN,
             allowNull: false,
             defaultValue: 1
         },
         score: {
-            type: INTEGER,
+            type: INTEGER(20),
             allowNull: false,
             defaultValue: 0
         },
@@ -50,7 +50,10 @@ module.exports = app => {
         app.model.User.hasMany(app.model.Lost, { foreignKey: 'user_id', targetKey: 'id' });
         app.model.User.hasMany(app.model.Found, { foreignKey: 'user_id', targetKey: 'id' });
         app.model.User.hasMany(app.model.Clue, { foreignKey: 'user_id', targetKey: 'id' });
+        app.model.User.hasMany(app.model.Reply, { foreignKey: 'user_id', targetKey: 'id' });
         app.model.User.hasMany(app.model.Transaction, { foreignKey: 'user_id', targetKey: 'id' });
+        app.model.User.hasMany(app.model.Change, { foreignKey: 'user_id', targetKey: 'id' });
+        app.model.User.hasMany(app.model.Thank, { foreignKey: 'user_id', targetKey: 'id' });
     }
     return User;
 };
