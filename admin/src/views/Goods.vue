@@ -61,7 +61,7 @@ export default {
       this.getUserInfo();
     }
     this.getGoodsList()
-  }
+  },
 }
 </script>
 <style scoped>

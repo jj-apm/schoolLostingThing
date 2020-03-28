@@ -87,7 +87,10 @@ export default{
             commentType:0,
             replyTo:'',
             replyList:[],
-            filterList:[]
+            filterList:[],
+            replyList:[],
+            finalList:[],
+            newdataList:[]
         }
     },
     methods: {
@@ -97,6 +100,15 @@ export default{
                 console.log(res.data); 
                 this.detailData=res.data
             })
+        },
+        sortKey(array, key) {
+          this.newdataList= array.sort(function(a, b) {
+             var x = a[key];
+             var y = b[key];
+              return new Date(y.replace(/-/g,'/')).getTime() - new Date(x.replace(/-/g,'/')).getTime()
+          })
+          console.log(this.newdataList);
+          
         },
         dialogShow(){
             this.dialogVisible=true
@@ -120,6 +132,8 @@ export default{
                  }else{
                       this.$http.post('/api/reply/add',this.replyField).then(res=>{    
                                this.getComments()
+                               console.log(this.commentList);
+                               
                           })
                       this.dialogVisible=false
                  }
@@ -133,7 +147,26 @@ export default{
                        let d=new Date(item.date)
                        item.date=d.getFullYear() + '-' + (d.getMonth() + 1 < 10 ? '0'+ (d.getMonth() + 1):d.getMonth() + 1) + '-' + (d.getDate() <10?'0'+d.getDate():d.getDate()) + ' ' + (d.getHours()<10?'0'+d.getHours():d.getHours()) + ':' + (d.getMinutes()<10?'0'+d.getMinutes():d.getMinutes()) + ':' + (d.getSeconds()<10?'0'+d.getSeconds():d.getSeconds());
                           }
+                     for(var item of this.commentList){
+                        for(var it2 of item.replies){
+                              let d=new Date(it2.date)
+                               it2.date=d.getFullYear() + '-' + (d.getMonth() + 1 < 10 ? '0'+ (d.getMonth() + 1):d.getMonth() + 1) + '-' + (d.getDate() <10?'0'+d.getDate():d.getDate()) + ' ' + (d.getHours()<10?'0'+d.getHours():d.getHours()) + ':' + (d.getMinutes()<10?'0'+d.getMinutes():d.getMinutes()) + ':' + (d.getSeconds()<10?'0'+d.getSeconds():d.getSeconds());
+                        }
+                          }
+                this.commentList.map((item)=>{
+                    if(item.replies){
+                        for(var it2 of item.replies){
+                            this.replyList.push(it2)
+                        }
+                    }
                 })
+                console.log(this.replyList);
+                this.finalList=this.commentList.concat(this.replyList)
+                 console.log(this.finalList);
+                this.sortKey(this.finalList, "date");
+
+                })               
+                 
         },
     },
     filters: {
