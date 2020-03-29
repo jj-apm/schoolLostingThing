@@ -17,7 +17,7 @@
           <el-row class="row5"><el-col :span="4" :push="1" style="width:68px"><span>丢失时间:</span></el-col><el-col :span="8" class="col5" :push="1">{{detailData.date}}</el-col></el-row>
           <el-row class="row5"><el-col :span="4" :push="1" style="width:68px"><span>联系人:</span></el-col><el-col :span="8" class="col5" :push="1">{{detailData.userName}}</el-col></el-row>
           <el-row class="row5"><el-col :span="4" :push="1" style="width:68px"><span>手机号码:</span></el-col><el-col :span="8" class="col5" :push="1">{{(detailData.phone||'')|phoneFormat}}****</el-col></el-row>
-          <el-row class="row5"><button class="btn col5" @click="dia1Visible=true">认领</button></el-row>
+          <el-row class="row5"><button class="btn col5" @click="dia1Visible=true">我要认领</button></el-row>
       </div> 
        </div>
        <div class="commentStyle">
@@ -309,7 +309,7 @@ export default{
     background-color: #00ff40;
     border-radius: 5px;
     cursor: pointer;
-    font-size: 25px;
+    font-size: 20px;
     font-weight: bold
 }
 .claim{
