@@ -1,7 +1,7 @@
 <template>
   <div class="content">
     <div class="page-cate-title">
-      <span class="title-text">最新失物招领启事</span>
+      <span class="title-text">物品兑换列表</span>
     </div>
     <div class="show">
       <div v-for="(item, index) in goodsListData" :key="index" class="goods_content">
@@ -36,24 +36,32 @@ export default {
       })
     },
     exchange(val1,val2,val3){
-      if(this.score<val1){
-        this.$message({
-          type:'warning',
-          message:'您的积分不够'
-        })
+      const isLogin=localStorage.getItem('eleToken')
+      if(isLogin){
+         if(this.score<val1){
+          this.$message({
+              type:'warning',
+              message:'您的积分不够'
+         })
+         }else{
+             this.$message({
+                 type:'success',
+                 message:'兑换成功,请到失物招领处领取！'
+            })
+            this.$http.post(`api/user/score/${this.$store.getters.user.result.id}`,{score:this.score-val1}).then(res=>{
+                     }) 
+            this.$http.post('/api/change/add',{goods_id:val2}).then(res=>{
+            })
+            this.$http.post(`/api/goods/count/${val2}`,{count:val3+1}).then(res=>{
+              this.getGoodsList() 
+            })
+          }
       }else{
         this.$message({
-          type:'success',
-          message:'兑换成功,请到失物招领处领取！'
-        })
-        this.$http.post(`api/user/score/${this.$store.getters.user.result.id}`,{score:this.score-val1}).then(res=>{
-                 }) 
-        this.$http.post('/api/change/add',{goods_id:val2}).then(res=>{
-        })
-        this.$http.post(`/api/goods/count/${val2}`,{count:val3+1}).then(res=>{
-          this.getGoodsList() 
-        })
-      }
+            type:'warning',
+            message:'请您先登录!'
+            })
+      }  
     }
   },
   mounted () {

@@ -111,8 +111,17 @@ export default{
           
         },
         dialogShow(){
-            this.dialogVisible=true
-            this.commentType=0
+            const isLogin=localStorage.getItem('eleToken')
+            if(isLogin){
+                this.dialogVisible=true
+                this.commentType=0
+            }else{
+                this.dialogVisible=false
+                this.$message({
+                    type:'warning',
+                    message:'请您先登录!'
+                })
+            }   
         },
         reply(val,id,fromId){
            this.commentType=1

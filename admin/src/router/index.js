@@ -22,6 +22,7 @@ import FoundHistory from '../components/FoundHistory'
 import Publish from '../components/Publish'
 import EditThank from '../components/EditThank'
 import ClaimList from '../components/ClaimList'
+import { Message } from 'element-ui';
 
 Vue.use(VueRouter)
 
@@ -79,12 +80,20 @@ const router = new VueRouter({
         mode: 'history'
     })
     //路由守卫
-    // router.beforeEach((to, from, next) => {
-    //     const isLogin = localStorage.eleToken ? true : false
-    //     if (to.path == '/login' || to.path == '/register') {
-    //         next();
-    //     } else {
-    //         isLogin ? next() : next('/login')
-    //     }
-    // })
+router.beforeEach((to, from, next) => {
+    const isLogin = localStorage.getItem('eleToken') ? true : false
+    if (to.path == '/login' || to.path == '/register') {
+        next();
+    } else {
+        if (to.path == '/publish' && !isLogin) {
+            Message({
+                type: 'warning',
+                message: '请您先登录!'
+            })
+            next('/login')
+        } else {
+            next()
+        }
+    }
+})
 export default router
