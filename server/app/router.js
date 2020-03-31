@@ -20,6 +20,7 @@ module.exports = app => {
     router.post('/searchKeywords', controller.lost.searchKeywords);
     router.get('/lost/newest', controller.lost.findNewest);
     router.get('/lost/lostList', controller.lost.findList);
+    router.post('/lost/delete/:id', controller.lost.deleteList);
 
     router.post('/change/add', controller.change.add);
     router.get('/change', controller.change.find);

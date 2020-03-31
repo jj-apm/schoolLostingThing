@@ -385,7 +385,10 @@ class LostController extends Controller {
                 }],
                 order: [
                     ['date', 'DESC']
-                ]
+                ],
+                where: {
+                    is_delete: true
+                }
             });
             if (!result) {
                 this.ctx.status = 400
@@ -404,9 +407,29 @@ class LostController extends Controller {
                     everyItem.kindName = item.kind.name
                     everyItem.status = item.status
                     everyItem.creatTime = item.createdAt
+                    everyItem.is_delete = item.is_delete
                     total.push(everyItem)
                 })
                 this.ctx.body = { total }
+            }
+        } catch (e) {
+            this.ctx.throw(e)
+        }
+    }
+    async deleteList() {
+        let { id } = this.ctx.params
+        let { value } = this.ctx.request.body
+        try {
+            let result = await this.app.model.Lost.update({ is_delete: value }, {
+                where: {
+                    id
+                }
+            })
+            if (!result) {
+                this.ctx.status = 400
+                this.ctx.body = "删除失败"
+            } else {
+                this.ctx.body = result
             }
         } catch (e) {
             this.ctx.throw(e)

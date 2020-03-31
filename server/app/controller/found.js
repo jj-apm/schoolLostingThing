@@ -358,6 +358,7 @@ class FoundController extends Controller {
                     everyItem.kindName = item.kind.name
                     everyItem.status = item.status
                     everyItem.creatTime = item.date
+                    everyItem.is_delete = item.is_delete
                     total.push(everyItem)
                 })
                 this.ctx.body = { total }
