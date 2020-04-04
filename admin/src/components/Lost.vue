@@ -113,7 +113,7 @@ import { log } from 'util'
       return {
       tableData: [],
       currentPage:1,
-      pageSize:'20',
+      pageSize:20,
       total:10,
       paginationSign:0,
       searchData:{
