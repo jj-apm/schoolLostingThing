@@ -13,8 +13,8 @@
           <el-row><el-col :span="4" :push="1" class="col4"><span>详细描述:</span></el-col><el-col :span="16" :push="1" class="col5">
               <div class="desc"><span>{{detailData.desc}}</span></div></el-col></el-row>
           <el-row class="row5" v-if="detailData.fphoto"><el-col :span="4" :push="1" style="width:68px" class="imgSet"><span>拾物图片:</span></el-col><el-col :span="8" class="col5" :push="1"><img :src="detailData.fphoto"></el-col></el-row>
-          <el-row class="row5"><el-col :span="4" :push="1" style="width:68px"><span>丢失地点:</span></el-col><el-col :span="8" class="col5" :push="1">{{detailData.place}}</el-col></el-row>
-          <el-row class="row5"><el-col :span="4" :push="1" style="width:68px"><span>丢失时间:</span></el-col><el-col :span="8" class="col5" :push="1">{{detailData.date}}</el-col></el-row>
+          <el-row class="row5"><el-col :span="4" :push="1" style="width:68px"><span>拾取地点:</span></el-col><el-col :span="8" class="col5" :push="1">{{detailData.place}}</el-col></el-row>
+          <el-row class="row5"><el-col :span="4" :push="1" style="width:68px"><span>拾取时间:</span></el-col><el-col :span="8" class="col5" :push="1">{{detailData.date}}</el-col></el-row>
           <el-row class="row5"><el-col :span="4" :push="1" style="width:68px"><span>联系人:</span></el-col><el-col :span="8" class="col5" :push="1">{{detailData.userName}}</el-col></el-row>
           <el-row class="row5"><el-col :span="4" :push="1" style="width:68px"><span>手机号码:</span></el-col><el-col :span="8" class="col5" :push="1">{{(detailData.phone||'')|phoneFormat}}****</el-col></el-row>
           <el-row class="row5"><button class="btn col5" @click="dia1Visible=true">我要认领</button></el-row>
