@@ -32,7 +32,7 @@
     <el-table-column
       prop="place"
       label="拾取地点"
-      width="190"
+      width="150"
       align="center">
     </el-table-column>
     <el-table-column
@@ -44,13 +44,13 @@
      <el-table-column
       prop="status"
       label="状态"
-      width="150"
+      width="120"
       align="center">     
     </el-table-column>
      <el-table-column
       prop="id"
       label="编号"
-      width="150"
+      width="120"
       align="center">     
     </el-table-column>
   </el-table>

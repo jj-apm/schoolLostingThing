@@ -72,7 +72,7 @@
         </el-form-item>
         <el-form-item>
             <el-col :push="16">
-                <el-button type="primary" @click="11">确 定</el-button>
+                <el-button type="primary" @click="editFound">确 定</el-button>
             </el-col>  
         </el-form-item>
       </el-form>

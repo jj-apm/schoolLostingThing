@@ -85,7 +85,7 @@ class LostController extends Controller {
             try {
                 const offset = (currentPage - 1) * pageSize;
                 const limit = parseInt(pageSize);
-                let count = await this.app.model.Lost.count();
+                let count = await this.app.model.Lost.count({ where: { status: 1 } });
                 let result = await this.app.model.Lost.findAll({
                     include: [{
                         model: this.ctx.model.User
@@ -95,6 +95,9 @@ class LostController extends Controller {
                     order: [
                         ['date', 'DESC']
                     ],
+                    where: {
+                        status: 1
+                    },
                     offset,
                     limit,
                     distinct: true //这一句可以去重，它返回的 count 不会把你的 include 的数量算进去
