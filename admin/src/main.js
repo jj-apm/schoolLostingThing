@@ -18,7 +18,7 @@ import 'echarts/lib/component/legend'
 
 Vue.prototype.$echarts = echarts;
 Vue.config.productionTip = false
-
+Vue.prototype.$bus = new Vue()
 Vue.prototype.$http = axios
 
 new Vue({

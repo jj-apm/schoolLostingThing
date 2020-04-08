@@ -148,7 +148,7 @@ export default{
              dia1Visible:false,
              noticeList:[],
              time:'',
-             score:''
+             score:0
         }
     },
     methods: {
@@ -281,15 +281,10 @@ export default{
     },
     created () {
         if(this.$store.getters.user.result){
-            // this.time=setInterval(()=>{
-           this.getUserInfo()
-        // },50)
+            this.getUserInfo()
              this.getNotice()
         }
     },
-    updated () {
-        this.getUserInfo()
-    }
     // destroyed () {
     //     clearInterval(this.time)
     // }

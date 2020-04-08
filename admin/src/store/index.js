@@ -10,12 +10,15 @@ const types = {
 
 const state = {
     isAuthenticated: false,
-    user: {}
+    user: {},
+    count: 0
 }
 
 const getters = {
     isAuthenticated: state => state.isAuthenticated,
-    user: state => state.user
+    user: state => state.user,
+    count: state => state.count
+
 }
 
 const mutations = {
@@ -26,6 +29,9 @@ const mutations = {
     [types.SET_USER](state, user) {
         if (user) state.user = user
         else state.user = false
+    },
+    editCount(state, num) {
+        state.count += num
     }
 }
 
@@ -39,6 +45,9 @@ const actions = {
     clearCurrentState: ({ commit }) => {
         commit(types.SET_AUTHENTICATED, false)
         commit(types.SET_USER, null)
+    },
+    getCount(context, num) {
+        context.commit('editCount', num)
     }
 }
 
