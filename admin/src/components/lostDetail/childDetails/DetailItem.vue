@@ -135,16 +135,17 @@ export default{
             if(this.commentType==0){
                  this.clue.lost_id=this.$route.query.id
                  this.$http.post('/api/clue/add',this.clue).then(res=>{              
-                     this.getComments()         
-                 })
-                 this.dialogVisible=false   
+                     this.getComments() 
+                     this.clue.info=''
+                     this.dialogVisible=false         
+                 })  
                  }else{
                       this.$http.post('/api/reply/add',this.replyField).then(res=>{    
                                this.getComments()
-                               console.log(this.commentList);
-                               
+                            //    console.log(this.commentList);
+                                this.replyField.info=''
+                                this.dialogVisible=false   
                           })
-                      this.dialogVisible=false
                  }
         },
         getComments(){

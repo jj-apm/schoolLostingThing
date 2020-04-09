@@ -224,7 +224,7 @@ class LostController extends Controller {
         currentPage = (currentPage - 1) * pageSize;
         let result = [];
         let count = 0;
-        if (startTime && endTime) {
+        if (startTime && endTime) { //按照时间搜索
             try {
                 count = await this.app.model.Lost.count({
                     where: {
@@ -232,8 +232,8 @@ class LostController extends Controller {
                             [this.app.Sequelize.Op.between]: [startTime, endTime]
                         }
                     },
-                    offset: currentPage,
-                    limit: pageSize,
+                    offset: currentPage, //跳过多少条
+                    limit: pageSize, //每页条数
                 });
                 result = await this.app.model.Lost.findAll({
                     include: [{
