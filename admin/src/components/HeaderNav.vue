@@ -251,7 +251,7 @@ export default{
             this.noticeList=[]
             this.$http.get('/api/notice',{params:{user_id:this.$store.getters.user.result.id}})
                 .then(res=>{
-                    console.log(res.data);
+                    // console.log(res.data);
                     for(var i1 of res.data){
                         for(var i2 of i1.clues)
                           this.noticeList.push(i2)
@@ -264,7 +264,9 @@ export default{
             this.$router.push({path:'/lostDetail',query:{id:val}})
             this.$http.post(`/api/notice/editType/${id}`,{type:1})
               .then(res=>{
-                  console.log(res.data);
+                //   console.log(res.data);
+                this.dia1Visible=false
+                this.getNotice()
               })
         }
     },

@@ -25,7 +25,10 @@ import ClaimList from '../components/ClaimList'
 import { Message } from 'element-ui';
 
 Vue.use(VueRouter)
-
+const VueRouterPush = VueRouter.prototype.push
+VueRouter.prototype.push = function push(to) {
+    return VueRouterPush.call(this, to).catch(err => err)
+}
 const routes = [{
         path: '/',
         name: 'home',
