@@ -62,7 +62,13 @@ export default{
            },
            tooltip: {},
            xAxis: {
-               data: ['数码', '文具用品', '钱包', '证件', '卡类', '钥匙','衣物','手机','首饰/配饰','书本']
+               data: ['数码', '文具用品', '钱包', '证件', '卡类', '钥匙','衣物','手机','首饰/配饰','书本'],
+               axisLabel:{
+                 textStyle:{
+                     fontSize:16,
+                          },
+                          interval: 0
+                      }
            },
            yAxis: {},
            series: [{
@@ -83,8 +89,12 @@ mounted(){
 </script>
 <style scoped>
 #myChart{
-  width: 100%;
-  height: 600px;
-  margin-top: -25px;
+  width: 80%;
+  height: 500px;
+  position: absolute;
+  top:50%;
+  left:50%;
+  margin:-250px 0 0 -475px;
+  font-size: 16px;
 }
 </style>

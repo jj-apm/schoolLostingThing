@@ -9,13 +9,13 @@
                 prop='id'
                 label="编号"
                 align='center'
-                width="70">
+                width="50">
                 </el-table-column>
                 <el-table-column
                 prop='user.username'
                 label="姓名"
                 align='center'
-                width="150">
+                width="90">
                 </el-table-column>
                 <el-table-column
                 prop='title'
@@ -33,7 +33,7 @@
                 prop='status'
                 label="状态"
                 align='center'
-                width="180">
+                width="80">
                 </el-table-column>
                 <el-table-column label="操作" align="center" width="150">
                     <template slot-scope="scope">
@@ -86,7 +86,7 @@ export default{
 </script>
 <style scoped>
 .el-table{
-   width: 882px !important;
+   width: 702px !important;
    margin-top:0px !important;
    margin-left:0px !important;
 }

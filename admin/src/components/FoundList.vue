@@ -9,13 +9,13 @@
                 type='index'
                 label="编号"
                 align='center'
-                width="70">
+                width="50">
                 </el-table-column>
                 <el-table-column
                 prop='userName'
                 label="姓名"
                 align='center'
-                width="150">
+                width="90">
                 </el-table-column>
                 <el-table-column
                 prop='name'
@@ -33,7 +33,7 @@
                 prop='place'
                 label="拾物地点"
                 align='center'
-                width="180">
+                width="150">
                 </el-table-column> <el-table-column
                 prop='creatTime'
                 label="拾物发布时间"
@@ -41,7 +41,7 @@
                 width="180">
                 </el-table-column>
 
-                <el-table-column label="操作" align="center" width="150">
+                <el-table-column label="操作" align="center" width="120">
                     <template slot-scope="scope">
                         <el-button
                         size="small"
@@ -69,6 +69,7 @@ export default{
                 let d=new Date(item.creatTime)
                 item.creatTime=d.getFullYear() + '-' + (d.getMonth() + 1 < 10 ? '0'+ (d.getMonth() + 1):d.getMonth() + 1) + '-' + (d.getDate() <10?'0'+d.getDate():d.getDate()) + ' ' + (d.getHours()<10?'0'+d.getHours():d.getHours()) + ':' + (d.getMinutes()<10?'0'+d.getMinutes():d.getMinutes()) + ':' + (d.getSeconds()<10?'0'+d.getSeconds():d.getSeconds());
             }
+
             })
         }
     },
@@ -85,8 +86,9 @@ export default{
     box-sizing: border-box
 }
 .el-table{
-   width: 1030px !important;
+   width: 910px !important;
    margin-top:0px !important;
    margin-left:0px !important;
+   font-size: 15px;
 }
 </style>

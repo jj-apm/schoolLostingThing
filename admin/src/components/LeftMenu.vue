@@ -1,7 +1,7 @@
 <template>
   <el-row class="menu_page">
         <el-col>
-    <el-menu router :default-openeds="['1', '3']" style="height:100%">
+    <el-menu router  style="height:100%">
       <el-menu-item index='0'>
         <i class="iconfont"></i>
         <span class="slot">首页</span>

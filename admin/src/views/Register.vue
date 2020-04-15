@@ -3,12 +3,12 @@
         <section class="form_container">
             <div class="manage_tip">
                 <span class="title">校园失物招领管理系统</span>
-                <el-form :model="registerUser" :rules="rules" ref="registerForm" label-width="80px" class="registerForm">
+                <el-form :model="registerUser" :rules="rules" ref="registerForm" label-width="100px" class="registerForm">
                     <el-form-item label="用户名" prop="username">
                         <el-input v-model="registerUser.username" placeholder="请输入用户名"></el-input>
                     </el-form-item>
-                     <el-form-item label="学号" prop="stu_num">
-                        <el-input v-model="registerUser.stu_num" placeholder="请输入学号"></el-input>
+                     <el-form-item label="学号(工号)" prop="stu_num">
+                        <el-input v-model="registerUser.stu_num" placeholder="请输入学号或者工号"></el-input>
                     </el-form-item>
                     <el-form-item label="密码" prop="password">
                         <el-input type='password' v-model="registerUser.password" placeholder="请输入密码"></el-input>
