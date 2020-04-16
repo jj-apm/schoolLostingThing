@@ -3,7 +3,7 @@
     <el-table
     :data="tableData"
     border
-    :header-cell-style="{'background':'#188850','text-align':'center'}"
+    :header-cell-style="{'background':'green','text-align':'center','color':'#fff'}"
     :row-style="{'background-color':'#e5bfa0'}"
      >
     <el-table-column

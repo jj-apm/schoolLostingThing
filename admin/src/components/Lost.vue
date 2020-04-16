@@ -49,7 +49,7 @@
       <el-table
     :data="tableData"
     border
-    :header-cell-style="{'background':'#188850','text-align':'center'}"
+    :header-cell-style="{'background':'green','text-align':'center','font-size':'16px','color':'#fff'}"
     :row-style="{'background-color':'#e5bfa0'}"
      >
     <el-table-column
@@ -274,5 +274,8 @@ import { log } from 'util'
 }
 .keyword{
   margin-left: -83px;;
+}
+.el-pagination{
+  text-align: center;
 }
 </style>

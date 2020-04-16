@@ -4,12 +4,13 @@
             v-if="foundListData.length > 0"
             :data="foundListData"
             border
-            style="width: 100%">
+             style="width: 100%"
+            >
             <el-table-column
                 type='index'
                 label="编号"
                 align='center'
-                width="50">
+                width="70">
                 </el-table-column>
                 <el-table-column
                 prop='userName'
@@ -83,10 +84,10 @@ export default{
     width: 100%;
     height: 100%;
     padding: 16px;
-    box-sizing: border-box
+    /* box-sizing: border-box */
 }
 .el-table{
-   width: 910px !important;
+   /* width: 895px !important; */
    margin-top:0px !important;
    margin-left:0px !important;
    font-size: 15px;

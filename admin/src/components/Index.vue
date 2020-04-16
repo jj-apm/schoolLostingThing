@@ -57,7 +57,7 @@ export default {
         this.lostData=res.data
          for (var item of this.lostData) {
              if (item.desc.length > 20) {
-                 item.desc = item.desc.slice(0, 20) + '...'
+                 item.desc = item.desc.slice(0, 15) + '...'
              }
          }
          return this.lostData
@@ -71,7 +71,7 @@ export default {
         this.foundData=res.data
         for (var item of this.foundData) {
              if (item.desc.length > 20) {
-                 item.desc = item.desc.slice(0, 20) + '...'
+                 item.desc = item.desc.slice(0, 15) + '...'
              }
          }
          return this.foundData
@@ -136,6 +136,7 @@ export default {
     padding: 5px 5px;
     margin:10px 10px;
     background-color: #fff;
+    /* box-sizing: border-box; */
   }
 .lost_content img{
   width:210px;

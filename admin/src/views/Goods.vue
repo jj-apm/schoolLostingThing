@@ -74,8 +74,9 @@ export default {
 </script>
 <style scoped>
 .content{
-    width: 1000px;
+    width: 996px;
     margin-top: 10px;
+    margin-left: 173px;
 }
 .page-cate-title .title-text {
     position: relative;
@@ -98,15 +99,15 @@ export default {
     width: 960px;
     text-align: center;
     top: 10px;
-    left:166px;
+    left:9px;
     margin-bottom: 15px;
     margin-top:20px;
 }
 .show{
   width:auto;
-  margin-top: 60px;
+  margin-top: 40px;
   position: relative;
-  left: 185px;
+  /* left: 173px; */
 
 }
   .goods_content{
