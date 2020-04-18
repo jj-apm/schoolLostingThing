@@ -69,6 +69,7 @@ export default {
 .home {
   width: 100%;
   height: 100vh;
+  overflow-x: hidden;
 }
 .el-footer {
   color: #333;
@@ -82,6 +83,7 @@ export default {
   padding: 12px;
   overflow: hidden;
   padding-bottom: 30px;
+  margin-top: 0px;
 }
 body > .el-container {
   margin-bottom: 40px;
@@ -95,6 +97,9 @@ body > .el-container {
   width: 960px;
   height: inherit;
   text-align: center;
+}
+.el-menu{
+  left:15%
 }
 .el-menu-item {
   font-size: 20px;

@@ -1,27 +1,49 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Login from '../views/Login.vue'
-import Register from '../views/Register.vue'
-import AdminHome from '../views/AdminHome.vue'
-import KindList from '../components/kind/KindList'
-import UserList from '../components/user/UserList'
-import LostList from '../components/LostList'
-import FoundList from '../components/FoundList'
-import LostDetail from '../components/lostDetail'
-import FoundDetail from '../components/foundDetail'
-import ChangeAdd from '../components/change/ChangeAdd'
-import ChangeList from '../components/change/ChangeList'
-import Transaction from '../views/Transaction.vue'
-import Goods from '../views/Goods.vue'
-import Home from '../views/Home'
-import Index from '../components/Index'
-import Lost from '../components/Lost'
-import Found from '../components/Found'
-import LostHistory from '../components/LostHistory'
-import FoundHistory from '../components/FoundHistory'
-import Publish from '../components/Publish'
-import EditThank from '../components/EditThank'
-import ClaimList from '../components/ClaimList'
+
+const Login = () =>
+    import ('../views/Login.vue')
+const Register = () =>
+    import ('../views/Register.vue')
+const AdminHome = () =>
+    import ('../views/AdminHome.vue')
+const KindList = () =>
+    import ('../components/kind/KindList')
+const UserList = () =>
+    import ('../components/user/UserList')
+const LostList = () =>
+    import ('../components/LostList')
+const FoundList = () =>
+    import ('../components/FoundList')
+const LostDetail = () =>
+    import ('../components/lostDetail')
+const FoundDetail = () =>
+    import ('../components/foundDetail')
+const ChangeAdd = () =>
+    import ('../components/change/ChangeAdd')
+const ChangeList = () =>
+    import ('../components/change/ChangeList')
+const Goods = () =>
+    import ('../views/Goods.vue')
+const Home = () =>
+    import ('../views/Home')
+const Index = () =>
+    import ('../components/Index')
+const Lost = () =>
+    import ('../components/Lost')
+const Found = () =>
+    import ('../components/Found')
+const LostHistory = () =>
+    import ('../components/LostHistory')
+const FoundHistory = () =>
+    import ('../components/FoundHistory')
+const Publish = () =>
+    import ('../components/Publish')
+const EditThank = () =>
+    import ('../components/EditThank')
+const ClaimList = () =>
+    import ('../components/ClaimList')
+
 import { Message } from 'element-ui';
 
 Vue.use(VueRouter)
@@ -41,7 +63,6 @@ const routes = [{
             { path: '/publish', component: Publish },
             { path: '/lostHistory', component: LostHistory },
             { path: '/foundHistory', component: FoundHistory },
-            { path: '/transaction', component: Transaction },
             { path: '/goods', component: Goods }
         ]
     },

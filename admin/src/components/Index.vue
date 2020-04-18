@@ -1,21 +1,21 @@
 <template>
   <div class="content">
     <div class="page-cate-title">
-      <span class="title-text">最新失物招领启事</span>
+      <span class="title-text" @click="listData">最新失物招领启事</span>
     </div>
     <div class="show">
-      <div v-for="(item, index) in lostData" :key="'lost'+index" class="lost_content">
-          <img v-if="item.lphoto" :src="item.lphoto"><img src="../assets/blank.png" v-else >
-          <span @click="pushDetail(item.id)">{{item.name}}</span><br>
-          <span>寻物启事:</span><br>
+      <div v-for="(item, index) in newList" :key="index" class="lost_content">
+          <img v-if="item.lphoto||item.fphoto" :src="item.lphoto||item.fphoto"><img src="../assets/blank.png" v-else >
+          <span @click="pushDetail(item.id,item.status)">{{item.name}}</span><br>
+          <span>{{item.lphoto?'寻物启事:':'招领启事:'}}</span><br>
           <span>{{item.desc}}</span><br><span>{{item.date}}</span>
       </div> 
-       <div v-for="(item1, index) in foundData" :key="'found'+index" class="lost_content">
+       <!-- <div v-for="(item1, index) in foundData" :key="'found'+index" class="lost_content">
           <img v-if="item1.fphoto" :src="item1.fphoto"><img src="../assets/blank.png" v-else >
           <span @click="pushDetail1(item1.id)">{{item1.name}}</span><br>
           <span>招领启事:</span><br>
           <span>{{item1.desc}}</span><br><span>{{item1.date}}</span>
-      </div> 
+      </div>  -->
     </div>
     <div class="secContent">
       <div class="left">
@@ -40,15 +40,17 @@ export default {
     return {
       lostData:[],
       foundData:[],
-      thankData:[]
+      thankData:[],
+      newListData:[]
     };
   },
   methods: {
-    pushDetail(val){
-       this.$router.push({path:'/lostDetail',query:{id:val}}) 
-    },
-    pushDetail1(val){
-      this.$router.push({path:'/foundDetail',query:{id:val}}) 
+    pushDetail(val1,val2){
+      if(val2=='发布中'){
+        this.$router.push({path:'/lostDetail',query:{id:val1}})
+      }else{
+        this.$router.push({path:'/foundDetail',query:{id:val1}})
+      }
     },
     //获取失物列表
     getLost(){
@@ -60,9 +62,7 @@ export default {
                  item.desc = item.desc.slice(0, 15) + '...'
              }
          }
-         return this.lostData
-        // console.log(res.data);
-        
+         return this.lostData       
       })
     },
     //获取拾取列表
@@ -78,11 +78,28 @@ export default {
         // console.log(res.data);
       })
     },
+    sortKey(array, key) {
+      return array.sort(function(a, b) {
+        var x = a[key];
+        var y = b[key];
+       return new Date(y.replace(/-/,'/')) - new Date(x.replace(/-/,'/'))
+      });
+    },
     getThank(){
       this.$http.get('/api/thank/list2').then(res=>{
         // console.log(res.data);
         this.thankData=res.data
       })
+    },
+    listData(){
+      console.log(this.newList);
+      
+    }
+  },
+  computed: {
+    newList(){
+      this.newListData=this.lostData.concat(this.foundData)
+      return this.sortKey(this.newListData, "date");
     }
   },
    created() {

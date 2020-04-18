@@ -7,11 +7,9 @@
                      <el-form-item label="学号(工号)" prop="stu_num">
                         <el-input v-model="loginUser.stu_num" placeholder="请输入学号或者工号"></el-input>
                     </el-form-item>
-                    <el-col>
-                        <el-form-item label="密码" prop="password" class="pwd">
+                        <el-form-item label="密码" prop="password">
                         <el-input type='password' v-model="loginUser.password" placeholder="请输入密码"></el-input>
                     </el-form-item>
-                    </el-col>
                     <el-form-item label="验证码" prop="verify_code">
                         <el-input v-model="loginUser.verify_code" type="text" placeholder="请输入验证码"></el-input>
                        <div class="valiate-area" id="valiate" ref="validate" @click="getValiateImg">
