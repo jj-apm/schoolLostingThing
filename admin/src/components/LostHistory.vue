@@ -5,6 +5,7 @@
     border
     :header-cell-style="{'background':'green','text-align':'center','color':'#fff'}"
     :row-style="{'background-color':'#e5bfa0'}"
+    class="lost_history"
      >
     <el-table-column
       prop="name"
@@ -32,7 +33,7 @@
     <el-table-column
       prop="place"
       label="失物地点"
-      width="190"
+      width="120"
       align="center">
     </el-table-column>
     <el-table-column
@@ -40,7 +41,13 @@
       label="发布时间"  
       width="150"
       align="center">
-    </el-table-column>   
+    </el-table-column>  
+    <el-table-column
+      prop="status"
+      label="状态"
+      width="120"
+      align="center">
+      </el-table-column> 
     <el-table-column
       prop="id"
       label="编号"
@@ -88,8 +95,7 @@ export default{
                     item.desc=item.desc.slice(0,20)+'...'
                   }
                 }
-              })
-              
+              })   
         }
     },
     created () {
@@ -97,20 +103,23 @@ export default{
     }
 }
 </script>
-<style scoped>
-.el-table{
-  width: 882px !important;
+<style>
+.lost_history{
+  width: 932px !important;
   margin-top:35px;
   margin-left:180px;
 }
-.el-table__header-wrapper{
-    padding: 0 !important;
-    height: 32px;
-}
-.el-table__header tr,
-  .el-table__header th {
+.lost_history .el-table__header-wrapper{
     padding: 0 !important;
     height: 40px;
+}
+.lost_history .el-table__header tr,.lost_history .el-table__header th {
+    padding: 0 !important;
+    height: 40px;
+}
+.lost_history .el-table__body tr,.lost_history .el-table__body td{
+   padding: 0 !important;
+   height: 32px;
 }
 .click{
   cursor: pointer

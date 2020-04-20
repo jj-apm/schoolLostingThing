@@ -5,12 +5,12 @@
     </div>
     <div class="show">
       <div v-for="(item, index) in goodsListData" :key="index" class="goods_content">
-          <img :src="item.photo">
+          <img v-lazy="item.photo">
           <span>{{item.goods_name}}</span><br>
           <span>{{item.score}}积分</span><br>
           <span v-if="item.count>0">已兑换{{item.count}}件</span>
           <el-button ref="btn" type="primary" size="mini" @click="exchange(item.score,item.id,item.count)">我要兑换</el-button>
-      </div> 
+      </div>
     </div>
  </div>
 </template>

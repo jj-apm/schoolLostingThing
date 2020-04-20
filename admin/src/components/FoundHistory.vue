@@ -5,6 +5,7 @@
     border
     :header-cell-style="{'background':'green','text-align':'center','color':'#F7F7F7'}"
     :row-style="{'background-color':'#e5bfa0'}"
+    class="found_history"
      >
     <el-table-column
       prop="name"
@@ -103,20 +104,23 @@ export default{
     }
 }
 </script>
-<style scoped>
-.el-table{
+<style>
+.found_history{
   width: 932px !important;
   margin-top:35px;
   margin-left:180px;
 }
-.el-table__header-wrapper{
-    padding: 0 !important;
-    height: 32px;
-}
-.el-table__header tr,
-  .el-table__header th {
+.found_history .el-table__header-wrapper{
     padding: 0 !important;
     height: 40px;
+}
+.found_history .el-table__header tr,.found_history .el-table__header th {
+    padding: 0 !important;
+    height: 40px;
+}
+.found_history .el-table__body tr,.found_history .el-table__body td{
+   padding: 0 !important;
+   height: 32px;
 }
 .click{
   cursor: pointer

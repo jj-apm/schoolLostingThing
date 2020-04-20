@@ -11,9 +11,13 @@
           <el-menu-item index="/goods">积分商城</el-menu-item>
         </el-menu>
         <el-main>
-          <section class="sec1">
-            <img src="../assets/post1.jpeg" alt />
-          </section>
+          <div class="sec">
+            <el-carousel class="el-car" height="180px">
+            <el-carousel-item v-for="(item,index) in imgItems" :key="index">
+              <img :src="item">
+            </el-carousel-item>
+          </el-carousel>
+          </div> 
           <router-view></router-view>
         </el-main>
         <el-footer>
@@ -55,6 +59,11 @@
 <script>
 import HeaderNav from "../components/HeaderNav";
 export default {
+  data(){
+    return {
+      imgItems:["../assets/img/post.9ef8f23b.png","../assets/img/post.9ef8f23b.png","../assets/img/post.9ef8f23b.png"]
+    }
+  },
   components: {
     HeaderNav
   }
@@ -69,7 +78,6 @@ export default {
 .home {
   width: 100%;
   height: 100vh;
-  overflow-x: hidden;
 }
 .el-footer {
   color: #333;
@@ -88,18 +96,18 @@ export default {
 body > .el-container {
   margin-bottom: 40px;
 }
-.sec1 {
+.sec {
   width: 100%;
-  height: 163px;
+  height: auto;
   text-align: center;
+  margin-left:185px
 }
-.sec1 img {
+.sec .el-car{
   width: 960px;
-  height: inherit;
   text-align: center;
 }
 .el-menu{
-  left:15%
+  padding-left: 235px;
 }
 .el-menu-item {
   font-size: 20px;

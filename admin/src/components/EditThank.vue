@@ -9,7 +9,7 @@
                 prop='id'
                 label="编号"
                 align='center'
-                width="50">
+                width="70">
                 </el-table-column>
                 <el-table-column
                 prop='user.username'
@@ -84,9 +84,9 @@ export default{
     }
 }
 </script>
-<style scoped>
+<style>
 .el-table{
-   width: 702px !important;
+   width: 721px !important;
    margin-top:0px !important;
    margin-left:0px !important;
 }

@@ -5,7 +5,7 @@
     </div>
     <div class="show">
       <div v-for="(item, index) in newList" :key="index" class="lost_content">
-          <img v-if="item.lphoto||item.fphoto" :src="item.lphoto||item.fphoto"><img src="../assets/blank.png" v-else >
+          <img v-if="item.lphoto||item.fphoto" v-lazy="item.lphoto||item.fphoto"><img src="../assets/blank.png" v-else >
           <span @click="pushDetail(item.id,item.status)">{{item.name}}</span><br>
           <span>{{item.lphoto?'寻物启事:':'招领启事:'}}</span><br>
           <span>{{item.desc}}</span><br><span>{{item.date}}</span>

@@ -64,14 +64,14 @@ export default{
 </script>
 <style scoped>
 .el-table{
-   width: 700px !important;
+   width: 701px !important;
    margin-top:0px !important;
    margin-left:0px !important;
+
 }
 .fillContainer{
     width: 100%;
     height: 100%;
     padding: 16px;
-    box-sizing: border-box
 }
 </style>

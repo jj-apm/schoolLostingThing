@@ -271,6 +271,11 @@ class LostController extends Controller {
                         everyItem.status = item.status
                         total.push(everyItem)
                     })
+                    for (var item of total) {
+                        if (item.desc.length > 20) {
+                            item.desc = item.desc.slice(0, 20) + '...'
+                        }
+                    }
                     this.ctx.body = { total, count }
                 }
             } catch (err) {
@@ -319,6 +324,11 @@ class LostController extends Controller {
                         everyItem.status = item.status
                         total.push(everyItem)
                     })
+                    for (var item of total) {
+                        if (item.desc.length > 20) {
+                            item.desc = item.desc.slice(0, 20) + '...'
+                        }
+                    }
                     this.ctx.body = { total, count }
                 }
             } catch (err) {
@@ -371,6 +381,11 @@ class LostController extends Controller {
                         everyItem.status = item.status
                         total.push(everyItem)
                     })
+                    for (var item of total) {
+                        if (item.desc.length > 20) {
+                            item.desc = item.desc.slice(0, 20) + '...'
+                        }
+                    }
                     this.ctx.body = { total, count }
                 }
             } catch (err) {
@@ -413,6 +428,11 @@ class LostController extends Controller {
                     everyItem.is_delete = item.is_delete
                     total.push(everyItem)
                 })
+                for (var item of total) {
+                    if (item.desc.length > 20) {
+                        item.desc = item.desc.slice(0, 20) + '...'
+                    }
+                }
                 this.ctx.body = { total }
             }
         } catch (e) {

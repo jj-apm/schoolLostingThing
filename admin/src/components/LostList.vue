@@ -4,12 +4,12 @@
             v-if="lostListData.length > 0"
             :data="lostListData"
             border
-            style="width: 100%">
+            >
             <el-table-column
                 type='index'
                 label="编号"
                 align='center'
-                width="50">
+                width="70">
                 </el-table-column>
                 <el-table-column
                 prop='userName'
@@ -92,7 +92,7 @@ export default{
     box-sizing: border-box
 }
 .el-table{
-   width: 910px !important;
+   width: 930px !important;
    margin-top:0px !important;
    margin-left:0px !important;
    font-size: 15px;

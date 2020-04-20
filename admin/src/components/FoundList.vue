@@ -4,7 +4,6 @@
             v-if="foundListData.length > 0"
             :data="foundListData"
             border
-             style="width: 100%"
             >
             <el-table-column
                 type='index'
@@ -79,7 +78,7 @@ export default{
     }
 }
 </script>
-<style scoped>
+<style>
 .fillContainer{
     width: 100%;
     height: 100%;
@@ -87,7 +86,7 @@ export default{
     /* box-sizing: border-box */
 }
 .el-table{
-   /* width: 895px !important; */
+   width: 910px !important;
    margin-top:0px !important;
    margin-left:0px !important;
    font-size: 15px;

@@ -51,6 +51,7 @@
     border
     :header-cell-style="{'background':'green','text-align':'center','font-size':'16px','color':'#fff'}"
     :row-style="{'background-color':'#e5bfa0'}"
+     class="lost_table"
      >
     <el-table-column
       prop="type"
@@ -197,29 +198,26 @@ import { log } from 'util'
   }
 </script>
 <style>
-.el-table{
-   width: 852px !important;
-   margin-top:35px;
-   margin-left:180px;
+.lost_table{
+  width: 852px !important;
+  margin-top:35px;
+  margin-left:180px;
 }
-.el-table--scrollable-x .el-table__body-wrapper {
-    overflow-x: hidden !important;
-}
-.el-table td, .el-table th {
-  padding:4px 0 !important;
-}
-.el-table--border td, .el-table--border th, .el-table__body-wrapper .el-table--border.is-scrolling-left~.el-table__fixed{
-  border-right: 0px solid #EBEEF5 !important;
-}
-.el-table__header-wrapper{
-    padding: 0 !important;
-    height: 32px;
-}
-.el-table__header tr,
-  .el-table__header th {
+.lost_table .el-table__header-wrapper{
     padding: 0 !important;
     height: 40px;
 }
+.lost_table .el-table__header tr,.lost_table .el-table__header th {
+    padding: 0 !important;
+    height: 40px;
+}
+.lost_table .el-table__body tr,.lost_table .el-table__body td{
+   padding: 0 !important;
+   height: 32px;
+}
+/* .el-table--scrollable-x .el-table__body-wrapper {
+    overflow-x: hidden !important;
+} */
 .click{
   cursor: pointer
 }
@@ -273,7 +271,7 @@ import { log } from 'util'
   top:-62px
 }
 .keyword{
-  margin-left: -83px;;
+  margin-left: -83px;
 }
 .el-pagination{
   text-align: center;
