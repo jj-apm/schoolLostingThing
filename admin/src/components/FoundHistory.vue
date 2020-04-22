@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="history_page">
     <el-table
     :data="tableData"
     border
@@ -10,7 +10,7 @@
     <el-table-column
       prop="name"
       label="信息标题"
-      width="100"
+      width="120"
       align="center"
       >
       <template slot-scope="scope">
@@ -60,7 +60,9 @@
 <script>
 import { log } from 'util'
 import Dialog from './history/Dialog'
+import $ from 'jquery'
 export default{
+  inject:['reload'],
     data(){
         return{
             tableData:[],
@@ -100,28 +102,62 @@ export default{
         }
     },
     created () {
-        this.getHistoryData()
+      this.getHistoryData()
+    },
+    mounted () {
+      var _this=this
+        var time=setTimeout(function(){
+          $(function(){
+            $('.history_page .found_history .el-table__body tr')
+             .mouseenter(function(){
+              $(this).append($('<img src="http://127.0.0.1:7001/public/uploads/delete.png"></img>'))
+              $('.el-table__body tr img').click(function(){
+                var id=parseInt($(this).prev().text())
+                _this.$http.post(`/api/found/delete/${id}`,{value:false}).then(res=>{
+                      _this.getHistoryData()  
+              })
+              _this.reload()
+              })
+             })
+             .mouseleave(function(){
+                $('.el-table__body tr img').remove()
+                clearTimeout(time)
+              })
+          })
+        },2000)
     }
 }
 </script>
-<style>
-.found_history{
-  width: 932px !important;
+<style scoped>
+.history_page >>>.found_history{
+  width: 982px !important;
   margin-top:35px;
   margin-left:180px;
+  background-color: #e9eef3;
 }
-.found_history .el-table__header-wrapper{
+.history_page >>>.found_history .el-table__header-wrapper{
     padding: 0 !important;
     height: 40px;
 }
-.found_history .el-table__header tr,.found_history .el-table__header th {
+.history_page >>>.found_history .el-table__header tr,.history_page>>> .found_history .el-table__header th {
     padding: 0 !important;
     height: 40px;
 }
-.found_history .el-table__body tr,.found_history .el-table__body td{
+.history_page>>> .found_history .el-table__body tr,.history_page>>> .found_history .el-table__body td{
    padding: 0 !important;
    height: 32px;
 }
+.history_page>>>.el-table--border td,.history_page>>>.el-table--border th,.history_page>>> .found_history .el-table__body-wrapper .el-table--border.is-scrolling-left~.el-table__fixed{
+  border-right:0px !important
+}
+/* .history_page>>> .found_history .el-table__body tr:hover>td{
+  background-color: pink !important;
+} */
+/* .history_page>>> .found_history .el-table__body tr:hover::after{
+  content:url('../assets/delete.png');
+  display:block;
+  position:relative;
+} */
 .click{
   cursor: pointer
 }

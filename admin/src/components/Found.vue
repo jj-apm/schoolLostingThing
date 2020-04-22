@@ -212,6 +212,9 @@ import { log } from 'util'
    padding: 0 !important;
    height: 32px;
 }
+.el-table--border td,.el-table--border th,.found_history .el-table__body-wrapper .el-table--border.is-scrolling-left~.el-table__fixed{
+  border-right:0px !important
+}
 .click{
   cursor: pointer
 }
@@ -272,5 +275,8 @@ import { log } from 'util'
 }
 .el-pagination{
   text-align: center;
+}
+.el-form .keyword .el-form-item__content{
+  margin-left:14px
 }
 </style>

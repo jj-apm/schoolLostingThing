@@ -87,7 +87,8 @@ class FoundController extends Controller {
                         model: this.ctx.model.Kind
                     }],
                     where: {
-                        user_id: userId
+                        user_id: userId,
+                        is_delete: true
                     },
                     order: [
                         ['date', 'DESC']
@@ -385,6 +386,25 @@ class FoundController extends Controller {
                     }
                 }
                 this.ctx.body = { total }
+            }
+        } catch (e) {
+            this.ctx.throw(e)
+        }
+    }
+    async deleteList() {
+        let { id } = this.ctx.params
+        let { value } = this.ctx.request.body
+        try {
+            let result = await this.app.model.Found.update({ is_delete: value }, {
+                where: {
+                    id
+                }
+            })
+            if (!result) {
+                this.ctx.status = 400
+                this.ctx.body = "删除失败"
+            } else {
+                this.ctx.body = result
             }
         } catch (e) {
             this.ctx.throw(e)

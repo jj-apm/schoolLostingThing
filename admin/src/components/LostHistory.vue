@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="lost_page">
     <el-table
     :data="tableData"
     border
@@ -10,7 +10,7 @@
     <el-table-column
       prop="name"
       label="信息标题"
-      width="100"
+      width="120"
       align="center"
       >
       <template slot-scope="scope">
@@ -60,7 +60,9 @@
 <script>
 import { log } from 'util'
 import Dialog from './history/Dialog'
+import $ from 'jquery'
 export default{
+    inject:['reload'],
     data(){
         return{
             tableData:[],
@@ -100,26 +102,52 @@ export default{
     },
     created () {
         this.getHistoryData()
+    },
+    mounted () {
+       var _this=this
+        var time=setTimeout(function(){
+          $(function(){
+            $('.lost_page .lost_history .el-table__body tr')
+             .mouseenter(function(){
+              $(this).append($('<img src="http://127.0.0.1:7001/public/uploads/delete.png"></img>'))
+              $('.el-table__body tr img').click(function(){
+                var id=parseInt($(this).prev().text())
+                _this.$http.post(`/api/lost/delete/${id}`,{value:false}).then(res=>{
+                      _this.getHistoryData()  
+              })
+              _this.reload()
+              })
+             })
+             .mouseleave(function(){
+                $('.el-table__body tr img').remove()
+                clearTimeout(time)
+              })
+          })
+        },2000)
     }
 }
 </script>
-<style>
-.lost_history{
-  width: 932px !important;
+<style scoped>
+.lost_page >>>.lost_history{
+  width: 982px !important;
   margin-top:35px;
   margin-left:180px;
+  background-color: #e9eef3;
 }
-.lost_history .el-table__header-wrapper{
+.lost_page >>>.lost_history .el-table__header-wrapper{
     padding: 0 !important;
     height: 40px;
 }
-.lost_history .el-table__header tr,.lost_history .el-table__header th {
+.lost_page >>>.lost_history .el-table__header tr,.lost_page>>> .lost_history .el-table__header th {
     padding: 0 !important;
     height: 40px;
 }
-.lost_history .el-table__body tr,.lost_history .el-table__body td{
+.lost_page>>> .lost_history .el-table__body tr,.lost_page>>> .lost_history .el-table__body td{
    padding: 0 !important;
    height: 32px;
+}
+.lost_page>>>.el-table--border td,.lost_page>>>.el-table--border th,.lost_page>>> .lost_history .el-table__body-wrapper .el-table--border.is-scrolling-left~.el-table__fixed{
+  border-right:0px !important
 }
 .click{
   cursor: pointer

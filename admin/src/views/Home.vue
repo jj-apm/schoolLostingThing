@@ -14,7 +14,7 @@
           <div class="sec">
             <el-carousel class="el-car" height="180px">
             <el-carousel-item v-for="(item,index) in imgItems" :key="index">
-              <img :src="item">
+              <img v-lazy="item">
             </el-carousel-item>
           </el-carousel>
           </div> 
@@ -61,7 +61,7 @@ import HeaderNav from "../components/HeaderNav";
 export default {
   data(){
     return {
-      imgItems:["../assets/img/post.9ef8f23b.png","../assets/img/post.9ef8f23b.png","../assets/img/post.9ef8f23b.png"]
+      imgItems:["http://127.0.0.1:7001/public/uploads/post.png","http://127.0.0.1:7001/public/uploads/post.png","http://127.0.0.1:7001/public/uploads/post.png"]
     }
   },
   components: {

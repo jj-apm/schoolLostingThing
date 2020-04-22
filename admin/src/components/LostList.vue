@@ -84,15 +84,15 @@ export default{
     }
 }
 </script>
-<style scoped>
+<style>
 .fillContainer{
     width: 100%;
     height: 100%;
     padding: 16px;
-    box-sizing: border-box
+    /* box-sizing: border-box */
 }
 .el-table{
-   width: 930px !important;
+   width: 910px !important;
    margin-top:0px !important;
    margin-left:0px !important;
    font-size: 15px;

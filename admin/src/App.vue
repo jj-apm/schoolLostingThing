@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <router-view/>
+    <router-view v-if="isRouterAlive"></router-view>
   </div> 
 </template>
 
@@ -9,15 +9,17 @@ import jwt_decode from 'jwt-decode'
 
 export default {
     name:'login',
-    created(){
-      if(localStorage.eleToken){
-        const decode = jwt_decode(localStorage.eleToken)
-        //token存储到VueX中
-        this.$store.dispatch("setAuthenticated",!this.isEmpty(decode))
-        this.$store.dispatch("setUser",decode)
-      }
-    },
-    methods:{
+    provide () {
+    return {
+      reload: this.reload
+    }
+  },
+  data () {
+    return {
+      isRouterAlive: true
+    }
+  },
+  methods:{
         isEmpty(value){
             return (
                 value === undefined ||
@@ -26,6 +28,20 @@ export default {
                 (typeof value === 'string' && value.trim().length===0)
             );
         },
+       reload () {
+          this.isRouterAlive = false
+          this.$nextTick(function () {
+            this.isRouterAlive = true
+            })
+       }
+    },
+    created(){
+      if(localStorage.eleToken){
+        const decode = jwt_decode(localStorage.eleToken)
+        //token存储到VueX中
+        this.$store.dispatch("setAuthenticated",!this.isEmpty(decode))
+        this.$store.dispatch("setUser",decode)
+      }
     }
 }
 </script>

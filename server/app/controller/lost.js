@@ -66,7 +66,8 @@ class LostController extends Controller {
                         model: this.ctx.model.Kind
                     }],
                     where: {
-                        user_id: userId
+                        user_id: userId,
+                        is_delete: true
                     },
                     order: [
                         ['date', 'DESC']
