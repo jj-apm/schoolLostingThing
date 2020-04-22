@@ -15,7 +15,6 @@
  </div>
 </template>
 <script>
-import $ from 'jquery'
 export default {
   data() {
     return {
@@ -74,9 +73,9 @@ export default {
 </script>
 <style scoped>
 .content{
-    width: 996px;
+    width: 960px;
     margin-top: 10px;
-    margin-left: 173px;
+    margin-left: 181px;
 }
 .page-cate-title .title-text {
     position: relative;
@@ -111,7 +110,7 @@ export default {
 
 }
   .goods_content{
-    width: 300px;
+    width: 285px;
     height: auto;
     border: 1px solid #c4bbbb;
     cursor: pointer;
@@ -121,7 +120,7 @@ export default {
     margin:10px 10px
   }
 .goods_content img{
-  width:300px;
+  width:285px;
   height: 250px;
 }
 .goods_content span{
