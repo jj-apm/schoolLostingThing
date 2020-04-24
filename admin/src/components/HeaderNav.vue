@@ -174,6 +174,12 @@ export default{
                 // console.log(res.data);
                 this.score=res.data.score
             })
+             this.$event.$on('add',(data)=>{
+                 this.score=data
+             })
+             this.$event.$on('sub',(data)=>{
+                 this.score=data
+             })
         },
         editFound(){
           this.$http.post(`/api/found/editStatus/${this.foundList.id}`,this.foundList)

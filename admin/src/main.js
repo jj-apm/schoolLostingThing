@@ -23,6 +23,7 @@ Vue.use(VueLazyLoad, {
 Vue.prototype.$echarts = echarts;
 Vue.config.productionTip = false
 Vue.prototype.$http = axios
+Vue.prototype.$event = new Vue();
 import {
     Container,
     Header,

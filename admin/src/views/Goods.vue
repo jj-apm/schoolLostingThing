@@ -48,7 +48,8 @@ export default {
                  message:'兑换成功,请到失物招领处领取！'
             })
             this.$http.post(`api/user/score/${this.$store.getters.user.result.id}`,{score:this.score-val1}).then(res=>{
-                     }) 
+                     })
+            this.$event.$emit('sub', this.score-val1); 
             this.$http.post('/api/change/add',{goods_id:val2}).then(res=>{
             })
             this.$http.post(`/api/goods/count/${val2}`,{count:val3+1}).then(res=>{

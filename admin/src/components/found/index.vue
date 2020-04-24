@@ -109,6 +109,7 @@ export default{
             this.$http.post(`api/user/score/${this.$store.getters.user.result.id}`,{score:this.score+10}).then(res=>{
                 // console.log(res.data);
                  }) 
+              this.$event.$emit('add', this.score+10);
               this.$router.push('/index')     
           }else{
             this.$message({
