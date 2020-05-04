@@ -25,6 +25,7 @@
       </div>
       <div class="right">
         <span class="letter">感谢信</span>
+        <span @click="pushList">查看更多</span>
         <div class="thanks" v-for="(item,idx) in thankData" :key="idx">
           <span>{{item.title}}</span><br>
           <span>发布人:{{item.user.username}}</span><span>{{item.date}}</span><br>
@@ -90,6 +91,9 @@ export default {
         // console.log(res.data);
         this.thankData=res.data
       })
+    },
+    pushList(){
+      this.$router.push('/thankList')
     },
     listData(){
       console.log(this.newList);
@@ -248,5 +252,17 @@ export default {
 .left span:nth-of-type(3){
   float: right;
   color: red;
+}
+.right span:nth-child(2){
+  font-size: 13px;
+  font-family:'宋体';
+  color: #757474;
+  float:right;
+  margin-right: 10px;
+  margin-top: 10px;
+}
+.right span:nth-child(2):hover{
+  color:#333;
+  cursor: pointer;
 }
 </style>

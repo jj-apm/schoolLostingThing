@@ -43,6 +43,8 @@ const EditThank = () =>
     import ('../components/EditThank')
 const ClaimList = () =>
     import ('../components/ClaimList')
+const ThankList = () =>
+    import ('../components/ThankList')
 
 import { Message } from 'element-ui';
 
@@ -63,7 +65,8 @@ const routes = [{
             { path: '/publish', component: Publish },
             { path: '/lostHistory', component: LostHistory },
             { path: '/foundHistory', component: FoundHistory },
-            { path: '/goods', component: Goods }
+            { path: '/goods', component: Goods },
+            { path: '/thankList', component: ThankList }
         ]
     },
     {

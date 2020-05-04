@@ -56,7 +56,9 @@ module.exports = app => {
     router.post('/thank/add', controller.thank.add);
     router.get('/thank/list', controller.thank.find);
     router.get('/thank/list2', controller.thank.find2);
+    router.get('/thank/list3', controller.thank.find3);
     router.post('/thank/status/:id', controller.thank.editStatus);
+    router.post('/thank/delete/:id', controller.thank.deleteList);
     router.post('/claim/add', controller.claim.add);
     router.get('/claim/:id', controller.claim.findById);
     router.get('/claim', controller.claim.find);

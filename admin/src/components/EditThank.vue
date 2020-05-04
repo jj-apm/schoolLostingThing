@@ -74,9 +74,16 @@ export default{
                    message:'通过审核'
                })  
                this.getThankList()
-           })
-            // console.log(row);
-            
+           })          
+        },
+        handleDelete(index,row){
+            this.$http.post(`/api/thank/delete/${row.id}`,{value:false}).then(res=>{
+                this.$message({
+                    type:'success',
+                    message:'删除成功'
+                })
+                this.getThankList()
+            })
         }
     },
     created(){

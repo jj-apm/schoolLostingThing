@@ -27,6 +27,10 @@ module.exports = app => {
             type: STRING(255),
             allowNull: false
         },
+        is_delete: {
+            type: BOOLEAN,
+            defaultValue: true
+        },
         status: {
             type: INTEGER(5),
             allowNull: false,

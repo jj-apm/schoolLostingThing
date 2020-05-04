@@ -19,7 +19,8 @@ class ThankController extends Controller {
         try {
             let result = await this.ctx.model.Thank.findAll({
                 where: {
-                    status: 0
+                    status: 0,
+                    is_delete: true
                 },
                 include: [
                     { model: this.ctx.model.User }
@@ -34,10 +35,34 @@ class ThankController extends Controller {
         try {
             let result = await this.ctx.model.Thank.findAll({
                 where: {
-                    status: 1
+                    status: 1,
+                    is_delete: true
                 },
                 include: [
                     { model: this.ctx.model.User }
+                ],
+                order: [
+                    ['date', 'DESC']
+                ],
+                limit: 5,
+            })
+            this.ctx.body = result
+        } catch (e) {
+            this.ctx.throw(e)
+        }
+    }
+    async find3() {
+        try {
+            let result = await this.ctx.model.Thank.findAll({
+                where: {
+                    status: 1,
+                    is_delete: true
+                },
+                include: [
+                    { model: this.ctx.model.User }
+                ],
+                order: [
+                    ['date', 'DESC']
                 ]
             })
             this.ctx.body = result
@@ -55,6 +80,25 @@ class ThankController extends Controller {
                 }
             })
             this.ctx.body = result
+        } catch (e) {
+            this.ctx.throw(e)
+        }
+    }
+    async deleteList() {
+        let { id } = this.ctx.params
+        let { value } = this.ctx.request.body
+        try {
+            let result = await this.app.model.Thank.update({ is_delete: value }, {
+                where: {
+                    id
+                }
+            })
+            if (!result) {
+                this.ctx.status = 400
+                this.ctx.body = "删除失败"
+            } else {
+                this.ctx.body = result
+            }
         } catch (e) {
             this.ctx.throw(e)
         }
