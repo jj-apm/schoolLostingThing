@@ -4,9 +4,10 @@
             v-if="thankListData.length > 0"
             :data="thankListData"
             border
+            class="edit_thank"
             >
             <el-table-column
-                prop='id'
+                type='index'
                 label="编号"
                 align='center'
                 width="70">
@@ -91,16 +92,16 @@ export default{
     }
 }
 </script>
-<style>
-.el-table{
-   width: 721px !important;
-   margin-top:0px !important;
-   margin-left:0px !important;
-}
+<style scoped>
 .fillContainer{
     width: 100%;
     height: 100%;
     padding: 16px;
     /* box-sizing: border-box */
+}
+.fillContainer>>>.edit_thank{
+   width: 721px !important;
+   margin-top:0px !important;
+   margin-left:0px !important;
 }
 </style>

@@ -97,7 +97,7 @@ export default{
                     item.desc=item.desc.slice(0,20)+'...'
                   }
                 }
-              })   
+              }) 
         }
     },
     created () {

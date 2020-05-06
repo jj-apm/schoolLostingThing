@@ -132,7 +132,6 @@ class LostController extends Controller {
                 this.ctx.throw(e)
             }
         }
-
     }
 
     async delete() {
@@ -158,7 +157,7 @@ class LostController extends Controller {
             let result = await this.ctx.model.Lost.findAll({
                 limit: 10,
                 order: [
-                    ['date', 'DESC']
+                    ['createdAt', 'DESC']
                 ],
                 where: {
                     status: 1
@@ -403,7 +402,7 @@ class LostController extends Controller {
                     model: this.ctx.model.Kind
                 }],
                 order: [
-                    ['date', 'DESC']
+                    ['createdAt', 'DESC']
                 ],
                 where: {
                     is_delete: true

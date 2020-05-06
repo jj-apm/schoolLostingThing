@@ -26,7 +26,7 @@
        </el-col>
      </el-form-item>
      <el-form-item label="丢失时间" prop="date">
-       <el-col :span="5">
+       <el-col :span="6">
            <el-date-picker type="date" placeholder="选择日期" v-model="ruleForm.date" style="width: 100%;"></el-date-picker>
        </el-col>
      </el-form-item>
@@ -97,7 +97,16 @@ export default{
                message:'信息提交成功',  
                type:'success'
              })
-             this.$router.push('/index')   
+             this.ruleForm={
+               name: '',
+               kind_id: '',
+               place:'',
+               date: '',
+               desc: '',
+               lphoto:''
+           }
+             this.$emit('add')
+            //  this.$router.push('/index')   
            }).catch(e=>{
              console.log(e); 
            })

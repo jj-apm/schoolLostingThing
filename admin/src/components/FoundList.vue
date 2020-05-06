@@ -1,9 +1,11 @@
 <template>
     <div class="fillContainer">
+        <el-button type="primary" class="add" @click="add">添加</el-button>
          <el-table
             v-if="foundListData.length > 0"
             :data="foundListData"
             border
+            class="admin_found"
             >
             <el-table-column
                 type='index'
@@ -40,7 +42,6 @@
                 align='center'
                 width="180">
                 </el-table-column>
-
                 <el-table-column label="操作" align="center" width="120">
                     <template slot-scope="scope">
                         <el-button
@@ -51,13 +52,20 @@
                     </template>
                 </el-table-column>
             </el-table>
+            <el-dialog
+               :visible.sync="diaVisible"
+               width="50%">
+               <FoundTable @addFound="closeDia"></FoundTable>
+            </el-dialog>
     </div>   
 </template>
 <script>
+import FoundTable from './found/index'
 export default{
     data(){
         return{
-            foundListData:[],    
+            foundListData:[],
+            diaVisible:false    
         }
     },
     methods:{
@@ -65,30 +73,42 @@ export default{
             this.$http.get('/api/found/foundList').then(res=>{
                 console.log(res.data);
                 this.foundListData=res.data.total
-                 for(var item of this.foundListData){
-                let d=new Date(item.creatTime)
-                item.creatTime=d.getFullYear() + '-' + (d.getMonth() + 1 < 10 ? '0'+ (d.getMonth() + 1):d.getMonth() + 1) + '-' + (d.getDate() <10?'0'+d.getDate():d.getDate()) + ' ' + (d.getHours()<10?'0'+d.getHours():d.getHours()) + ':' + (d.getMinutes()<10?'0'+d.getMinutes():d.getMinutes()) + ':' + (d.getSeconds()<10?'0'+d.getSeconds():d.getSeconds());
-            }
-
+                for(var item of this.foundListData){
+                  let d=new Date(item.creatTime)
+                  item.creatTime=d.getFullYear() + '-' + (d.getMonth() + 1 < 10 ? '0'+ (d.getMonth() + 1):d.getMonth() + 1) + '-' + (d.getDate() <10?'0'+d.getDate():d.getDate());
+                  }
             })
+        },
+        add(){
+           this.diaVisible=true
+        },
+        closeDia(){
+           this.diaVisible=false
+           this.getFoundList()
         }
     },
     created(){
         this.getFoundList()
+    },
+    components: {
+        FoundTable
     }
 }
 </script>
-<style>
+<style scoped>
 .fillContainer{
     width: 100%;
     height: 100%;
     padding: 16px;
     /* box-sizing: border-box */
 }
-.el-table{
+.fillContainer>>>.admin_found{
    width: 910px !important;
    margin-top:0px !important;
    margin-left:0px !important;
    font-size: 15px;
+}
+.add{
+    margin-bottom: 10px;
 }
 </style>

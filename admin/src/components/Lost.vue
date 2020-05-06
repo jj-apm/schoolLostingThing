@@ -137,7 +137,6 @@ import { log } from 'util'
         this.$http.post('/api/searchKeywords',{value:'',pageSize:this.pageSize,currentPage:this.currentPage,startTime:this.searchData.startTime,endTime:this.searchData.endTime})
           .then(res=>{
             console.log(res.data);
-            
             this.tableData=res.data.total
             this.total=res.data.count;
           })

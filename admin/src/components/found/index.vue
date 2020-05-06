@@ -26,7 +26,7 @@
        </el-col>
      </el-form-item>
      <el-form-item label="拾取时间" prop="date">
-       <el-col :span="5">
+       <el-col :span="6">
            <el-date-picker type="date" placeholder="选择日期" v-model="ruleForm.date" style="width: 100%;"></el-date-picker>
        </el-col>
      </el-form-item>
@@ -104,13 +104,21 @@ export default{
                message:'信息提交成功',
                type:'success',
                duration:2000
-             })        
+             })
+             this.ruleForm={
+                 name: '',
+                 kind_id: '',
+                 place:'',
+                 date: '',
+                 desc: '',
+                 fphoto:''
+              }
+             this.$emit('addFound')        
            })
             this.$http.post(`api/user/score/${this.$store.getters.user.result.id}`,{score:this.score+10}).then(res=>{
-                // console.log(res.data);
+                 this.$event.$emit('add', this.score+10);
                  }) 
-              this.$event.$emit('add', this.score+10);
-              this.$router.push('/index')     
+              // this.$router.push('/index')     
           }else{
             this.$message({
               message:'请输入所有信息',

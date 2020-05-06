@@ -4,9 +4,10 @@
             v-if="userListData.length > 0"
             :data="userListData"
             border
+            class="user_list"
             >
             <el-table-column
-                prop='id'
+                type='index'
                 label="编号"
                 align='center'
                 width="70">
@@ -63,15 +64,15 @@ export default{
 }
 </script>
 <style scoped>
-.el-table{
-   width: 701px !important;
-   margin-top:0px !important;
-   margin-left:0px !important;
-
-}
 .fillContainer{
     width: 100%;
     height: 100%;
     padding: 16px;
+}
+.fillContainer>>>.user_list{
+   width: 701px !important;
+   margin-top:0px !important;
+   margin-left:0px !important;
+
 }
 </style>

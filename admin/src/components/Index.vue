@@ -5,10 +5,12 @@
     </div>
     <div class="show">
       <div v-for="(item, index) in newList" :key="index" class="lost_content">
-          <img v-if="item.lphoto||item.fphoto" v-lazy="item.lphoto||item.fphoto"><img src="../assets/blank.png" v-else >
+          <img v-if="item.lphoto" :src="item.lphoto">
+          <img v-else-if="item.fphoto" :src="item.fphoto">
+          <img v-else src="../assets/blank.png">
           <span @click="pushDetail(item.id,item.status)">{{item.name}}</span><br>
-          <span>{{item.lphoto?'寻物启事:':'招领启事:'}}</span><br>
-          <span>{{item.desc}}</span><br><span>{{item.date}}</span>
+          <span>{{item.status=='发布中'?'失物启事':'招领启事'}}</span><br>
+          <span>{{item.desc}}</span><br><span>{{item.createdAt|dateFilter}}</span>
       </div> 
        <!-- <div v-for="(item1, index) in foundData" :key="'found'+index" class="lost_content">
           <img v-if="item1.fphoto" :src="item1.fphoto"><img src="../assets/blank.png" v-else >
@@ -97,20 +99,66 @@ export default {
     },
     listData(){
       console.log(this.newList);
-      
-    }
+    },
   },
   computed: {
     newList(){
       this.newListData=this.lostData.concat(this.foundData)
-      return this.sortKey(this.newListData, "date");
+       for(var item of this.newListData){
+          let d=new Date(item.createdAt)
+          item.createdAt=d.getFullYear() + '-' + (d.getMonth() + 1 < 10 ? '0'+ (d.getMonth() + 1):d.getMonth() + 1) + '-' + (d.getDate() <10?'0'+d.getDate():d.getDate()) + ' ' + (d.getHours()<10?'0'+d.getHours():d.getHours()) + ':' + (d.getMinutes()<10?'0'+d.getMinutes():d.getMinutes()) + ':' + (d.getSeconds()<10?'0'+d.getSeconds():d.getSeconds());
+          }  
+      return this.sortKey(this.newListData, "createdAt");
     }
   },
    created() {
       this.getLost();
       this.getFound();
-      this.getThank()
+      this.getThank();
  },
+ filters: {
+   dateFilter(value){
+     value=new Date(value)
+     var newData =  Date.parse(new Date());
+    var diffTime = Math.abs(newData-value);
+    if (diffTime > 7 * 24 * 3600 * 1000) {
+      var y = value.getFullYear();
+      var m = value.getMonth() + 1;
+      m = m < 10 ? ('0' + m) : m;
+      var d = value.getDate();
+      d = d < 10 ? ('0' + d) : d;
+      var h = value.getHours();
+      h = h < 10 ? ('0' + h) : h;
+      var minute = value.getMinutes();
+      var second = value.getSeconds();
+      minute = minute < 10 ? ('1' + minute) : minute;
+      second = second < 10 ? ('0' + second) : second;
+      return  m + '-' + d+' '+h+':'+minute;
+
+    } else if (diffTime < 7 * 24 * 3600 * 1000 && diffTime > 24 * 3600 * 1000) {
+      // //注释("一周之内");
+
+      // var time = newData - diffTime;
+      var dayNum = Math.floor(diffTime / (24 * 60 * 60 * 1000));
+      return dayNum + "天前";
+
+    } else if (diffTime < 24 * 3600 * 1000 && diffTime > 3600 * 1000) {
+      // //注释("一天之内");
+      // var time = newData - diffTime;
+      var dayNum = Math.floor(diffTime / (60 * 60 * 1000));
+      return dayNum + "小时前";
+
+    } else if (diffTime < 3600 * 1000 && diffTime > 60*1000) {
+      // //注释("一小时之内");
+      // var time = newData - diffTime;
+      var dayNum = Math.floor(diffTime / (60 * 1000));
+      return dayNum + "分钟前";
+    }else if(diffTime<60*1000&&diffTime>0){
+      var dayNum = Math.floor(diffTime / (1000));
+      return dayNum+"秒前"
+    }
+  }
+   }
 }
 </script>
 <style scoped>

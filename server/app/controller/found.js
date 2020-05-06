@@ -26,10 +26,10 @@ class FoundController extends Controller {
             let result = await this.ctx.model.Found.findAll({
                 limit: 10,
                 order: [
-                    ['date', 'DESC']
+                    ['createdAt', 'DESC']
                 ],
                 where: {
-                    status: '1'
+                    status: 1
                 }
             })
             if (!result) {
@@ -357,8 +357,11 @@ class FoundController extends Controller {
                     model: this.ctx.model.Kind
                 }],
                 order: [
-                    ['date', 'DESC']
-                ]
+                    ['createdAt', 'DESC']
+                ],
+                where: {
+                    is_delete: true
+                }
             });
             if (!result) {
                 this.ctx.status = 400
@@ -376,7 +379,7 @@ class FoundController extends Controller {
                     everyItem.userName = item.user.username
                     everyItem.kindName = item.kind.name
                     everyItem.status = item.status
-                    everyItem.creatTime = item.date
+                    everyItem.creatTime = item.createdAt
                     everyItem.is_delete = item.is_delete
                     total.push(everyItem)
                 })

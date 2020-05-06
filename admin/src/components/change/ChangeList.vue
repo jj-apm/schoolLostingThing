@@ -4,9 +4,10 @@
             v-if="changeListData.length > 0"
             :data="changeListData"
             border
+            class="change_list"
             >
             <el-table-column
-                prop='id'
+                type='index'
                 label="编号"
                 align='center'
                 width="70">
@@ -61,15 +62,15 @@ export default{
 }
 </script>
 <style scoped>
-.el-table{
-   width: 552px !important;
-   margin-top:0px !important;
-   margin-left:0px !important;
-}
 .fillContainer{
     width: 100%;
     height: 100%;
     padding: 16px;
     /* box-sizing: border-box */
+}
+.fillContainer>>>.change_list{
+   width: 552px !important;
+   margin-top:0px !important;
+   margin-left:0px !important;
 }
 </style>

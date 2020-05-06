@@ -1,9 +1,11 @@
 <template>
     <div class="fillContainer">
+        <el-button type="primary" class="add" @click="add">添加</el-button>
          <el-table
             v-if="lostListData.length > 0"
             :data="lostListData"
             border
+            class="admin_lost"
             >
             <el-table-column
                 type='index'
@@ -40,7 +42,6 @@
                 align='center'
                 width="180">
                 </el-table-column>
-
                 <el-table-column label="操作" align="center" width="120">
                     <template slot-scope="scope">
                         <el-button
@@ -51,13 +52,20 @@
                     </template>
                 </el-table-column>
             </el-table>
+            <el-dialog
+               :visible.sync="diaVisible"
+               width="50%">
+               <LostTable @add="closeDia"></LostTable>
+            </el-dialog>
     </div>   
 </template>
 <script>
+import LostTable from './lost/index'
 export default{
     data(){
         return{
-            lostListData:[],    
+            lostListData:[],
+            diaVisible:false    
         }
     },
     methods:{
@@ -66,35 +74,47 @@ export default{
                 console.log(res.data);
                 this.lostListData=res.data.total
                  for(var item of this.lostListData){
-                let d=new Date(item.creatTime)
-                item.creatTime=d.getFullYear() + '-' + (d.getMonth() + 1 < 10 ? '0'+ (d.getMonth() + 1):d.getMonth() + 1) + '-' + (d.getDate() <10?'0'+d.getDate():d.getDate()) + ' ' + (d.getHours()<10?'0'+d.getHours():d.getHours()) + ':' + (d.getMinutes()<10?'0'+d.getMinutes():d.getMinutes()) + ':' + (d.getSeconds()<10?'0'+d.getSeconds():d.getSeconds());
-            }
+                    let d=new Date(item.creatTime)
+                    item.creatTime=d.getFullYear() + '-' + (d.getMonth() + 1 < 10 ? '0'+ (d.getMonth() + 1):d.getMonth() + 1) + '-' + (d.getDate() <10?'0'+d.getDate():d.getDate());
+                  }
             })
         },
         handleDelete(idx,row){
             // console.log(row);
             this.$http.post(`/api/lost/delete/${row.id}`,{value:false}).then(res=>{
                 this.getUserList()
-            })
-            
+            })     
+        },
+        add(){
+            this.diaVisible=true
+        },
+        closeDia(){
+            this.diaVisible=false
+            this.getUserList()
         }
     },
     created(){
         this.getUserList()
+    },
+    components: {
+        LostTable
     }
 }
 </script>
-<style>
+<style scoped>
 .fillContainer{
     width: 100%;
     height: 100%;
     padding: 16px;
     /* box-sizing: border-box */
 }
-.el-table{
+.fillContainer>>>.admin_lost{
    width: 910px !important;
    margin-top:0px !important;
    margin-left:0px !important;
    font-size: 15px;
+}
+.add{
+    margin-bottom: 10px;
 }
 </style>
