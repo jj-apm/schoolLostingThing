@@ -9,7 +9,7 @@
     },
     "dependencies": {
         "@babel/plugin-syntax-dynamic-import": "^7.8.3",
-        "axios": "^0.19.1",
+        "axios": "^0.21.1",
         "babel-plugin-component": "^1.1.1",
         "core-js": "^3.4.4",
         "echarts": "^4.6.0",
